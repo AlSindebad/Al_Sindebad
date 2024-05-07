@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'views/categories_view.dart';
-import 'views/search_component.dart';
+import 'views/widgets/categories_view.dart';
+import 'views/widgets/search_component.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner:false,
-      //home: CategoriesComponent(),
+     //  home: CategoriesComponent(),
      // home:SearchBarView (),
     );
   }
