@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MButton());
+
 
 class MButton extends StatelessWidget {
   const MButton({Key? key}) : super(key: key);
@@ -29,16 +29,16 @@ class OutlinedButtonExample extends StatelessWidget {
       },
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all<Size>(
-          Size(200, 50), // تحديد حجم الزر الكبير
+          Size(200, 50),
         ),
         backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF112466)),
-        // تعيين لون النص
+
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        // تعيين حدود للزر
+
         shape: MaterialStateProperty.all<OutlinedBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
-            side: BorderSide(color: Colors.black), // لون الحدود
+            side: BorderSide(color: Colors.black),
           ),
         ),
       ),

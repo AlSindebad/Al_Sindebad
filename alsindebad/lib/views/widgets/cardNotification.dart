@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const Cardnotification());
 
-class Cardnotification extends StatelessWidget {
-  const Cardnotification({Key? key}) : super(key: key);
+
+class CardNotification extends StatelessWidget {
+  const CardNotification({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

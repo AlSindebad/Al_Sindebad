@@ -66,7 +66,6 @@ class _NavigationExampleState extends State<NavigationExample> {
         ],
       ),
       body: <Widget>[
-        /// Home page
         Card(
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),
@@ -79,8 +78,6 @@ class _NavigationExampleState extends State<NavigationExample> {
             ),
           ),
         ),
-
-        /// Contact page
         Card(
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),
@@ -93,8 +90,6 @@ class _NavigationExampleState extends State<NavigationExample> {
             ),
           ),
         ),
-
-        /// Location page
         Card(
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),
@@ -107,8 +102,6 @@ class _NavigationExampleState extends State<NavigationExample> {
             ),
           ),
         ),
-
-        /// QR Code page
         Card(
           shadowColor: Colors.transparent,
           margin: const EdgeInsets.all(8.0),

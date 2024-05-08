@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const LButton());
+
 
 class LButton extends StatelessWidget {
   const LButton({Key? key}) : super(key: key);

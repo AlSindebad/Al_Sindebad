@@ -18,7 +18,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color myColor = const Color(0xFF112466);
+    final cardColor = const Color(0xFF112466);
 
     BoxDecoration getDecoration() {
       switch (imageShape) {
@@ -32,7 +32,7 @@ class EventCard extends StatelessWidget {
           );
       }}
     return Card(
-      color: myColor,
+      color: cardColor,
       elevation: 8.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(35.0),
