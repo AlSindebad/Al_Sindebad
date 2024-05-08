@@ -7,8 +7,7 @@ import 'views/widgets/forget_password.dart';
 import 'views/widgets/new_password.dart';
 import 'views/widgets/card_events.dart';
 import 'views/widgets/appBar.dart';
-import 'views/widgets/appBar.dart';
-import 'views/widgets/navbar.dart';
+import 'views/widgets/tabBar.dart';
 import 'views/widgets/cardNotification.dart';
 import 'views/widgets/largButton.dart';
 import 'views/widgets/smallButton.dart';
@@ -25,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       //debugShowCheckedModeBanner: false,
       //  home: CategoriesComponent(),
@@ -34,18 +34,13 @@ class MyApp extends StatelessWidget {
       //home:NewPasswordForm(),
       //home:VerificationForm(),
       //home: AppBarApp(),
-     // home: CardExample(),
-     // home: LButton(),
-      //home:OutlinedButtonExampleApp(),
-      //home: NavigationExample(),
-      //home:SButton(),
+      // home: Cardnotification(),
+      // home: LButton(),
+      //home:MButton(),
+      home: NavigationExample(),
+     // home:SButton(),
 
-      //home:EventC}ard(eventName: 'Example Event'),
-      // home: Scaffold(
-      //     body: Center(
-      //       child: EventCard(eventName: 'Event name' , imageUrl:''),
-      //   ),
-      // ),
+      //home:EventCard(eventName: 'Example Event'),
     );
   }
 }

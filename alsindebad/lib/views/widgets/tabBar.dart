@@ -12,7 +12,7 @@ class _NavigationExampleState extends State<NavigationExample> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final Color iconColor = Color(0xFF112466); // تعريف اللون المطلوب
+    final Color iconColor = Color(0xFF112466);
 
     return Scaffold(
       bottomNavigationBar: NavigationBar(
@@ -36,7 +36,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           IconButton(
             icon: Icon(Icons.phone),
             iconSize: 30,
-            color: iconColor, // تعيين اللون المطلوب
+            color: iconColor,
             onPressed: () {
               setState(() {
                 currentPageIndex = 1;
@@ -46,7 +46,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           IconButton(
             icon: Icon(Icons.location_on),
             iconSize: 30,
-            color: iconColor, // تعيين اللون المطلوب
+            color: iconColor,
             onPressed: () {
               setState(() {
                 currentPageIndex = 2;
@@ -56,7 +56,7 @@ class _NavigationExampleState extends State<NavigationExample> {
           IconButton(
             icon: Icon(Icons.qr_code),
             iconSize: 30,
-            color: iconColor, // تعيين اللون المطلوب
+            color: iconColor,
             onPressed: () {
               setState(() {
                 currentPageIndex = 3;

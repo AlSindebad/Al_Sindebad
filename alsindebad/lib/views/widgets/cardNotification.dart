@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const CardExampleApp());
+void main() => runApp(const Cardnotification());
 
-class CardExampleApp extends StatelessWidget {
-  const CardExampleApp({Key? key}) : super(key: key);
+class Cardnotification extends StatelessWidget {
+  const Cardnotification({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Card Sample')),
+        appBar: AppBar(title: const Text('')),
         body: const CardExample(),
       ),
     );
@@ -23,12 +23,9 @@ class CardExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        // تعيين لون الخلفية
+
         color: Color(0xFFCCCCCC),
-        // clipBehavior is necessary because, without it, the InkWell's animation
-        // will extend beyond the rounded edges of the [Card] (see https://github.com/flutter/flutter/issues/109776)
-        // This comes with a small performance cost, and you should not set [clipBehavior]
-        // unless you need it.
+
         clipBehavior: Clip.hardEdge,
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
@@ -37,7 +34,7 @@ class CardExample extends StatelessWidget {
           },
           child: const SizedBox(
               width: 300,
-              height: 100
+              height: 90
           ),
         ),
       ),

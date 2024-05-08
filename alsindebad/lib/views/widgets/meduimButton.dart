@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const OutlinedButtonExampleApp());
+void main() => runApp(const MButton());
 
-class OutlinedButtonExampleApp extends StatelessWidget {
-  const OutlinedButtonExampleApp({Key? key}) : super(key: key);
+class MButton extends StatelessWidget {
+  const MButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('OutlinedButton Sample')),
+        appBar: AppBar(title: const Text('')),
         body: const Center(
           child: OutlinedButtonExample(),
         ),
@@ -42,7 +42,7 @@ class OutlinedButtonExample extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('Sign up'),
+      child: const Text(''),
     );
   }
 }

@@ -9,7 +9,7 @@ class LButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('OutlinedButton Sample')),
+        appBar: AppBar(title: const Text('')),
         body: const Center(
           child: OutlinedButtonExample(),
         ),
@@ -29,7 +29,7 @@ class OutlinedButtonExample extends StatelessWidget {
       },
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all<Size>(
-          Size(250, 50),
+          Size(240, 70),
         ),
         backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF112466)),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -40,7 +40,7 @@ class OutlinedButtonExample extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('Cancel'),
+      child: const Text(''),
     );
   }
 }
