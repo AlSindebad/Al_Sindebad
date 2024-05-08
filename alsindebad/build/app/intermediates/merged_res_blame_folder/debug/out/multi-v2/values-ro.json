@@ -4,7 +4,11 @@
             "outputFile": "com.example.alsindebad.app-mergeDebugResources-9:/values-ro/values-ro.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\msi\\.gradle\\caches\\transforms-3\\7e9df2ac2213a6bd3cef0f2f27870d79\\transformed\\core-1.6.0\\res\\values-ro\\values-ro.xml",
+=======
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\7e9df2ac2213a6bd3cef0f2f27870d79\\transformed\\core-1.6.0\\res\\values-ro\\values-ro.xml",
+>>>>>>> 948ac366061d02a1f0c1e5c5066c5d017b472b24
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -4,7 +4,11 @@
             "outputFile": "com.example.alsindebad.app-mergeDebugResources-9:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\side\\Al_Sindebad\\alsindebad\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+=======
+                    "source": "C:\\al-sindebad\\Al_Sindebad\\alsindebad\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+>>>>>>> 948ac366061d02a1f0c1e5c5066c5d017b472b24
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
