@@ -23,7 +23,6 @@ class CardExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        // تعيين لون الخلفية
         color: Color(0xFFCCCCCC),
         // clipBehavior is necessary because, without it, the InkWell's animation
         // will extend beyond the rounded edges of the [Card] (see https://github.com/flutter/flutter/issues/109776)

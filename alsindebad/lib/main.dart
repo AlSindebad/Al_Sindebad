@@ -14,8 +14,6 @@ import 'views/widgets/largButton.dart';
 import 'views/widgets/smallButton.dart';
 import 'views/widgets/meduimButton.dart';
 
-
-
 void main() {
   runApp(MyApp());
 }
@@ -26,26 +24,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //debugShowCheckedModeBanner: false,
-      //  home: CategoriesComponent(),
+      debugShowCheckedModeBanner: false,
+      //home:CategoriesComponent(),
       //home:SignUpForm(),
       // home:SignInForm(),
-      //  home:ForgetPasswordForm(),
+      //home:ForgetPasswordForm(),
       //home:NewPasswordForm(),
       //home:VerificationForm(),
-      //home: AppBarApp(),
+     // home: AppBarApp(),
      // home: CardExample(),
      // home: LButton(),
-      //home:OutlinedButtonExampleApp(),
+     // home:OutlinedButtonExampleApp(),
       //home: NavigationExample(),
-      //home:SButton(),
-
-      //home:EventC}ard(eventName: 'Example Event'),
-      // home: Scaffold(
-      //     body: Center(
-      //       child: EventCard(eventName: 'Event name' , imageUrl:''),
-      //   ),
-      // ),
+     // home:SButton(),
+     //   home: Scaffold(
+     //      body: Center(
+     //        child: EventCard(eventName: 'Event name' , imageUrl:''),
+     //    ),
+     //  ),
     );
   }
 }
