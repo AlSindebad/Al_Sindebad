@@ -1,4 +1,9 @@
-#Sat May 04 16:08:19 IDT 2024
-base.0=C\:\\Users\\Yamama Abu Liel\\Desktop\\Al_Sindebad\\alsindebad\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+<<<<<<< HEAD
+#Wed May 08 14:39:43 EEST 2024
+base.0=C\:\\side\\Al_Sindebad\\alsindebad\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+=======
+#Wed May 08 14:53:56 IDT 2024
+base.0=C\:\\al-sindebad\\Al_Sindebad\\alsindebad\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+>>>>>>> 0019e10ae60ccb127da8d64a75a9b256f7e338c6
 path.0=classes.dex
 renamed.0=classes.dex
