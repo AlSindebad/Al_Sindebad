@@ -1,19 +1,5 @@
-import 'package:flutter/material.dart';
-import 'views/widgets/categories_view.dart';
-import 'views/widgets/search_component.dart';
-import 'views/widgets/signup.dart';
-import 'views/widgets/signin.dart';
-import 'views/widgets/forget_password.dart';
-import 'views/widgets/new_password.dart';
-import 'views/widgets/card_events.dart';
-import 'views/widgets/appBar.dart';
-import 'views/widgets/tabBar.dart';
-import 'views/widgets/cardNotification.dart';
-import 'views/widgets/largButton.dart';
-import 'views/widgets/smallButton.dart';
-import 'views/widgets/mediumButton.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
