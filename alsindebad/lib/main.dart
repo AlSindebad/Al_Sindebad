@@ -12,47 +12,70 @@ import 'views/widgets/cardNotification.dart';
 import 'views/widgets/largButton.dart';
 import 'views/widgets/smallButton.dart';
 import 'views/widgets/mediumButton.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyDzWwJcxToQqCQJHwWQTUt9oOz63VltWgA",
+        databaseURL: "https://console.firebase.google.com/project/sindebad-5d3de/firestore/databases/-default-/data/~2F",
+        projectId: "sindebad-5d3de",
+        messagingSenderId: "987560365634",
+        appId: "sindebad-5d3de",
+      ),
+    );
+    print("Firebase initialized successfully");
+  } catch (e) {
+    print("Error initializing Firebase: $e");
+  }
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //home:CategoriesComponent(),
-      //home:SignUpForm(),
-      // home:SignInForm(),
-      //home:ForgetPasswordForm(),
-      //home:NewPasswordForm(),
-      //home:VerificationForm(),
+      title: 'Firebase Auth Example',
+      home: MyHomePage(),
+    );
+  }
+}
 
-      //home: AppBarApp(),
-     //  home: CardExample(),
-      // home: LButton(),
-      home:MButton(),
-    //  home: NavigationExample(),
-     // home:SButton(),
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Firebase Auth Example'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AuthenticationScreen()),
+            );
+          },
+          child: Text('Authenticate'),
+        ),
+      ),
+    );
+  }
+}
 
-      //home:EventCard(eventName: 'Example Event'),
-
-     // home: AppBarApp(),
-     // home: CardExample(),
-     // home: LButton(),
-     // home:OutlinedButtonExampleApp(),
-      //home: NavigationExample(),
-     // home:SButton(),
-     //   home: Scaffold(
-     //      body: Center(
-     //        child: EventCard(eventName: 'Event name' , imageUrl:''),
-     //    ),
-     //  ),
-
+class AuthenticationScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Authentication Screen'),
+      ),
+      body: Center(
+        child: Text('Authentication Screen'),
+      ),
     );
   }
 }
