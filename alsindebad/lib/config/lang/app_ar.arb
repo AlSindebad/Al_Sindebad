@@ -1,3 +1,10 @@
 {
-"login":"تسجيل الدخول"
+  "signup": "أنشئ حساب",
+  "signIn": "تسجيل الدخول",
+  "name": "الاسم",
+  "phone": "رقم الهاتف",
+  "country": "البلد",
+  "pass": "كلمة المرور",
+  "confirmPass": "تأكيد كلمة المرور",
+  "confirmPasswordValidationError": "كلمة المرور غير صحيحة"
 }
