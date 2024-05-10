@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  final String title;
+
+  const CustomAppBar({Key? key, required this.title}) : super(key: key);
 
   @override
-   get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +14,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: IconThemeData(color: Color(0xFF112466)),
       title: Center(
         child: Text(
-          'Al-Sindebad',
+          title,
           style: TextStyle(color: Color(0xFF112466)),
         ),
       ),
-      leading: Row(
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            onPressed: () {},
-          ),
-        ],
+      leading: IconButton(
+        icon: const Icon(Icons.menu), // Menu icon in leading
+        onPressed: () {},
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
+        Row(
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.notifications), // Notifications icon in actions
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.account_circle), // Account circle icon in actions
+              onPressed: () {},
+            ),
+          ],
         ),
       ],
       backgroundColor: Colors.white,
