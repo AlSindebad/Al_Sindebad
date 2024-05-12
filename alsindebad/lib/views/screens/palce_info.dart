@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../data/models/place.dart';
 import '../../viewmodel/place_info_viewmodel.dart';
 import '../widgets/appBar.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
-  PlaceInfo({required this.id});
+  final String googleMapsUrl;
+  PlaceInfo({required this.id, required this.googleMapsUrl});
 
   @override
   _PlaceInfoState createState() => _PlaceInfoState();
@@ -14,11 +14,12 @@ class PlaceInfo extends StatefulWidget {
 
 class _PlaceInfoState extends State<PlaceInfo> {
   late Future<Place?> _placeFuture;
+  final PlaceInfoViewModel _viewModel = PlaceInfoViewModel();
 
   @override
   void initState() {
     super.initState();
-    _placeFuture = PlaceInfoViewModel().getPlaceInfo(widget.id);
+    _placeFuture = _viewModel.getPlaceInfo(widget.id);
   }
 
   @override
@@ -101,7 +102,9 @@ class _PlaceInfoState extends State<PlaceInfo> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: IconButton(
-                        onPressed: () => _openGoogleMaps(place.locationUrl),
+                        onPressed: (){
+                           _viewModel.openGoogleMaps(place.locationUrl);
+                        },
                         icon: Icon(Icons.location_on, size: 40,),
                         color: Colors.white,
                       ),
@@ -114,13 +117,5 @@ class _PlaceInfoState extends State<PlaceInfo> {
         }
       },
     );
-  }
-
-  void _openGoogleMaps(String? googleMapsUrl) async {
-    if (googleMapsUrl != null && await canLaunch(googleMapsUrl)) {
-      await launch(googleMapsUrl);
-    } else {
-      throw 'Could not launch $googleMapsUrl';
-    }
   }
 }

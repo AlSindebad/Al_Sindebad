@@ -29,7 +29,7 @@ void main() async {
     Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Firebase Auth Example',
-      home: PlaceInfo(id:'MWCc07LdnZhGg4NITRkL'),
+      home: PlaceInfo(id:'MWCc07LdnZhGg4NITRkL', googleMapsUrl:''),
       debugShowCheckedModeBanner: false,
     );
    }
