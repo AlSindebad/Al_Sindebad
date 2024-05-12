@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CategoriesComponent extends StatelessWidget {
-  const CategoriesComponent({Key? key}) : super(key: key);
+  CategoriesComponent({Key? key}) : super(key: key);
+
+  // List of category images
+  final List<String> categoryImages = [
+    'assets/images/mosque.png',
+    'assets/images/church.png',
+    'assets/images/park.png',
+    'assets/images/ocean.png',
+    'assets/images/mountain.png',
+    'assets/images/archaeology.png',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +25,22 @@ class CategoriesComponent extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return Container(
-                  width: 110,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey,
+                // Create an image for each category
+                return GestureDetector(
+                  onTap: () {
+                  },
+                  child: Image.asset(
+                    categoryImages[index],
+
+                    fit: BoxFit.cover,
+
                   ),
                 );
               },
               separatorBuilder: (context, index) => SizedBox(
-                width: 10,
+                width: 9,
               ),
-              itemCount: 5,
+              itemCount: categoryImages.length,
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 
+import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ void main() async {
     Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Firebase Auth Example',
-      home: PlaceInfo(id:'MWCc07LdnZhGg4NITRkL', googleMapsUrl:''),
+      home: NavigationExample(),
       debugShowCheckedModeBanner: false,
     );
    }
