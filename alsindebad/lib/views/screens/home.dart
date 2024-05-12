@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(title:"Home Page"),
       body: Column(
         children: [
           Expanded(

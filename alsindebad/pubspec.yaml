@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.31.0
+  url_launcher: ^6.0.9
+
 
 
 
@@ -45,6 +47,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  provider: ^6.1.2
 
 
 
