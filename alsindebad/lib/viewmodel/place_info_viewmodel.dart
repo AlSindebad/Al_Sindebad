@@ -14,17 +14,32 @@ class PlaceInfoViewModel {
     }
   }
 
-  Future<Place?> getPlaceInfo(String id) async {
+  Future<Places?> getPlaceInfo(String id) async {
     try {
-      DocumentSnapshot<dynamic> snapshot = await _placesCollection.doc(id).get();
+      DocumentSnapshot snapshot = await _placesCollection.doc(id).get();
       if (snapshot.exists) {
-        print('Document data: ${snapshot.data()}');
-        return Place.fromJson(snapshot.data() as Map<String, dynamic>);
+        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+
+        if (data != null) {
+          return Places(
+            placeId: snapshot.id,
+            placeName: data["name"] ?? "",
+            placeReview: data["stars"] ?? 0,
+            placeCategory: data["placeCategory"] ?? "",
+            placeImage: data["cardImage"] ?? "",
+            placeDescription: data["description"] ?? "",
+            placelocation: data["placelocation"] ?? "",
+            images: List<String>.from(data['images'] ?? []),
+            locationUrl: data['locationUrl'] ?? "",
+          );
+        } else {
+          print("Data is null");
+          return null;
+        }
       } else {
         print('No document found with ID: $id');
         return null;
       }
-
     } catch (e) {
       print('Failed to get place info: $e');
       return null;
