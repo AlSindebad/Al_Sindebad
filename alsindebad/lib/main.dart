@@ -1,4 +1,5 @@
 
+import 'package:alsindebad/views/screens/home.dart';
 import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,7 +31,7 @@ void main() async {
     Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Firebase Auth Example',
-      home: NavigationExample(),
+      home: Home(),
       debugShowCheckedModeBanner: false,
     );
    }
