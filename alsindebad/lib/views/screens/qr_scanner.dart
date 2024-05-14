@@ -2,7 +2,6 @@ import 'package:alsindebad/views/screens/palce_info.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../widgets/appBar.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 
 class QRScanner extends StatefulWidget {
@@ -28,7 +27,6 @@ class _QRScannerState extends State<QRScanner> {
             builder: (context) => PlaceInfo(id: scanData.code!, googleMapsUrl: ''),
           ),
         ).then((_) {
-          // After navigation is complete, dispose of the controller to stop scanning
           _controller.dispose();
         });
       }
