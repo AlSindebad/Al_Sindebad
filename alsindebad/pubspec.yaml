@@ -75,12 +75,24 @@ flutter:
   # included with your application, so that you can use the assets in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/images/mosque.png
+    - assets/images/church.png
+    - assets/images/park.png
+    - assets/images/ocean.png
+    - assets/images/mountain.png
+    - assets/images/archaeology.png
+    - assets/images/call.png
+    - assets/images/phone-call.png
+    - assets/images/police-car.png
+
+
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - lib/views/assets/call.png
-    - lib/views/assets/phone-call.png
-    - lib/views/assets/police-car.png
+
+
+
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

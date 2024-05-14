@@ -1,6 +1,8 @@
+//import 'package:flutter/material.dart';
+//import '../widgets/appBar.dart';
+//import '../widgets/tabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 class EmergencyCall extends StatelessWidget {
   const EmergencyCall({Key? key}) : super(key: key);
 
@@ -18,18 +20,18 @@ class EmergencyCall extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _EmergencyServiceCard(
-                    image: 'lib/views/assets/police-car.png',
+                    image: 'assets/images/police-car.png',
                     serviceName: 'Police',
                     phoneNumber: '100',
                   ),
 
                   _EmergencyServiceCard(
-                    image: 'lib/views/assets/call.png',
+                    image: ' assets/images/call.png',
                     serviceName: 'Civil Defense',
                     phoneNumber: '102',
                   ),
                   _EmergencyServiceCard(
-                    image: 'lib/views/assets/phone-call.png',
+                    image: 'assets/images/phone-call.png',
                     serviceName: 'Ambulance',
                     phoneNumber: '101',
                   ),
@@ -38,8 +40,8 @@ class EmergencyCall extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 60, // تعديل الارتفاع حسب الحاجة
-            child: Placeholder(), // يمكن استبدالها بعنصر تنقل خاص بك
+            height: 60,
+            child: Placeholder(),
           ),
         ],
       ),
@@ -102,3 +104,6 @@ class _EmergencyServiceCard extends StatelessWidget {
     launch(url);
   }
 }
+
+
+
