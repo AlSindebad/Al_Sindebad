@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import '../widgets/appBar.dart';
-import '../widgets/tabBar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class emergency_calls extends StatelessWidget {
-  const emergency_calls({Key? key}) : super(key: key);
+class EmergencyCall extends StatelessWidget {
+  const EmergencyCall({Key? key}) : super(key: key);
 
-  @override Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Emergency Calls'),
+      appBar: AppBar(
+        title: Text('Emergency Calls'),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -15,25 +17,29 @@ class emergency_calls extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: 90,
-                    child: Image.asset('lib/views/icons/police-car.png'),
+                  _EmergencyServiceCard(
+                    image: 'lib/views/assets/police-car.png',
+                    serviceName: 'Police',
+                    phoneNumber: '100',
                   ),
-                  Container(
-                    height: 90,
-                    child: Image.asset('lib/views/icons/phone-call.png'),
+
+                  _EmergencyServiceCard(
+                    image: 'lib/views/assets/call.png',
+                    serviceName: 'Civil Defense',
+                    phoneNumber: '102',
                   ),
-                  Container(
-                    height: 100,
-                    child: Image.asset('lib/views/icons/call.png'),
+                  _EmergencyServiceCard(
+                    image: 'lib/views/assets/phone-call.png',
+                    serviceName: 'Ambulance',
+                    phoneNumber: '101',
                   ),
                 ],
               ),
             ),
           ),
           SizedBox(
-            height: 60, // Adjust the height as needed
-            child: NavigationExample(),
+            height: 60, // تعديل الارتفاع حسب الحاجة
+            child: Placeholder(), // يمكن استبدالها بعنصر تنقل خاص بك
           ),
         ],
       ),
@@ -41,20 +47,58 @@ class emergency_calls extends StatelessWidget {
   }
 }
 
+class _EmergencyServiceCard extends StatelessWidget {
+  final String image;
+  final String serviceName;
+  final String phoneNumber;
 
+  const _EmergencyServiceCard({
+    required this.image,
+    required this.serviceName,
+    required this.phoneNumber,
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        _showCallDialog(context, serviceName, phoneNumber);
+      },
+      child: Container(
+        height: 90,
+        child: Image.asset(image),
+      ),
+    );
+  }
 
+  void _showCallDialog(BuildContext context, String serviceName, String phoneNumber) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Call $serviceName'),
+          content: Text('Do you want to call $serviceName now?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                _callEmergencyService(phoneNumber);
+                Navigator.of(context).pop();
+              },
+              child: Text('Call'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  void _callEmergencyService(String phoneNumber) {
+    final url = 'tel:$phoneNumber';
+    launch(url);
+  }
+}
