@@ -13,7 +13,9 @@ class PlaceInfo extends StatefulWidget {
 }
 
 class _PlaceInfoState extends State<PlaceInfo> {
-  late Future<Place?> _placeFuture;
+  Color myColor = const Color(0xFF112466);
+
+  late Future<Places?> _placeFuture;
   final PlaceInfoViewModel _viewModel = PlaceInfoViewModel();
 
   @override
@@ -24,23 +26,42 @@ class _PlaceInfoState extends State<PlaceInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Place?>(
+    return FutureBuilder<Places?>(
       future: _placeFuture,
-      builder: (BuildContext context, AsyncSnapshot<Place?> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<Places?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: CustomAppBar(title: "Loading..."),
+            appBar: AppBar(title: Text("Loading..."), leading: BackButton()),
             body: Center(child: CircularProgressIndicator()),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
-            appBar: CustomAppBar(title: "Error"),
+            appBar: AppBar(title: Text("Error"), leading: BackButton() ),
             body: Center(child: Text('Error loading place info')),
           );
         } else {
-          Place place = snapshot.data!;
+          Places place = snapshot.data!;
           return Scaffold(
-            appBar: CustomAppBar(title: place.name),
+            appBar: AppBar(
+              title: Text(place.placeName),
+              leading: BackButton(),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.notifications),
+                  color:myColor ,
+                  onPressed: () {
+                    // Handle favorite action
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.account_circle),
+                  color: myColor,
+                  onPressed: () {
+                    // Handle share action
+                  },
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +87,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      place.name,
+                      place.placeName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
@@ -77,7 +98,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: List.generate(
-                        place.stars,
+                        place.placeReview,
                             (index) => Icon(Icons.star, color: Colors.yellow),
                       ),
                     ),
@@ -85,7 +106,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      place.description,
+                      place.placeDescription,
                       style: TextStyle(
                         fontSize: 16,
                       ),
@@ -102,8 +123,8 @@ class _PlaceInfoState extends State<PlaceInfo> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: IconButton(
-                        onPressed: (){
-                           _viewModel.openGoogleMaps(place.locationUrl);
+                        onPressed: () {
+                          _viewModel.openGoogleMaps(place.locationUrl);
                         },
                         icon: Icon(Icons.location_on, size: 40,),
                         color: Colors.white,
