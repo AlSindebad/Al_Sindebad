@@ -81,6 +81,10 @@ flutter:
     - assets/images/ocean.png
     - assets/images/mountain.png
     - assets/images/archaeology.png
+    - lib/views/icons/call.png
+    - lib/views/icons/phone-call.png
+    - lib/views/icons/police-car.png
+
 
 
   # To add assets to your application, add an assets section, like this:
