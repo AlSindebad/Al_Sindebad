@@ -81,9 +81,9 @@ flutter:
     - assets/images/ocean.png
     - assets/images/mountain.png
     - assets/images/archaeology.png
-    - lib/views/icons/call.png
-    - lib/views/icons/phone-call.png
-    - lib/views/icons/police-car.png
+    - assets/images/call.png
+    - assets/images/phone-call.png
+    - assets/images/police-car.png
 
 
 

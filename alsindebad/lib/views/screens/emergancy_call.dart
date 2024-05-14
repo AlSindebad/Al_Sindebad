@@ -22,7 +22,7 @@ class EmergancyCall extends StatelessWidget {
                     },
                     child: Container(
                       height: 90,
-                      child: Image.asset('lib/views/icons/police-car.png'),
+                      child: Image.asset('assets/images/police-car.png'),
                     ),
                   ),
                   InkWell(
@@ -31,7 +31,7 @@ class EmergancyCall extends StatelessWidget {
                     },
                     child: Container(
                       height: 90,
-                      child: Image.asset('lib/views/icons/phone-call.png'),
+                      child: Image.asset('assets/images/phone-call.png'),
                     ),
                   ),
                   InkWell(
@@ -40,7 +40,7 @@ class EmergancyCall extends StatelessWidget {
                     },
                     child: Container(
                       height: 100,
-                      child: Image.asset('lib/views/icons/call.png'),
+                      child: Image.asset('assets/images/call.png'),
                     ),
                   ),
                 ],
