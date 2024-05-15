@@ -1,6 +1,6 @@
-//import 'package:flutter/material.dart';
-//import '../widgets/appBar.dart';
-//import '../widgets/tabBar.dart';
+import 'package:flutter/material.dart';
+import '../widgets/appBar.dart';
+import '../widgets/tabBar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 class EmergencyCall extends StatelessWidget {
@@ -9,9 +9,12 @@ class EmergencyCall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Emergency Calls'),
-      ),
+     // appBar: AppBar(
+       // title: Text('Emergency Calls'),
+
+      //),
+
+      appBar: AppBar(title: Text("Emergency Calls"), leading: BackButton()),
       body: Column(
         children: [
           Expanded(
@@ -26,7 +29,7 @@ class EmergencyCall extends StatelessWidget {
                   ),
 
                   _EmergencyServiceCard(
-                    image: ' assets/images/call.png',
+                    image: 'assets/images/call.png',
                     serviceName: 'Civil Defense',
                     phoneNumber: '102',
                   ),
@@ -41,7 +44,7 @@ class EmergencyCall extends StatelessWidget {
           ),
           SizedBox(
             height: 60,
-            child: Placeholder(),
+            child: NavigationExample(),
           ),
         ],
       ),
