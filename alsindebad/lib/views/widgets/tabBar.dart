@@ -48,7 +48,7 @@ class _NavigationExampleState extends State<NavigationExample> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EmergancyCall()),
+                MaterialPageRoute(builder: (context) => EmergencyCall()),
               );
 
             },

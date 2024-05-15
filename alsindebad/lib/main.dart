@@ -1,4 +1,5 @@
 
+import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,8 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
 
-
-void main() async {
+import 'package:alsindebad/views/screens/emergancy_call.dart';
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
