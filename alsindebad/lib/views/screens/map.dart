@@ -53,8 +53,9 @@ Widget content() {
 
     options: MapOptions(
         initialCenter: LatLng(31.9464, 35.3027),
-        initialZoom: 10,
-        interactionOptions: const InteractionOptions(flags: ~InteractiveFlag.doubleTapZoom)),
+        initialZoom: 6,
+        interactionOptions: const InteractionOptions(flags: InteractiveFlag.doubleTapZoom | InteractiveFlag.drag)),
+
 
 
     children: [
