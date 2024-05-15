@@ -31,46 +31,11 @@ import 'package:alsindebad/views/screens/emergancy_call.dart';
     @override
     Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firebase Auth Example',
+      title: 'Al_Sindebad',
       home: Home(),
       debugShowCheckedModeBanner: false,
     );
    }
   }
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Auth Example'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AuthenticationScreen()),
-            );
-          },
-          child: Text('Authenticate'),
-        ),
-      ),
-    );
-  }
-}
-
-class AuthenticationScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Authentication Screen'),
-      ),
-      body: Center(
-        child: Text('Authentication Screen'),
-      ),
-    );
-  }
-}
 
