@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../viewmodel/map_viewmodel.dart';
 import '../widgets/appBar.dart';
+import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/tabBar.dart';
 
 
@@ -20,7 +21,7 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Map"),
+      appBar: CustomAppBarNavigateBack(title: 'Map'),
       body: Column(
         children: [
           Expanded(
