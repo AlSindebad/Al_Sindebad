@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
 
 import 'package:alsindebad/views/screens/emergancy_call.dart';
-
-void main() async {
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(

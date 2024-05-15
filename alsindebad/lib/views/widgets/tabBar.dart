@@ -1,5 +1,7 @@
 import 'package:alsindebad/views/screens/emergancy_call.dart';
 import 'package:alsindebad/views/screens/home.dart';
+import '../screens/map.dart';
+
 import 'package:flutter/material.dart';
 
 import '../screens/qr_scanner.dart';
@@ -56,9 +58,11 @@ class _NavigationExampleState extends State<NavigationExample> {
             iconSize: 30,
             color: iconColor,
             onPressed: () {
-              setState(() {
-                currentPageIndex = 2;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Map()),
+              );
+
             },
           ),
           IconButton(
