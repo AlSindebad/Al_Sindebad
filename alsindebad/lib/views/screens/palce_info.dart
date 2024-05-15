@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart'; // Import the qr_flutter package
 import '../../data/models/place.dart';
 import '../../viewmodel/place_info_viewmodel.dart';
 import '../widgets/appBar.dart';
+import '../widgets/app_bar_with_navigate_back.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
@@ -13,8 +15,6 @@ class PlaceInfo extends StatefulWidget {
 }
 
 class _PlaceInfoState extends State<PlaceInfo> {
-  Color myColor = const Color(0xFF112466);
-
   late Future<Places?> _placeFuture;
   final PlaceInfoViewModel _viewModel = PlaceInfoViewModel();
 
@@ -31,37 +31,18 @@ class _PlaceInfoState extends State<PlaceInfo> {
       builder: (BuildContext context, AsyncSnapshot<Places?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: AppBar(title: Text("Loading..."), leading: BackButton()),
+            appBar: CustomAppBarNavigateBack(title: "Loading..."),
             body: Center(child: CircularProgressIndicator()),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
-            appBar: AppBar(title: Text("Error"), leading: BackButton() ),
+            appBar: CustomAppBarNavigateBack(title: "Error"),
             body: Center(child: Text('Error loading place info')),
           );
         } else {
           Places place = snapshot.data!;
           return Scaffold(
-            appBar: AppBar(
-              title: Text(place.placeName),
-              leading: BackButton(),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.notifications),
-                  color:myColor ,
-                  onPressed: () {
-                    // Handle favorite action
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.account_circle),
-                  color: myColor,
-                  onPressed: () {
-                    // Handle share action
-                  },
-                ),
-              ],
-            ),
+            appBar: CustomAppBarNavigateBack(title: place.placeName),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,6 +112,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 30),
                 ],
               ),
             ),
