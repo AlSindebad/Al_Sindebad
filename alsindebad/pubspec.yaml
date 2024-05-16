@@ -31,6 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.31.0
+  url_launcher: ^6.0.9
+  qr_flutter: ^4.1.0
+  qr_code_scanner: ^1.0.1
+
+
 
 
 
@@ -45,6 +50,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  provider: ^6.1.2
+  flutter_map: ^6.1.0
+  latlong2: ^0.9.1
 
 
 
@@ -71,6 +79,19 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/images/mosque.png
+    - assets/images/church.png
+    - assets/images/park.png
+    - assets/images/ocean.png
+    - assets/images/mountain.png
+    - assets/images/archaeology.png
+
+    - assets/images/call.png
+    - assets/images/phone-call.png
+    - assets/images/police-car.png
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

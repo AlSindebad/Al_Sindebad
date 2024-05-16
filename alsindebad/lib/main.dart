@@ -1,7 +1,14 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 
-void main() async {
+import 'package:alsindebad/views/widgets/tabBar.dart';
+import 'package:alsindebad/views/screens/home.dart';
+import 'package:alsindebad/views/widgets/tabBar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:alsindebad/views/screens/palce_info.dart';
+
+import 'package:alsindebad/views/screens/emergancy_call.dart';
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
@@ -20,48 +27,15 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  class MyApp extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Firebase Auth Example',
-      home: MyHomePage(),
+      title: 'Al_Sindebad',
+      home: Home(),
+      debugShowCheckedModeBanner: false,
     );
+   }
   }
-}
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Auth Example'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AuthenticationScreen()),
-            );
-          },
-          child: Text('Authenticate'),
-        ),
-      ),
-    );
-  }
-}
 
-class AuthenticationScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Authentication Screen'),
-      ),
-      body: Center(
-        child: Text('Authentication Screen'),
-      ),
-    );
-  }
-}

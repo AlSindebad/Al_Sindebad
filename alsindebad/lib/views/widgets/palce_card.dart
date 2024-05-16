@@ -34,12 +34,12 @@ class PlaceCard extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Container(
                 width: 100,
-                height: 100, 
+                height: 100,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   child: Image.network(
                     imageUrl,
-                    fit: BoxFit.contain,
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
               ),
@@ -68,7 +68,7 @@ class PlaceCard extends StatelessWidget {
                         color: Colors.white70,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: 2),
                     Row(
                       children: [
                         for (int i = 0; i < numStars; i++)

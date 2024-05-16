@@ -1,4 +1,10 @@
+import 'package:alsindebad/views/screens/emergancy_call.dart';
+import 'package:alsindebad/views/screens/home.dart';
+import '../screens/map.dart';
+
 import 'package:flutter/material.dart';
+
+import '../screens/qr_scanner.dart';
 class NavigationExample extends StatefulWidget {
   const NavigationExample({Key? key}) : super(key: key);
 
@@ -28,9 +34,11 @@ class _NavigationExampleState extends State<NavigationExample> {
             iconSize: 30,
             color: iconColor,
             onPressed: () {
-              setState(() {
-                currentPageIndex = 0;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Home()),
+              );
+
             },
           ),
           IconButton(
@@ -38,9 +46,11 @@ class _NavigationExampleState extends State<NavigationExample> {
             iconSize: 30,
             color: iconColor,
             onPressed: () {
-              setState(() {
-                currentPageIndex = 1;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EmergencyCall()),
+              );
+
             },
           ),
           IconButton(
@@ -48,9 +58,11 @@ class _NavigationExampleState extends State<NavigationExample> {
             iconSize: 30,
             color: iconColor,
             onPressed: () {
-              setState(() {
-                currentPageIndex = 2;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Map()),
+              );
+
             },
           ),
           IconButton(
@@ -58,64 +70,15 @@ class _NavigationExampleState extends State<NavigationExample> {
             iconSize: 30,
             color: iconColor,
             onPressed: () {
-              setState(() {
-                currentPageIndex = 3;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QRScanner()),
+              );
             },
           ),
         ],
       ),
-      body: <Widget>[
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Home page',
-                style: theme.textTheme.headline6,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Contact page',
-                style: theme.textTheme.headline6,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Location page',
-                style: theme.textTheme.headline6,
-              ),
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'QR Code page',
-                style: theme.textTheme.headline6,
-              ),
-            ),
-          ),
-        ),
-      ][currentPageIndex],
+
     );
   }
 }
-

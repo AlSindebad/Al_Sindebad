@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarNavigateBack extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final VoidCallback? onBackPressed;
 
-  const CustomAppBar({Key? key, required this.title}) : super(key: key);
+  const CustomAppBarNavigateBack({Key? key, required this.title, this.onBackPressed}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -19,8 +20,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.menu), // Menu icon in leading
-        onPressed: () {},
+        icon: const Icon(Icons.arrow_back), // Back arrow icon in leading
+        onPressed: () {
+          if (onBackPressed != null) {
+            onBackPressed!();
+          } else {
+            Navigator.of(context).pop();
+          }
+        },
       ),
       actions: [
         Row(
