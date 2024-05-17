@@ -1,12 +1,20 @@
 {
+  "signIn": "Sign In",
   "signup": "Sign Up",
-  "signIn": "Log In",
-
   "name": "Name",
-  "phone": "Phone",
+  "email": "Email",
   "country": "Country",
   "pass": "Password",
   "confirmPass": "Confirm Password",
-  "confirmPasswordValidationError": "Invalid Input"
-
+  "confirmPasswordValidationError": "Passwords do not match",
+  "usa": "USA",
+  "canada": "Canada",
+  "palestine": "Palestine",
+  "australia": "Australia",
+  "germany": "Germany",
+  "france": "France",
+  "spain": "Spain",
+  "italy": "Italy",
+  "egypt": "Egypt",
+  "japan": "Japan"
 }

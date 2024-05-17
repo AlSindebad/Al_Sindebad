@@ -1,10 +1,20 @@
 {
-  "signup": "أنشئ حساب",
   "signIn": "تسجيل الدخول",
+  "signup": "إنشاء حساب",
   "name": "الاسم",
-  "phone": "رقم الهاتف",
+  "email": "البريد الالكتروني",
   "country": "البلد",
   "pass": "كلمة المرور",
   "confirmPass": "تأكيد كلمة المرور",
-  "confirmPasswordValidationError": "كلمة المرور غير صحيحة"
+  "confirmPasswordValidationError": "كلمات المرور غير متطابقة",
+  "usa": "الولايات المتحدة",
+  "canada": "كندا",
+  "palestine": "فلسطين",
+  "australia": "أستراليا",
+  "germany": "ألمانيا",
+  "france": "فرنسا",
+  "spain": "إسبانيا",
+  "italy": "إيطاليا",
+  "egypt": "مصر",
+  "japan": "اليابان"
 }

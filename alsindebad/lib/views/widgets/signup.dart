@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignUpForm extends StatefulWidget {
-  final BuildContext context;
-
-  const SignUpForm({Key? key, required this.context}) : super(key: key);
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
@@ -12,11 +10,30 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? name, phone, country, password, confirmPassword;
+  String? name, email, country, password, confirmPassword;
 
   @override
   Widget build(BuildContext context) {
-    List<String> countries = ['USA', 'Canada', 'Palestine', 'Australia', 'Germany'];
+    final localizations = AppLocalizations.of(context);
+    if (localizations == null) {
+      // Handle the case where localizations are not yet available
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    List<String> countries = [
+      localizations.usa,
+      localizations.canada,
+      localizations.palestine,
+      localizations.australia,
+      localizations.germany,
+      localizations.france,
+      localizations.spain,
+      localizations.italy,
+      localizations.egypt,
+      localizations.japan
+    ];
 
     return Form(
       key: _formKey,
@@ -34,13 +51,12 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.name,
-                    hintText: AppLocalizations.of(widget.context)!.name,
+                    labelText: localizations.name,
+                    hintText: localizations.name,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-
                   onSaved: (value) => name = value,
                 ),
               ),
@@ -54,16 +70,14 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
-                  // Add TextFormField for phone
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.phone,
-                    hintText: AppLocalizations.of(widget.context)!.phone,
+                    labelText: localizations.email,
+                    hintText: localizations.email,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-
-                  onSaved: (value) => phone = value,
+                  onSaved: (value) => email = value,
                 ),
               ),
             ),
@@ -77,8 +91,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
                 child: DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.country,
-                    hintText: AppLocalizations.of(widget.context)!.country,
+                    labelText: localizations.country,
+                    hintText: localizations.country,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
@@ -86,10 +100,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   value: country,
                   onChanged: (String? newValue) {
                     setState(() {
-                      country = newValue!;
+                      country = newValue;
                     });
                   },
-
                   items: countries.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -103,21 +116,20 @@ class _SignUpFormState extends State<SignUpForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
-                // Add TextFormField for password
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white60),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.pass,
-                    hintText: AppLocalizations.of(widget.context)!.pass,
+                    labelText: localizations.pass,
+                    hintText: localizations.pass,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-
                   onSaved: (value) => password = value,
+                  obscureText: true,
                 ),
               ),
             ),
@@ -125,15 +137,14 @@ class _SignUpFormState extends State<SignUpForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
-                // Add TextFormField for confirm password
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white60),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.confirmPass,
-                    hintText: AppLocalizations.of(widget.context)!.confirmPass,
+                    labelText: localizations.confirmPass,
+                    hintText: localizations.confirmPass,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
@@ -141,7 +152,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   obscureText: true,
                   validator: (value) {
                     if (value != password) {
-                      return AppLocalizations.of(widget.context)!.confirmPasswordValidationError;
+                      return localizations.confirmPasswordValidationError;
                     }
                     return null;
                   },
