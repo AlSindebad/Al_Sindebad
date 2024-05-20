@@ -1,44 +1,52 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Validators {
-  static String? validateEmail(String? value) {
+  static String? validateEmail(String? value, AppLocalizations localizations) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return localizations.emailRequiredError;
     }
     if (!EmailValidator.validate(value) || !value.endsWith('.com')) {
-      return 'Invalid email format. It must contain "@" and end with ".com"';
+      return localizations.invalidEmailFormatError;
     }
     return null;
   }
 
-  static String? validatePassword(String? value) {
+  static String? validatePassword(String? value, AppLocalizations localizations) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return localizations.passwordRequiredError;
     }
     if (value.length < 8) {
-      return 'Password must be at least 8 characters long';
+      return localizations.passwordLengthError;
     }
     return null;
   }
 
-  static String? validateName(String? value) {
+
+  static String? validateName(String? value, AppLocalizations localizations) {
     if (value == null || value.isEmpty) {
-      return 'Name is required';
+      return localizations.nameRequiredError;
     }
-    if (!RegExp(r"^[a-zA-Z]+$").hasMatch(value)) {
-      return 'Name must not contain numbers or special characters';
+    if (!RegExp(r"^[a-zA-Z\u0600-\u06FF\s]+$").hasMatch(value)) {
+      return localizations.invalidNameFormatError;
     }
     return null;
   }
 
-  static Future<String?> validateUniqueEmail(String? email, FirebaseFirestore firestore) async {
+  /*static Future<String?> validateUniqueEmail(String? email, AppLocalizations localizations, FirebaseFirestore firestore) async {
     if (email == null || email.isEmpty) {
-      return 'Email is required';
+      return localizations.emailRequiredError;
     }
     final querySnapshot = await firestore.collection('users').where('email', isEqualTo: email).get();
     if (querySnapshot.docs.isNotEmpty) {
-      return 'Email is already in use';
+      return localizations.uniqueEmailError;
+    }
+    return null;
+  }*/
+
+  static String? validatePasswordMatch(String? password, String? confirmPassword, AppLocalizations localizations) {
+    if (password != confirmPassword) {
+      return localizations.passwordsDoNotMatchError;
     }
     return null;
   }

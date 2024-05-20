@@ -16,5 +16,14 @@
   "spain": "Spain",
   "italy": "Italy",
   "egypt": "Egypt",
-  "japan": "Japan"
+  "japan": "Japan",
+  "chosse": "Choose your country",
+  "emailRequiredError": "Email is required",
+  "invalidEmailFormatError": "Invalid email format. It must contain '@' and end with '.com'",
+  "passwordRequiredError": "Password is required",
+  "passwordLengthError": "Password must be at least 8 characters long",
+  "nameRequiredError": "Name is required",
+  "uniqueEmailError": "Email is already in use",
+  "passwordsDoNotMatchError": "Passwords do not match",
+  "invalidNameFormatError": "Name Should not Contains Numbers "
 }

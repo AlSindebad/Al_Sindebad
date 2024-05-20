@@ -1,78 +1,45 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:alsindebad/data/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import '../utils/validators.dart';
-
-class SignUpViewModel extends ChangeNotifier {
+class SignUpViewModel {
   FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection("users");
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final countryController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  Future<String> signup({
+    required String name,
+    required String email,
+    required String country,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    String response = "Some Errors";
 
-  bool isLoading = false;
-  String? errorMessage;
-
-  Future<void> signUp() async {
-    String name = nameController.text.trim();
-    String email = emailController.text.trim();
-    String country = countryController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = confirmPasswordController.text.trim();
-
-    errorMessage = null;
-
-    String? nameError = Validators.validateName(name);
-    String? emailError = Validators.validateEmail(email);
-    String? passwordError = Validators.validatePassword(password);
-
-    if (nameError != null || emailError != null || passwordError != null || password != confirmPassword) {
-      errorMessage = nameError ?? emailError ?? passwordError ?? 'Passwords do not match';
-      notifyListeners();
-      return;
+    if (email.isEmpty || name.isEmpty || password.isEmpty || country.isEmpty || confirmPassword.isEmpty) {
+      return "Enter All Fields";
     }
-
-    String? uniqueEmailError = await Validators.validateUniqueEmail(email, firestore);
-    if (uniqueEmailError != null) {
-      errorMessage = uniqueEmailError;
-      notifyListeners();
-      return;
-    }
-
-    isLoading = true;
-    notifyListeners();
 
     try {
+      final querySnapshot = await users.where('email', isEqualTo: email).get();
+      if (querySnapshot.docs.isNotEmpty) {
+        return "uniqueEmailError";
+      }
+
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: email, password: password);
-
-      await firestore.collection('users').doc(userCredential.user?.uid).set({
-        'name': name,
-        'email': email,
-        'country': country,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-
-
+      UserModel user = UserModel(
+        id: userCredential.user!.uid,
+        name: name,
+        email: email,
+        password: password,
+        country: country,
+        confirmPassword: confirmPassword,
+      );
+      await users.doc(userCredential.user!.uid).set(user.toJSON());
+      response = "Successful";
     } on FirebaseAuthException catch (e) {
-      errorMessage = e.message;
-    } finally {
-      // Stop loading
-      isLoading = false;
-      notifyListeners();
+      response = e.message ?? "An error occurred";
     }
-  }
 
-  @override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    countryController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    super.dispose();
+    return response;
   }
 }

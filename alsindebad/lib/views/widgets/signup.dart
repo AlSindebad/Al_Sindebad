@@ -1,5 +1,12 @@
+import 'package:alsindebad/utils/validators.dart';
+import 'package:alsindebad/viewmodel/sign_up_view_model.dart';
+import 'package:alsindebad/views/widgets/largButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+
+import '../screens/home.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -10,19 +17,73 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? name, email, country, password, confirmPassword;
+  late TextEditingController nameController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
+  late TextEditingController countryController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    countryController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    countryController.dispose();
+    super.dispose();
+  }
+
+  String hashPassword(String password) {
+    return sha256.convert(utf8.encode(password)).toString();
+  }
+
+   Future<void>register(AppLocalizations localizations) async {
+    String hashedPassword = hashPassword(passwordController.text);
+    String hashedConfirmPassword = hashPassword(confirmPasswordController.text);
+
+    String res = await SignUpViewModel().signup(
+      name: nameController.text,
+      email: emailController.text,
+      country: countryController.text,
+      password: hashedPassword,
+      confirmPassword: hashedConfirmPassword,
+    );
+
+      if(res=="Successful") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      }else if(res=="uniqueEmailError") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(localizations.uniqueEmailError)),
+        );
+      }
+
+  }
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     if (localizations == null) {
-      // Handle the case where localizations are not yet available
       return Center(
         child: CircularProgressIndicator(),
       );
     }
 
     List<String> countries = [
+      localizations.chosse,
       localizations.usa,
       localizations.canada,
       localizations.palestine,
@@ -34,6 +95,7 @@ class _SignUpFormState extends State<SignUpForm> {
       localizations.egypt,
       localizations.japan
     ];
+    var selectedCountry = countries.first;
 
     return Form(
       key: _formKey,
@@ -50,6 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
+                  controller: nameController,
                   decoration: InputDecoration(
                     labelText: localizations.name,
                     hintText: localizations.name,
@@ -57,7 +120,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                  onSaved: (value) => name = value,
+                  validator: (value) => Validators.validateName(value, localizations),
                 ),
               ),
             ),
@@ -70,6 +133,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: localizations.email,
                     hintText: localizations.email,
@@ -77,7 +141,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                  onSaved: (value) => email = value,
+                  validator: (value) => Validators.validateEmail(value, localizations),
                 ),
               ),
             ),
@@ -90,6 +154,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: DropdownButtonFormField<String>(
+                  value: selectedCountry, // Set the initial value
                   decoration: InputDecoration(
                     labelText: localizations.country,
                     hintText: localizations.country,
@@ -97,10 +162,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                  value: country,
                   onChanged: (String? newValue) {
                     setState(() {
-                      country = newValue;
+                      countryController.text = newValue!;
                     });
                   },
                   items: countries.map<DropdownMenuItem<String>>((String value) {
@@ -121,6 +185,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: localizations.pass,
                     hintText: localizations.pass,
@@ -128,8 +193,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                  onSaved: (value) => password = value,
                   obscureText: true,
+                  validator: (value) => Validators.validatePassword(value, localizations),
                 ),
               ),
             ),
@@ -142,6 +207,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
+                  controller: confirmPasswordController,
                   decoration: InputDecoration(
                     labelText: localizations.confirmPass,
                     hintText: localizations.confirmPass,
@@ -151,14 +217,23 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   obscureText: true,
                   validator: (value) {
-                    if (value != password) {
+                    if (hashPassword(value!) != hashPassword(passwordController.text)) {
                       return localizations.confirmPasswordValidationError;
                     }
                     return null;
                   },
-                  onSaved: (value) => confirmPassword = value,
                 ),
               ),
+            ),
+            SizedBox(height: 20.0),
+            LargButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  register(localizations);
+
+                }
+              },
+              text: localizations.signup,
             ),
           ],
         ),
