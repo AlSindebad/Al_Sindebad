@@ -56,8 +56,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 child: TextFormField(
                   // Add TextFormField for phone
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(widget.context)!.phone,
-                    hintText: AppLocalizations.of(widget.context)!.phone,
+                    labelText: AppLocalizations.of(widget.context)!.email,
+                    hintText: AppLocalizations.of(widget.context)!.email,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
