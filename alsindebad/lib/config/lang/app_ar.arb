@@ -1,10 +1,30 @@
 {
-  "signup": "أنشئ حساب",
   "signIn": "تسجيل الدخول",
+  "signup": "إنشاء حساب",
   "name": "الاسم",
-  "phone": "رقم الهاتف",
+  "email": "البريد الالكتروني",
   "country": "البلد",
   "pass": "كلمة المرور",
   "confirmPass": "تأكيد كلمة المرور",
-  "confirmPasswordValidationError": "كلمة المرور غير صحيحة"
+  "confirmPasswordValidationError": "كلمات المرور غير متطابقة",
+  "usa": "الولايات المتحدة",
+  "canada": "كندا",
+  "palestine": "فلسطين",
+  "australia": "أستراليا",
+  "germany": "ألمانيا",
+  "france": "فرنسا",
+  "spain": "إسبانيا",
+  "italy": "إيطاليا",
+  "egypt": "مصر",
+  "japan": "اليابان",
+  "chosse": "اختر الدولة",
+  "emailRequiredError": "البريد الإلكتروني مطلوب",
+  "invalidEmailFormatError": "صيغة البريد الإلكتروني غير صحيحة. يجب أن يحتوي على '@' وينتهي بـ '.com'",
+  "passwordRequiredError": "كلمة المرور مطلوبة",
+  "passwordLengthError": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+  "nameRequiredError": "الاسم مطلوب",
+  "uniqueEmailError": "البريد الإلكتروني مستخدم بالفعل",
+  "passwordsDoNotMatchError": "كلمات المرور غير متطابقة",
+  "invalidNameFormatError": "لا يجب أن يحتوي الاسم على أرقام "
+
 }
