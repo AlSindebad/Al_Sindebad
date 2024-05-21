@@ -34,4 +34,6 @@
   "error": "خطأ",
   "noUserFoundForEmail": "لم يتم العثور على مستخدم لهذا البريد الإلكتروني",
   "enterValidEmail": "يرجى إدخال بريد إلكتروني صالح"
+  "invalidNameFormatError": "لا يجب أن يحتوي الاسم على أرقام "
+
 }

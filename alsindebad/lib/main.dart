@@ -1,18 +1,14 @@
-
 import 'package:alsindebad/views/screens/forget_password.dart';
-import 'package:alsindebad/views/widgets/forget_password.dart';
-import 'package:alsindebad/views/widgets/tabBar.dart';
+import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/home.dart';
-import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:alsindebad/views/screens/palce_info.dart';
-import 'package:alsindebad/views/screens/emergancy_call.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
- void main() async {
+import 'views/screens/signup.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
@@ -31,13 +27,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Al_Sindebad',
       debugShowCheckedModeBanner: false,
-      // Add localization delegates
+      home: ForgetPassword(),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -46,9 +42,9 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: [
         const Locale('en', ''), // English
-        const Locale('ar', ''), // Arabic
+        const Locale('ar', ''), // Spanish
+        // Add more supported locales here
       ],
-      home: ForgetPassword(),
     );
   }
 }

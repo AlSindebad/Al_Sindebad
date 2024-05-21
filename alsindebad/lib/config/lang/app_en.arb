@@ -34,4 +34,5 @@
   "error": "Error",
   "noUserFoundForEmail": "No user found for that email",
   "enterValidEmail": "Please enter a valid email"
+  "invalidNameFormatError": "Name Should not Contains Numbers "
 }
