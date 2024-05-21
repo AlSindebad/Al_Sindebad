@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/signin.dart';
 import '../../viewmodel/signin_viewmodel.dart';
 import 'signup.dart';
-
+import 'forget_password.dart'; // Import the ForgetPassword screen
 
 class SignIn extends StatelessWidget {
   final String title;
@@ -178,7 +178,11 @@ class SignIn extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    // Handle forget password action
+                    // Navigate to forget password screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgetPassword()),
+                    );
                   },
                   child: Text(
                     AppLocalizations.of(context)?.forgetYourPassword ?? 'Forget your password',

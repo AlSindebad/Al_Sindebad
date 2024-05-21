@@ -18,6 +18,7 @@ class Validators {
     }
     if (value.length < 8) {
       return localizations.passwordLengthError;
+
     }
     return null;
   }
@@ -32,22 +33,12 @@ class Validators {
     }
     return null;
   }
-
-  /*static Future<String?> validateUniqueEmail(String? email, AppLocalizations localizations, FirebaseFirestore firestore) async {
-    if (email == null || email.isEmpty) {
-      return localizations.emailRequiredError;
-    }
-    final querySnapshot = await firestore.collection('users').where('email', isEqualTo: email).get();
-    if (querySnapshot.docs.isNotEmpty) {
-      return localizations.uniqueEmailError;
-    }
-    return null;
-  }*/
-
   static String? validatePasswordMatch(String? password, String? confirmPassword, AppLocalizations localizations) {
     if (password != confirmPassword) {
       return localizations.passwordsDoNotMatchError;
     }
     return null;
   }
+
+
 }

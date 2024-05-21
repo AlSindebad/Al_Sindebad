@@ -1,3 +1,4 @@
+import 'package:alsindebad/views/screens/forget_password.dart';
 import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,8 +12,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'views/screens/signup.dart';
 
 
+void main() async {
 
- void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
@@ -38,7 +39,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       // Add localization delegates
+     // home: ForgetPassword(),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+
 }
 
 
@@ -70,10 +74,10 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-             // Navigator.push(
-             //   context,
-             // MaterialPageRoute(builder: (context) => AuthenticationScreen()),
-             // );
+              // Navigator.push(
+              //  context,
+              // MaterialPageRoute(builder: (context) => AuthenticationScreen()),
+              // );
            },
            child: Text('Authenticate'),
         ),
@@ -82,8 +86,5 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
-
-
 
 
