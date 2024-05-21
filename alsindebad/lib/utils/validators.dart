@@ -18,6 +18,7 @@ class Validators {
     }
     if (value.length < 8) {
       return localizations.passwordLengthError;
+
     }
     return null;
   }
@@ -38,4 +39,6 @@ class Validators {
     }
     return null;
   }
+
+
 }
