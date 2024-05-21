@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/largButton.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/signin.dart';
 import '../../viewmodel/signin_viewmodel.dart';
+import 'signup.dart';
 
 
 class SignIn extends StatelessWidget {
@@ -18,19 +20,48 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 100.0), // Add some space at the top
+              SizedBox(height: 50),
+              // Add buttons for navigation at the top
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      // Do nothing, already on sign-in screen
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)?.signIn ?? 'Sign In',
+                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to sign-up screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp(title: 'Sign Up')),
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)?.signup ?? 'Sign Up',
+                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 50.0), // Add some space after the buttons
               signInForm, // Use the instance of SignInForm here
               SizedBox(height: 25.0),
               // Sign In Button
               Center(
                 child: LargButton(
-                  text: 'Sign in',
+                  text: AppLocalizations.of(context)?.signIn ?? 'Sign in',
                   onPressed: () async {
-                    if (signInForm.formKey.currentState!.validate()) {
+                    if (signInForm.formKey.currentState?.validate() ?? false) {
                       // Handle sign in action using SignInViewModel
                       final errorMessage = await signInViewModel.signIn(
                         signInForm.emailController.text,
@@ -69,7 +100,7 @@ class SignIn extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'or sign in with',
+                      AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -150,7 +181,7 @@ class SignIn extends StatelessWidget {
                     // Handle forget password action
                   },
                   child: Text(
-                    'Forget your password?',
+                    AppLocalizations.of(context)?.forgetYourPassword ?? 'Forget your password',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,

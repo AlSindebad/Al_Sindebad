@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:alsindebad/utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInForm extends StatefulWidget {
   final TextEditingController emailController = TextEditingController();
@@ -17,6 +18,13 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
+     final localizations = AppLocalizations.of(context);
+     if (localizations == null) {
+       return Center(
+         child: CircularProgressIndicator(),
+      );
+     }
+
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 100.0),
       child: Form(
@@ -35,20 +43,13 @@ class _SignInFormState extends State<SignInForm> {
                 child: TextFormField(
                   controller: widget.emailController,
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Input your email!',
+                    labelText: localizations.email,
+                    hintText: localizations.email,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email!';
-                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                      return 'Please enter a valid email!';
-                    }
-                    return null;
-                  },
+                validator: (value) => Validators.validateEmail(value, localizations),
                 ),
               ),
             ),
@@ -63,21 +64,14 @@ class _SignInFormState extends State<SignInForm> {
                 child: TextFormField(
                   controller: widget.passwordController,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Input your password!',
+                    labelText: localizations.pass,
+                    hintText: localizations.pass,
                     hintStyle: TextStyle(color: Colors.grey),
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password!';
-                    } else if (value.length < 6) {
-                      return 'Password must be at least 6 characters!';
-                    }
-                    return null;
-                  },
+                validator: (value) => Validators.validatePassword(value, localizations),
                 ),
               ),
             ),

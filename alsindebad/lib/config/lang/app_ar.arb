@@ -7,6 +7,8 @@
   "pass": "كلمة المرور",
   "confirmPass": "تأكيد كلمة المرور",
   "confirmPasswordValidationError": "كلمات المرور غير متطابقة",
+  "orSignInWith":"أو قم بتسجيل الدخول باستخدام",
+  "forgetYourPassword":"نسيت كلمةالمرور",
   "usa": "الولايات المتحدة",
   "canada": "كندا",
   "palestine": "فلسطين",
