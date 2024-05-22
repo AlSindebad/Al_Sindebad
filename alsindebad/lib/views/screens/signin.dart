@@ -42,7 +42,8 @@ class _SignInState extends State<SignIn> {
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
-                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      style:
+                          TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                   TextButton(
@@ -50,12 +51,14 @@ class _SignInState extends State<SignIn> {
                       // Navigate to sign-up screen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUp(title: 'Sign Up')),
+                        MaterialPageRoute(
+                            builder: (context) => SignUp(title: 'Sign Up')),
                       );
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signup ?? 'Sign Up',
-                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      style:
+                          TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                 ],
@@ -129,7 +132,8 @@ class _SignInState extends State<SignIn> {
                         _errorMessage = null;
                       });
 
-                      final errorMessage = await _signInViewModel.signInWithGoogle();
+                      final errorMessage =
+                          await _signInViewModel.signInWithGoogle();
 
                       setState(() {
                         _isLoading = false;
@@ -154,7 +158,8 @@ class _SignInState extends State<SignIn> {
                         _errorMessage = null;
                       });
 
-                      final errorMessage = await _signInViewModel.signInWithFacebook();
+                      final errorMessage =
+                          await _signInViewModel.signInWithFacebook();
 
                       setState(() {
                         _isLoading = false;
@@ -191,7 +196,8 @@ class _SignInState extends State<SignIn> {
                     );
                   },
                   child: Text(
-                    AppLocalizations.of(context)?.forgetYourPassword ?? 'Forget your password',
+                    AppLocalizations.of(context)?.forgetYourPassword ??
+                        'Forget your password',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,

@@ -16,28 +16,12 @@ class SignInViewModel extends ChangeNotifier {
         password: password,
       );
 
-      // Check if user exists in Firestore
-      final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
-      if (!userDoc.exists) {
-        return 'User not found'; // Return error if user does not exist
-      }
-
       // Notify listeners that sign in was successful
       notifyListeners();
       return null; // Returning null means success
     } catch (e) {
       print('Sign in error: $e');
       return e.toString(); // Returning the error message
-    }
-  }
-
-  Future<void> _createUserInFirestore(User user) async {
-    final userDoc = _firestore.collection('users').doc(user.uid);
-    if (!(await userDoc.get()).exists) {
-      await userDoc.set({
-        'uid': user.uid,
-        'email': user.email,
-      });
     }
   }
 
@@ -55,9 +39,6 @@ class SignInViewModel extends ChangeNotifier {
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
-
-      // Create user in Firestore if not exists
-      await _createUserInFirestore(userCredential.user!);
 
       // Notify listeners that sign in was successful
       notifyListeners();
@@ -77,9 +58,6 @@ class SignInViewModel extends ChangeNotifier {
           final AuthCredential credential = FacebookAuthProvider.credential(accessToken.token);
 
           final UserCredential userCredential = await _auth.signInWithCredential(credential);
-
-          // Create user in Firestore if not exists
-          await _createUserInFirestore(userCredential.user!);
 
           // Notify listeners that sign in was successful
           notifyListeners();
