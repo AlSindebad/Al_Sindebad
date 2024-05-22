@@ -31,6 +31,18 @@ class SignInViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> _createUserInFirestore(User user) async {
+    final userDoc = _firestore.collection('users').doc(user.uid);
+    if (!(await userDoc.get()).exists) {
+      await userDoc.set({
+        'uid': user.uid,
+        'email': user.email,
+        'displayName': user.displayName,
+        'photoURL': user.photoURL,
+      });
+    }
+  }
+
   Future<String?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -46,15 +58,8 @@ class SignInViewModel extends ChangeNotifier {
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-      // Check if user exists in Firestore, create a new user document if not
-      final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
-      if (!userDoc.exists) {
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'email': userCredential.user!.email,
-          'name': userCredential.user!.displayName,
-          'createdAt': Timestamp.now(),
-        });
-      }
+      // Create user in Firestore if not exists
+      await _createUserInFirestore(userCredential.user!);
 
       // Notify listeners that sign in was successful
       notifyListeners();
@@ -75,15 +80,8 @@ class SignInViewModel extends ChangeNotifier {
 
           final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-          // Check if user exists in Firestore, create a new user document if not
-          final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
-          if (!userDoc.exists) {
-            await _firestore.collection('users').doc(userCredential.user!.uid).set({
-              'email': userCredential.user!.email,
-              'name': userCredential.user!.displayName,
-              'createdAt': Timestamp.now(),
-            });
-          }
+          // Create user in Firestore if not exists
+          await _createUserInFirestore(userCredential.user!);
 
           // Notify listeners that sign in was successful
           notifyListeners();
