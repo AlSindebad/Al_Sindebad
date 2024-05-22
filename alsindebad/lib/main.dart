@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
 
 import 'package:alsindebad/views/screens/emergancy_call.dart';
+import 'package:alsindebad/views/screens/profile_screen.dart';
+import 'package:alsindebad/views/screens/edit_profile_screen.dart';
  void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
@@ -32,7 +34,10 @@ import 'package:alsindebad/views/screens/emergancy_call.dart';
     Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Al_Sindebad',
-      home: Home(),
+      //home: Home(),
+      home: ProfileScreen(),
+
+
       debugShowCheckedModeBanner: false,
     );
    }

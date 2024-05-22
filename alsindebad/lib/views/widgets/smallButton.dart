@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 
 
-
 class SButton extends StatelessWidget {
-  const SButton({Key? key}) : super(key: key);
+  final Color backgroundColor;
+  final Color textColor;
+  final String buttonText;
+
+  const SButton({
+    Key? key,
+    required this.backgroundColor,
+    required this.textColor,
+    required this.buttonText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('')),
-        body: const Center(
-          child: OutlinedButtonExample(),
+        body: Center(
+          child: OutlinedButtonExample(
+            backgroundColor: backgroundColor,
+            textColor: textColor,
+            buttonText: buttonText,
+          ),
         ),
       ),
     );
@@ -19,7 +31,16 @@ class SButton extends StatelessWidget {
 }
 
 class OutlinedButtonExample extends StatelessWidget {
-  const OutlinedButtonExample({Key? key}) : super(key: key);
+  final Color backgroundColor;
+  final Color textColor;
+  final String buttonText;
+
+  const OutlinedButtonExample({
+    Key? key,
+    required this.backgroundColor,
+    required this.textColor,
+    required this.buttonText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +52,8 @@ class OutlinedButtonExample extends StatelessWidget {
         minimumSize: MaterialStateProperty.all<Size>(
           Size(100, 50),
         ),
-        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF112466)),
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
+        foregroundColor: MaterialStateProperty.all<Color>(textColor),
         shape: MaterialStateProperty.all<OutlinedBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -40,7 +61,7 @@ class OutlinedButtonExample extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text(''),
+      child: Text(buttonText),
     );
   }
 }
