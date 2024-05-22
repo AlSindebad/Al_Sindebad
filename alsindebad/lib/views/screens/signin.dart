@@ -9,7 +9,6 @@ import 'forget_password.dart';
 
 class SignIn extends StatefulWidget {
   final String title;
-
   const SignIn({Key? key, required this.title}) : super(key: key);
 
   @override
