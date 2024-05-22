@@ -16,11 +16,11 @@ class SignInViewModel extends ChangeNotifier {
         password: password,
       );
 
-      // Save user data to Firestore
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'email': email,
-        'signInMethod': 'Email',
-      });
+      // Check if user exists in Firestore
+      final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
+      if (!userDoc.exists) {
+        return 'User not found'; // Return error if user does not exist
+      }
 
       // Notify listeners that sign in was successful
       notifyListeners();
@@ -46,11 +46,15 @@ class SignInViewModel extends ChangeNotifier {
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-      // Save user data to Firestore
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'email': userCredential.user!.email,
-        'signInMethod': 'Google',
-      });
+      // Check if user exists in Firestore, create a new user document if not
+      final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
+      if (!userDoc.exists) {
+        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+          'email': userCredential.user!.email,
+          'name': userCredential.user!.displayName,
+          'createdAt': Timestamp.now(),
+        });
+      }
 
       // Notify listeners that sign in was successful
       notifyListeners();
@@ -71,11 +75,15 @@ class SignInViewModel extends ChangeNotifier {
 
           final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-          // Save user data to Firestore
-          await _firestore.collection('users').doc(userCredential.user!.uid).set({
-            'email': userCredential.user!.email,
-            'signInMethod': 'Facebook',
-          });
+          // Check if user exists in Firestore, create a new user document if not
+          final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
+          if (!userDoc.exists) {
+            await _firestore.collection('users').doc(userCredential.user!.uid).set({
+              'email': userCredential.user!.email,
+              'name': userCredential.user!.displayName,
+              'createdAt': Timestamp.now(),
+            });
+          }
 
           // Notify listeners that sign in was successful
           notifyListeners();

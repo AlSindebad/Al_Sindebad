@@ -5,18 +5,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/signin.dart';
 import '../../viewmodel/signin_viewmodel.dart';
 import 'signup.dart';
-import 'forget_password.dart'; // Import the ForgetPassword screen
+import 'forget_password.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   final String title;
+
   const SignIn({Key? key, required this.title}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Create an instance of SignInViewModel
-    final signInViewModel = SignInViewModel();
-    final signInForm = SignInForm(); // Create an instance of SignInForm
+  _SignInState createState() => _SignInState();
+}
 
+class _SignInState extends State<SignIn> {
+  final SignInViewModel _signInViewModel = SignInViewModel();
+  final SignInForm _signInForm = SignInForm();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -53,27 +60,46 @@ class SignIn extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 50.0), // Add some space after the buttons
-              signInForm, // Use the instance of SignInForm here
+              SizedBox(height: 50.0),
+              _signInForm,
               SizedBox(height: 25.0),
+              if (_isLoading) ...[
+                Center(child: CircularProgressIndicator()),
+                SizedBox(height: 25.0),
+              ],
+              if (_errorMessage != null) ...[
+                Center(
+                  child: Text(
+                    _errorMessage!,
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 25.0),
+              ],
               // Sign In Button
               Center(
                 child: LargButton(
                   text: AppLocalizations.of(context)?.signIn ?? 'Sign in',
                   onPressed: () async {
-                    if (signInForm.formKey.currentState?.validate() ?? false) {
-                      // Handle sign in action using SignInViewModel
-                      final errorMessage = await signInViewModel.signIn(
-                        signInForm.emailController.text,
-                        signInForm.passwordController.text,
+                    if (_signInForm.formKey.currentState?.validate() ?? false) {
+                      setState(() {
+                        _isLoading = true;
+                        _errorMessage = null;
+                      });
+
+                      final errorMessage = await _signInViewModel.signIn(
+                        _signInForm.emailController.text,
+                        _signInForm.passwordController.text,
                       );
+
+                      setState(() {
+                        _isLoading = false;
+                        _errorMessage = errorMessage;
+                      });
+
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Sign in failed! $errorMessage')),
-                        );
                       }
                     }
                   },
@@ -91,36 +117,6 @@ class SignIn extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      height: 36,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      height: 36,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
                   IconButton(
                     icon: FaIcon(
                       FontAwesomeIcons.google,
@@ -128,15 +124,20 @@ class SignIn extends StatelessWidget {
                     ),
                     color: Color(0xFF112466),
                     onPressed: () async {
-                      // Handle Google sign in
-                      final errorMessage = await signInViewModel.signInWithGoogle();
+                      setState(() {
+                        _isLoading = true;
+                        _errorMessage = null;
+                      });
+
+                      final errorMessage = await _signInViewModel.signInWithGoogle();
+
+                      setState(() {
+                        _isLoading = false;
+                        _errorMessage = errorMessage;
+                      });
+
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Google sign in failed! $errorMessage')),
-                        );
                       }
                     },
                   ),
@@ -148,15 +149,20 @@ class SignIn extends StatelessWidget {
                     ),
                     color: Color(0xFF112466),
                     onPressed: () async {
-                      // Handle Facebook sign in
-                      final errorMessage = await signInViewModel.signInWithFacebook();
+                      setState(() {
+                        _isLoading = true;
+                        _errorMessage = null;
+                      });
+
+                      final errorMessage = await _signInViewModel.signInWithFacebook();
+
+                      setState(() {
+                        _isLoading = false;
+                        _errorMessage = errorMessage;
+                      });
+
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Facebook sign in failed! $errorMessage')),
-                        );
                       }
                     },
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:alsindebad/utils/validators.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
 class SignInForm extends StatefulWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -18,12 +19,12 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-     final localizations = AppLocalizations.of(context);
-     if (localizations == null) {
-       return Center(
-         child: CircularProgressIndicator(),
+    final localizations = AppLocalizations.of(context);
+    if (localizations == null) {
+      return Center(
+        child: CircularProgressIndicator(),
       );
-     }
+    }
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 100.0),
@@ -49,7 +50,7 @@ class _SignInFormState extends State<SignInForm> {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
                     border: OutlineInputBorder(),
                   ),
-                validator: (value) => Validators.validateEmail(value, localizations),
+                  validator: (value) => Validators.validateEmail(value, localizations),
                 ),
               ),
             ),
@@ -71,7 +72,7 @@ class _SignInFormState extends State<SignInForm> {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
-                validator: (value) => Validators.validatePassword(value, localizations),
+                  validator: (value) => Validators.validatePassword(value, localizations),
                 ),
               ),
             ),
