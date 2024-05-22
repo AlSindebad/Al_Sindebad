@@ -37,8 +37,6 @@ class SignInViewModel extends ChangeNotifier {
       await userDoc.set({
         'uid': user.uid,
         'email': user.email,
-        'displayName': user.displayName,
-        'photoURL': user.photoURL,
       });
     }
   }
