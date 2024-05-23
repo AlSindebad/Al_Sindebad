@@ -124,7 +124,7 @@ class _SignInState extends State<SignIn> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'or sign in with',
+                      AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
