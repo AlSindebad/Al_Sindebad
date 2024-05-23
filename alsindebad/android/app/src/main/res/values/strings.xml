@@ -1,9 +1,0 @@
-
-<resources>
-    <string name="app_name">alsindebad</string>
-    <string name="facebook_app_id">867995238500560</string>
-    <string name="facebook_client_token">d9359177bad3e82b5b5022b488f84a58</string>
-    <string name="fb_login_protocol_scheme">fb867995238500560</string>
-</resources>
-
-
