@@ -42,7 +42,7 @@ class _SignInState extends State<SignIn> {
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
                       style:
-                          TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                   TextButton(
@@ -57,14 +57,14 @@ class _SignInState extends State<SignIn> {
                     child: Text(
                       AppLocalizations.of(context)?.signup ?? 'Sign Up',
                       style:
-                          TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 50.0),
+
               _signInForm,
-              SizedBox(height: 25.0),
+
               if (_isLoading) ...[
                 Center(child: CircularProgressIndicator()),
                 SizedBox(height: 25.0),
@@ -77,7 +77,6 @@ class _SignInState extends State<SignIn> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 25.0),
               ],
               // Sign In Button
               Center(
@@ -110,12 +109,42 @@ class _SignInState extends State<SignIn> {
                   borderRadius: 5.0,
                   padding: 10.0,
                   fontSize: 16.0,
-                  width: 200.0, // Set a specific width for the button
+                  width: 290.0, // Set a specific width for the button
                   margin: 0.0, // Remove margin to centralize the button
                 ),
               ),
-              SizedBox(height: 25.0),
+              SizedBox(height: 20.0),
               // Social Sign-In Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      height: 36,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      'or sign in with',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.black,
+                      height: 36,
+                    ),
+                  ),
+                ],
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -132,7 +161,7 @@ class _SignInState extends State<SignIn> {
                       });
 
                       final errorMessage =
-                          await _signInViewModel.signInWithGoogle();
+                      await _signInViewModel.signInWithGoogle();
 
                       setState(() {
                         _isLoading = false;
@@ -142,43 +171,6 @@ class _SignInState extends State<SignIn> {
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
                       }
-                    },
-                  ),
-                  SizedBox(width: 20.0),
-                  IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.facebook,
-                      size: 30,
-                    ),
-                    color: Color(0xFF112466),
-                    onPressed: () async {
-                      setState(() {
-                        _isLoading = true;
-                        _errorMessage = null;
-                      });
-
-                      final errorMessage =
-                          await _signInViewModel.signInWithFacebook();
-
-                      setState(() {
-                        _isLoading = false;
-                        _errorMessage = errorMessage;
-                      });
-
-                      if (errorMessage == null) {
-                        Navigator.pushNamed(context, '/Home');
-                      }
-                    },
-                  ),
-                  SizedBox(width: 20.0),
-                  IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.twitter,
-                      size: 30,
-                    ),
-                    color: Color(0xFF112466),
-                    onPressed: () {
-                      // Handle Twitter sign in
                     },
                   ),
                 ],
