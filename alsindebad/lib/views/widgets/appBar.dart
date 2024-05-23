@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:alsindebad/views/screens/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -19,19 +21,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.menu), // Menu icon in leading
+        icon: const Icon(Icons.menu),
         onPressed: () {},
       ),
       actions: [
         Row(
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.notifications), // Notifications icon in actions
+              icon: const Icon(Icons.notifications),
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(Icons.account_circle), // Account circle icon in actions
-              onPressed: () {},
+              icon: const Icon(Icons.account_circle),
+              onPressed: () {
+                // الانتقال إلى صفحة البروفايل عند الضغط على زر الحساب
+                Navigator.pushNamed(context, '/ProfileScreen');
+              },
             ),
           ],
         ),

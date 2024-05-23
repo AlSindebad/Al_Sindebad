@@ -10,7 +10,7 @@ import 'package:alsindebad/views/screens/signin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'views/screens/signup.dart';
-
+import 'views/screens/profile_screen.dart';
 
 void main() async {
 
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => Home(),
         '/SignIn': (context) => SignIn(title: 'Sign In'),
         '/SignUp': (context) => SignUp(title: 'Sign Up'),
+        '/ProfileScreen': (context) => ProfileScreen(),
       },
     );
   }
