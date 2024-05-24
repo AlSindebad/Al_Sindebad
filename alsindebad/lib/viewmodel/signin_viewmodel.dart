@@ -10,16 +10,27 @@ class SignInViewModel extends ChangeNotifier {
 
   Future<String?> signIn(String email, String password) async {
     try {
+      // Check if email exists in Firestore
+      final QuerySnapshot result = await _firestore.collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+
+      final List<DocumentSnapshot> documents = result.docs;
+      if (documents.isEmpty) {
+        return 'No account found for that email. Please sign up first.';
+      }
+
       final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Save user data to Firestore
+      // Save user data to Firestore if not already present
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': email,
         'signInMethod': 'Email',
-      });
+      }, SetOptions(merge: true)); // Use merge to avoid overwriting
 
       // Notify listeners that sign in was successful
       notifyListeners();
@@ -49,7 +60,7 @@ class SignInViewModel extends ChangeNotifier {
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
-      });
+      }, SetOptions(merge: true)); // Use merge to avoid overwriting
 
       // Notify listeners that sign in was successful
       notifyListeners();

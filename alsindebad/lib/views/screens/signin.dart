@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
                 children: [
                   TextButton(
                     onPressed: () {
-                    //sign in
+                      // Do nothing, already on sign-in screen
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
@@ -46,7 +46,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   TextButton(
                     onPressed: () {
-                    //sign up
+                      // Navigate to sign-up screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignUp(title: 'Sign Up')),
@@ -107,7 +107,6 @@ class _SignInState extends State<SignIn> {
                   padding: 10.0,
                   fontSize: 16.0,
                   width: 290.0,
-
                 ),
               ),
               SizedBox(height: 20.0),
