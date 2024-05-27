@@ -6,5 +6,6 @@
   "country": "البلد",
   "pass": "كلمة المرور",
   "confirmPass": "تأكيد كلمة المرور",
-  "confirmPasswordValidationError": "كلمة المرور غير صحيحة"
+  "confirmPasswordValidationError": "كلمة المرور غير صحيحة",
+  "events": "المناسبات"
 }

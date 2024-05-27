@@ -6,6 +6,7 @@
   "country": "Country",
   "pass": "Password",
   "confirmPass": "Confirm Password",
-  "confirmPasswordValidationError": "Invalid Input"
+  "confirmPasswordValidationError": "Invalid Input",
+  "events": "Events"
 
 }

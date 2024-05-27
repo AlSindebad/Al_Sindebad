@@ -33,7 +33,7 @@ import 'package:alsindebad/views/screens/emergancy_call.dart';
     Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Al_Sindebad',
-      home: Events(),
+      home: Home(),
       debugShowCheckedModeBanner: false,
     );
    }
