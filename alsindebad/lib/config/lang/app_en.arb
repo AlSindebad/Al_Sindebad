@@ -1,9 +1,8 @@
 {
   "signup": "Sign Up",
   "signIn": "Log In",
-
   "name": "Name",
-  "phone": "Phone",
+  "email": "Email",
   "country": "Country",
   "pass": "Password",
   "confirmPass": "Confirm Password",
