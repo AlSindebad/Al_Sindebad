@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
 
 class PlaceCard extends StatelessWidget {
   final String title;
   final String location;
   final String imageUrl;
-  final int numStars;
+  final double averageRating;
   final Function()? onTap;
 
   const PlaceCard({
@@ -12,13 +13,16 @@ class PlaceCard extends StatelessWidget {
     required this.title,
     required this.location,
     required this.imageUrl,
-    required this.numStars,
+    required this.averageRating,
     this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Color myColor = const Color(0xFF112466);
+
+    // حساب عدد النجوم المميزة بناءً على متوسط التقييم
+    int numStarsToShow = averageRating.round(); // تقريب متوسط التقييم لأقرب رقم صحيح
 
     return GestureDetector(
       onTap: onTap,
@@ -71,10 +75,13 @@ class PlaceCard extends StatelessWidget {
                     SizedBox(height: 2),
                     Row(
                       children: [
-                        for (int i = 0; i < numStars; i++)
-                          Icon(Icons.star, color: Colors.yellow),
-                        SizedBox(width: 4),
-
+                        Row(
+                          children: [
+                            for (int i = 0; i < numStarsToShow; i++)
+                              Icon(Icons.star, color: Colors.yellow),
+                            SizedBox(width: 4),
+                          ],
+                        ),
                       ],
                     ),
                   ],
