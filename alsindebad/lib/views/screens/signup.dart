@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../viewmodel/sign_up_view_model.dart';
-import '../widgets/largButton.dart';
 import '../widgets/signup.dart';
+import 'signin.dart'; // Import SignIn screen
+
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+  final String title;
+  const SignUp({Key? key, required this.title}) : super(key: key);
+  //const SignUp({Key? key}) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -25,15 +27,20 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 50),
+              // Add buttons for navigation at the top
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
                     onPressed: () {
                       // Navigate to sign-in screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignIn(title: 'Sign In')),
+                      );
                     },
                     child: Text(
-                      AppLocalizations.of(context)!.signIn,
+                      AppLocalizations.of(context)?.signIn ?? 'Sign In',
                       style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
@@ -42,13 +49,13 @@ class _SignUpState extends State<SignUp> {
                       // Do nothing, already on sign-up screen
                     },
                     child: Text(
-                      AppLocalizations.of(context)!.signup,
+                      AppLocalizations.of(context)?.signup ?? 'Sign Up',
                       style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 50),
               SignUpForm(),
               SizedBox(height: 20),
               SizedBox(height: 10),
@@ -66,5 +73,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-
-

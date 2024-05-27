@@ -30,9 +30,7 @@ class SignUpViewModel {
         id: userCredential.user!.uid,
         name: name,
         email: email,
-        password: password,
         country: country,
-        confirmPassword: confirmPassword,
       );
       await users.doc(userCredential.user!.uid).set(user.toJSON());
       response = "Successful";
@@ -43,3 +41,4 @@ class SignUpViewModel {
     return response;
   }
 }
+

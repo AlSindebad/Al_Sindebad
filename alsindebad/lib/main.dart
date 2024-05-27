@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:alsindebad/views/screens/palce_info.dart';
+import 'package:alsindebad/views/screens/emergancy_call.dart';
+import 'package:alsindebad/views/screens/signin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'views/screens/signup.dart';
 
+
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
@@ -27,13 +32,16 @@ void main() async {
   runApp(MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Al_Sindebad',
       debugShowCheckedModeBanner: false,
-      home: ForgetPassword(),
+
+      // Add localization delegates
+     // home: ForgetPassword(),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -42,9 +50,19 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: [
         const Locale('en', ''), // English
-        const Locale('ar', ''), // Spanish
-        // Add more supported locales here
+        const Locale('ar', ''), // Arabic
       ],
+      home: SignIn(title: 'Sign In'),
+      routes: {
+        '/Home': (context) => Home(),
+        '/SignIn': (context) => SignIn(title: 'Sign In'),
+        '/SignUp': (context) => SignUp(title: 'Sign Up'),
+      },
     );
   }
+
 }
+
+
+
+

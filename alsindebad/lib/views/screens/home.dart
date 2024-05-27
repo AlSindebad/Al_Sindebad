@@ -1,5 +1,6 @@
 import 'package:alsindebad/data/models/place.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../services/place_service.data.dart';
 import '../widgets/appBar.dart';
@@ -7,8 +8,10 @@ import '../widgets/categories_view.dart';
 import '../widgets/palce_card.dart';
 import '../widgets/search_component.dart';
 import '../widgets/tabBar.dart';
+import '../widgets/signin.dart';
 
 class Home extends StatelessWidget {
+
   final PlacesService placesService = PlacesService();
 
   Home({Key? key}) : super(key: key);
