@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../widgets/largButton.dart';
 import '../widgets/signin.dart';
 import '../../viewmodel/signin_viewmodel.dart';
 import 'signup.dart';
@@ -17,9 +16,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final SignInViewModel _signInViewModel = SignInViewModel();
-  final SignInForm _signInForm = SignInForm();
-  bool _isLoading = false;
-  String? _errorMessage;
+  String? _errorMessage='';
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +57,8 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
 
-              _signInForm,
+              SignInForm(),
 
-              if (_isLoading) ...[
-                Center(child: CircularProgressIndicator()),
-                SizedBox(height: 25.0),
-              ],
               if (_errorMessage != null) ...[
                 Center(
                   child: Text(
@@ -74,73 +67,39 @@ class _SignInState extends State<SignIn> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ],
-
-              Center(
-                child: LargButton(
-                  text: AppLocalizations.of(context)?.signIn ?? 'Sign in',
-                  onPressed: () async {
-                    if (_signInForm.formKey.currentState?.validate() ?? false) {
-                      setState(() {
-                        _isLoading = true;
-                        _errorMessage = null;
-                      });
-
-                      final errorMessage = await _signInViewModel.signIn(
-                        _signInForm.emailController.text,
-                        _signInForm.passwordController.text,
-                      );
-
-                      setState(() {
-                        _isLoading = false;
-                        _errorMessage = errorMessage;
-                      });
-
-                      if (errorMessage == null) {
-                        Navigator.pushNamed(context, '/Home');
-                      }
-                    }
-                  },
-                  backgroundColor: Color(0xFF112466),
-                  textColor: Colors.white,
-                  borderRadius: 5.0,
-                  padding: 10.0,
-                  fontSize: 16.0,
-                  width: 290.0,
-                ),
-              ),
-              SizedBox(height: 20.0),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      height: 36,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+              ] ?? const [],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Divider(
                         color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        height: 36,
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.black,
-                      height: 36,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: Divider(
+                        color: Colors.black,
+                        height: 36,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -152,19 +111,16 @@ class _SignInState extends State<SignIn> {
                     color: Color(0xFF112466),
                     onPressed: () async {
                       setState(() {
-                        _isLoading = true;
                         _errorMessage = null;
                       });
 
                       final errorMessage = await _signInViewModel.signInWithGoogle();
-
                       setState(() {
-                        _isLoading = false;
                         _errorMessage = errorMessage;
                       });
 
                       if (errorMessage == null) {
-                        Navigator.pushNamed(context, '/Home');
+                        Navigator.pushReplacementNamed(context, '/Home');
                       }
                     },
                   ),

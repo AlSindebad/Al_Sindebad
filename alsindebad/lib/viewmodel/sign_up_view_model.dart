@@ -30,13 +30,9 @@ class SignUpViewModel {
         id: userCredential.user!.uid,
         name: name,
         email: email,
-        password: password,
         country: country,
-        confirmPassword: confirmPassword,
       );
       await users.doc(userCredential.user!.uid).set(user.toJSON());
-
-
       response = "Successful";
     } on FirebaseAuthException catch (e) {
       response = e.message ?? "An error occurred";
@@ -45,3 +41,4 @@ class SignUpViewModel {
     return response;
   }
 }
+

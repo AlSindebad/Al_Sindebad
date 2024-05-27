@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../data/models/user.dart';
 
 class SignInViewModel extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -9,35 +10,41 @@ class SignInViewModel extends ChangeNotifier {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<String?> signIn(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
+      return 'Please enter email and password';
+    }
+
     try {
-      // Check if email exists in Firestore
-      final QuerySnapshot result = await _firestore.collection('users')
-          .where('email', isEqualTo: email)
-          .limit(1)
-          .get();
-
-      final List<DocumentSnapshot> documents = result.docs;
-      if (documents.isEmpty) {
-        return 'No account found for that email. Please sign up first.';
-      }
-
+      // Perform sign in operation using FirebaseAuth
       final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Save user data to Firestore if not already present
-      await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'email': email,
-        'signInMethod': 'Email',
-      }, SetOptions(merge: true)); // Use merge to avoid overwriting
+      // Retrieve user data from Firestore
+      final DocumentSnapshot userDoc = await _firestore.collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        return 'No account found for that email. Please sign up first.';
+      }
+
+      final UserModel user = UserModel.fromSnap(userDoc);
 
       // Notify listeners that sign in was successful
       notifyListeners();
       return null; // Returning null means success
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return 'No user found for that email.';
+      } else if (e.code == 'wrong-password') {
+        return 'Wrong password provided for that user.';
+      }
+      return 'An error occurred: ${e.message}';
     } catch (e) {
       print('Sign in error: $e');
-      return e.toString(); // Returning the error message
+      return 'An error occurred: $e';
     }
   }
 
@@ -67,7 +74,7 @@ class SignInViewModel extends ChangeNotifier {
       return null; // Returning null means success
     } catch (e) {
       print('Google sign in error: $e');
-      return e.toString(); // Returning the error message
+      return 'An error occurred: $e';
     }
   }
 }

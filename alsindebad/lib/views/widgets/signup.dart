@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+
 import '../screens/home.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -47,28 +48,26 @@ class _SignUpFormState extends State<SignUpForm> {
     return sha256.convert(utf8.encode(password)).toString();
   }
 
-   Future<void>register(AppLocalizations localizations) async {
-    String hashedPassword = hashPassword(passwordController.text);
-    String hashedConfirmPassword = hashPassword(confirmPasswordController.text);
+  Future<void>register(AppLocalizations localizations) async {
 
     String res = await SignUpViewModel().signup(
       name: nameController.text,
       email: emailController.text,
       country: countryController.text,
-      password: hashedPassword,
-      confirmPassword: hashedConfirmPassword,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
     );
 
-      if(res=="Successful") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
-      }else if(res=="uniqueEmailError") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(localizations.uniqueEmailError)),
-        );
-      }
+    if(res=="Successful") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }else if(res=="uniqueEmailError") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(localizations.uniqueEmailError)),
+      );
+    }
 
   }
 
