@@ -35,5 +35,6 @@
   "failedToSendResetEmail": "فشل في إرسال بريد إعادة تعيين كلمة المرور",
   "error": "خطأ",
   "noUserFoundForEmail": "لم يتم العثور على مستخدم لهذا البريد الإلكتروني",
-  "enterValidEmail": "يرجى إدخال بريد إلكتروني صالح"
+  "enterValidEmail": "يرجى إدخال بريد إلكتروني صالح",
+  "events": "المناسبات"
 }
