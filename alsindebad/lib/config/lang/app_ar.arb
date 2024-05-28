@@ -36,4 +36,6 @@
   "error": "خطأ",
   "noUserFoundForEmail": "لم يتم العثور على مستخدم لهذا البريد الإلكتروني",
   "enterValidEmail": "يرجى إدخال بريد إلكتروني صالح"
+  "confirmPasswordValidationError": "كلمة المرور غير صحيحة",
+  "events": "المناسبات"
 }

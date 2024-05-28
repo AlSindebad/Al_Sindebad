@@ -56,10 +56,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  table_calendar: ^3.0.6
+
   provider: ^6.1.2
   flutter_map: ^6.1.0
   latlong2: ^0.9.1
   crypto: ^3.0.3
+
 
 
 
