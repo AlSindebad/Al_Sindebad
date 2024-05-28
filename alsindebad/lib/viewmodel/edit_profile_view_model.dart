@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:alsindebad/data/models/user.dart';  // تأكد من صحة المسار
+import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/services/database_service.dart';
 
 class EditProfileViewModel {
@@ -34,7 +34,8 @@ class EditProfileViewModel {
   Future<String> uploadImageToFirebase(String uid, File image) async {
     try {
       String fileName = 'profile_images/$uid.jpg';
-      final UploadTask uploadTask = _storage.ref().child(fileName).putFile(image);
+      final Reference ref = _storage.ref().child(fileName);
+      final UploadTask uploadTask = ref.putFile(image);
       final TaskSnapshot taskSnapshot = await uploadTask;
       final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
       return downloadUrl;

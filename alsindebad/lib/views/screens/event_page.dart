@@ -7,7 +7,7 @@ import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/card_events.dart';
 import 'event_screen.dart'; // تأكد من تعديل المسار الصحيح
 
-class Events extends StatelessWidget {
+class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
