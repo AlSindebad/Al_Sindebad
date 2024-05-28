@@ -1,5 +1,7 @@
 import 'package:alsindebad/views/screens/forget_password.dart';
 import 'package:flutter/material.dart';
+import 'package:alsindebad/views/screens/event.dart';
+import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
