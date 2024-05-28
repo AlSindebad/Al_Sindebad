@@ -32,7 +32,7 @@
       placeId: snap.id,
       placeName: snapshot["name"] ?? "",
       averageRating: (snapshot["averageRating"] ?? 0).toDouble(),
-      placeCategory: snapshot["placeCategory"] ?? "",
+      placeCategory: snapshot["category"] ?? "",
       placeImage: snapshot["cardImage"] ?? "",
       placeDescription: snapshot["description"] ?? "",
       placelocation: snapshot["placelocation"] ?? "",
