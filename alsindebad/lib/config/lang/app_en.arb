@@ -35,8 +35,7 @@
   "failedToSendResetEmail": "Failed to send reset email",
   "error": "Error",
   "noUserFoundForEmail": "No user found for that email",
-  "enterValidEmail": "Please enter a valid email"
-  "confirmPasswordValidationError": "Invalid Input",
+  "enterValidEmail": "Please enter a valid email",
   "events": "Events"
 
 }
