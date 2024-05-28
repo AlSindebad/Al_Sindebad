@@ -7,6 +7,7 @@ class UserModel {
   final String country;
   final String password;
   final String confirmPassword;
+  final String? imageUrl;
 
   UserModel({
     required this.id,
@@ -14,29 +15,30 @@ class UserModel {
     required this.email,
     required this.password,
     required this.country,
-    required this.confirmPassword
+    required this.confirmPassword,
+    this.imageUrl,
   });
-  factory UserModel.fromSnap(DocumentSnapshot snapshot){
-    var snap=snapshot.data() as Map<String,dynamic>;
+
+  factory UserModel.fromSnap(DocumentSnapshot snapshot) {
+    var snap = snapshot.data() as Map<String, dynamic>;
     return UserModel(
-      id: snap["userId"],
+      id: snapshot.id,
       name: snap["name"],
       email: snap["email"],
       password: snap["password"],
       country: snap["country"],
-      confirmPassword: snap["confirmPassword"],);
+      confirmPassword: snap["confirmPassword"],
+      imageUrl: snap["imageUrl"],
+    );
   }
-  Map<String,dynamic> toJSON() =>
-  {
-  "id":id,
-    "name":name,
-    "email":email,
-    "password":password,
-    "country":country,
-    "confirmPassword":confirmPassword,
 
-
-
+  Map<String, dynamic> toJSON() => {
+    "id": id,
+    "name": name,
+    "email": email,
+    "password": password,
+    "country": country,
+    "confirmPassword": confirmPassword,
+    "imageUrl": imageUrl,
   };
 }
-

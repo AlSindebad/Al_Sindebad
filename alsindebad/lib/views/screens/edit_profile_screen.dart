@@ -1,17 +1,13 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:alsindebad/viewmodel/edit_profile_view_model.dart';
-import 'package:alsindebad/data/models/user_profile.dart';
-
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:alsindebad/viewmodel/edit_profile_view_model.dart';
-import 'package:alsindebad/data/models/user_profile.dart';
+import 'package:alsindebad/data/models/user.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  final UserProfile userProfile;
+  final UserModel userModel;
 
-  EditProfileScreen({required this.userProfile});
+  EditProfileScreen({required this.userModel});
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -20,33 +16,57 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final EditProfileViewModel _viewModel = EditProfileViewModel();
+
+  File? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+  String? _selectedCountry;
+
+  List<String> _countries = [
+    'United States',
+    'Canada',
+    'United Kingdom',
+    'Australia',
+    'India',
+    'Germany',  // تأكد من إضافة هذه الدولة إذا كانت مستخدمة كقيمة افتراضية
+    // يمكنك إضافة المزيد من الدول هنا
+  ];
 
   @override
   void initState() {
     super.initState();
-    _usernameController.text = widget.userProfile.name;
-    _emailController.text = widget.userProfile.email;
-    _countryController.text = widget.userProfile.country;
+    _usernameController.text = widget.userModel.name;
+    _emailController.text = widget.userModel.email;
+    _selectedCountry = _countries.contains(widget.userModel.country) ? widget.userModel.country : _countries.first;
   }
 
   Future<void> _pickImage() async {
-    await _viewModel.pickImage();
-    setState(() {});
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
   }
 
   Future<void> _saveProfile() async {
     if (_formKey.currentState!.validate()) {
-      final updatedProfile = UserProfile(
-        uid: widget.userProfile.uid,
+      String? imageUrl;
+      if (_imageFile != null) {
+        imageUrl = await _viewModel.uploadImageToFirebase(widget.userModel.id, _imageFile!);
+      }
+      final updatedProfile = UserModel(
+        id: widget.userModel.id,
         name: _usernameController.text,
         email: _emailController.text,
-        country: _countryController.text,
+        password: widget.userModel.password,
+        country: _selectedCountry!,
+        confirmPassword: widget.userModel.confirmPassword,
+        imageUrl: imageUrl ?? widget.userModel.imageUrl,
       );
 
-      await _viewModel.saveProfile(updatedProfile);
+      await _viewModel.updateUserProfile(userModel: updatedProfile, imageFile: _imageFile);
       Navigator.of(context).pop();
     }
   }
@@ -64,32 +84,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage: _viewModel.image != null ? FileImage(_viewModel.image!) : null,
-                    child: _viewModel.image == null
-                        ? Icon(Icons.person, size: 80, color: Color(0xFF112466))
-                        : null,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: IconButton(
-                      icon: Icon(Icons.camera_alt, size: 30, color: Color(0xFF112466)),
-                      onPressed: _pickImage,
-                    ),
-                  ),
-                ],
-              ),
+              _buildProfileImage(),
               SizedBox(height: 20),
               _buildInputField('Username', _usernameController),
               SizedBox(height: 20),
-              _buildInputField('Email', _emailController),
+              _buildEmailInputField('Email', _emailController),
               SizedBox(height: 20),
-              _buildInputField('Country', _countryController),
+              _buildCountryDropdown('Country'),
               SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -116,6 +117,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  Widget _buildProfileImage() {
+    return Stack(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: _imageFile != null
+              ? FileImage(_imageFile!)
+              : NetworkImage(widget.userModel.imageUrl ?? 'https://via.placeholder.com/150') as ImageProvider,
+          backgroundColor: Colors.grey.shade200,
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: InkWell(
+            onTap: _pickImage,
+            child: Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildInputField(String title, TextEditingController controller) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
@@ -126,6 +153,65 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           labelText: title,
           border: OutlineInputBorder(),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '$title cannot be empty';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget _buildEmailInputField(String title, TextEditingController controller) {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: title,
+          border: OutlineInputBorder(),
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '$title cannot be empty';
+          } else if (!value.contains('@')) {
+            return 'Please enter a valid email address';
+          }
+          return null;
+        },
+      ),
+    );
+  }
+
+  Widget _buildCountryDropdown(String title) {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      child: DropdownButtonFormField<String>(
+        value: _selectedCountry,
+        decoration: InputDecoration(
+          labelText: title,
+          border: OutlineInputBorder(),
+        ),
+        items: _countries.map((String country) {
+          return DropdownMenuItem<String>(
+            value: country,
+            child: Text(country),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          setState(() {
+            _selectedCountry = newValue;
+          });
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please select a country';
+          }
+          return null;
+        },
       ),
     );
   }

@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:alsindebad/viewmodel/user_profile_view_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/views/screens/edit_profile_screen.dart';
-import 'package:alsindebad/views/widgets/mediumButton.dart';
-import 'package:alsindebad/data/models/user_profile.dart';
-import 'package:alsindebad/services/database_service.dart';// تأكد من تحديث المسار الصحيح
-
-import 'package:alsindebad/viewmodel/profile_view_model.dart';
-
-
-
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:alsindebad/views/screens/signin.dart';  // تأكد من إضافة شاشة تسجيل الدخول
 
 class ProfileScreen extends StatelessWidget {
-  final ProfileViewModel _viewModel = ProfileViewModel();
+  final UserProfileViewModel _viewModel = UserProfileViewModel();
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // إذا لم يكن المستخدم مسجلاً، قم بتوجيهه إلى شاشة تسجيل الدخول
+      Future.microtask(() => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignIn(title: 'Sign In'))
+      ));
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return StreamBuilder<DocumentSnapshot>(
       stream: _viewModel.getUserDataStream(),
       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -42,8 +49,7 @@ class ProfileScreen extends StatelessWidget {
           );
         }
 
-        Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-        UserProfile userProfile = _viewModel.getUserProfileFromData(data);
+        UserModel userModel = UserModel.fromSnap(snapshot.data!);
 
         return Scaffold(
           appBar: AppBar(
@@ -51,34 +57,34 @@ class ProfileScreen extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 80,
-                  backgroundColor: Colors.grey[300],
-                  child: Icon(
-                    Icons.person,
-                    size: 100,
-                    color: Colors.blue,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 80,
+                    backgroundColor: Colors.grey[300],
+                    backgroundImage: NetworkImage(userModel.imageUrl ?? 'https://via.placeholder.com/150'),
                   ),
-                ),
-                SizedBox(height: 20),
-                ProfileCard(title: 'Username', value: userProfile.name),
-                SizedBox(height: 20),
-                ProfileCard(title: 'Email', value: userProfile.email),
-                SizedBox(height: 20),
-                ProfileCard(title: 'Country', value: userProfile.country),
-                SizedBox(height: 20),
-                CustomOutlinedButton(
-                  text: 'Edit Profile',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditProfileScreen(userProfile: userProfile)),
-                    );
-                  },
-                ),
-              ],
+                  SizedBox(height: 20),
+                  ProfileCard(title: 'Username', value: userModel.name),
+                  SizedBox(height: 20),
+                  ProfileCard(title: 'Email', value: userModel.email),
+                  SizedBox(height: 20),
+                  ProfileCard(title: 'Country', value: userModel.country),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF112466)),
+                    child: Text('Edit Profile'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditProfileScreen(userModel: userModel)),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -103,7 +109,7 @@ class ProfileCard extends StatelessWidget {
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
-            side: BorderSide(color: Colors.grey[400]!),
+            side: BorderSide(color: Color(0xFF112466)),
           ),
           color: Colors.white,
           child: ListTile(

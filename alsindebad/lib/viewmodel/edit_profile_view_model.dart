@@ -1,22 +1,47 @@
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:alsindebad/data/models/user_profile.dart';
-import 'package:alsindebad/viewmodel/user_profile_view_model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:alsindebad/data/models/user.dart';  // تأكد من صحة المسار
+import 'package:alsindebad/services/database_service.dart';
 
 class EditProfileViewModel {
-  final UserProfileViewModel _userProfileViewModel = UserProfileViewModel();
+  final DatabaseService _databaseService = DatabaseService();
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  File? _image;
-  File? get image => _image;
+  Future<void> updateUserProfile({
+    required UserModel userModel,
+    File? imageFile,
+  }) async {
+    try {
+      String? imageUrl;
+      if (imageFile != null) {
+        imageUrl = await uploadImageToFirebase(userModel.id, imageFile);
+      }
 
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      _image = File(pickedFile.path);
+      UserModel updatedProfile = UserModel(
+        id: userModel.id,
+        name: userModel.name,
+        email: userModel.email,
+        password: userModel.password,
+        country: userModel.country,
+        confirmPassword: userModel.confirmPassword,
+        imageUrl: imageUrl ?? userModel.imageUrl,
+      );
+
+      await _databaseService.saveUserProfile(updatedProfile);
+    } catch (e) {
+      throw Exception('Failed to update user profile: $e');
     }
   }
 
-  Future<void> saveProfile(UserProfile userProfile) async {
-    await _userProfileViewModel.updateUserProfile(userProfile);
+  Future<String> uploadImageToFirebase(String uid, File image) async {
+    try {
+      String fileName = 'profile_images/$uid.jpg';
+      final UploadTask uploadTask = _storage.ref().child(fileName).putFile(image);
+      final TaskSnapshot taskSnapshot = await uploadTask;
+      final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      throw Exception('Failed to upload image to Firebase Storage: $e');
+    }
   }
 }
