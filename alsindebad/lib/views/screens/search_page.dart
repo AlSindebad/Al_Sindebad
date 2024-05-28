@@ -42,8 +42,8 @@ class _SearchState extends State<Search> {
                   onChanged: (val) {
                     setState(() {
                       name = val;
-                      placelocation = val ;
-                      ArabicName = val ;
+                      placelocation = val;
+                      ArabicName = val;
                     });
                   },
                 ),
@@ -58,7 +58,7 @@ class _SearchState extends State<Search> {
                     } else if (snapshots.hasError) {
                       return Center(child: Text('Error: ${snapshots.error}'));
                     } else if (!snapshots.hasData || snapshots.data!.docs.isEmpty) {
-                      return Center(child: Text('No places found'));
+                      return Center(child: Image.asset('assets/images/empty_view.jpeg'));
                     } else {
                       var filteredDocs = snapshots.data!.docs.where((doc) {
                         var data = doc.data() as Map<String, dynamic>;
@@ -67,10 +67,13 @@ class _SearchState extends State<Search> {
                         var placeArabicName = data['ArabicName'] ?? '';
                         return name.isEmpty ||
                             placeName.toString().toLowerCase().contains(name.toLowerCase()) ||
-                            placeLocation.toString().toLowerCase().contains(placelocation.toLowerCase())||
+                            placeLocation.toString().toLowerCase().contains(placelocation.toLowerCase()) ||
                             placeArabicName.toString().toLowerCase().contains(ArabicName.toLowerCase());
-
                       }).toList();
+
+                      if (filteredDocs.isEmpty) {
+                        return Center(child: Image.asset('assets/images/empty_view.jpeg'));
+                      }
 
                       List<Places> places = filteredDocs.map((doc) {
                         var data = doc.data() as Map<String, dynamic>;
@@ -79,11 +82,12 @@ class _SearchState extends State<Search> {
                           placeName: data['name'] ?? 'No Name',
                           placelocation: data['placelocation'] ?? 'No Location',
                           placeImage: data['cardImage'] ?? '',
-                          placeReview: data['review'] ?? 0,
+                          averageRating: (data['averageRating'] ?? 0).toDouble(),
                           locationUrl: data['locationUrl'] ?? '',
-                          placeDescription: data['placeDescription'] ?? '',
+                          placeDescription: data['description'] ?? '',
                           images: List<String>.from(data['images'] ?? []),
                           placeCategory: data['placeCategory'] ?? '',
+                          reviews: Map<String, int>.from(data['reviews'] ?? {}),
                         );
                       }).toList();
 
@@ -95,7 +99,7 @@ class _SearchState extends State<Search> {
                             title: place.placeName,
                             location: place.placelocation,
                             imageUrl: place.placeImage,
-                            numStars: place.placeReview,
+                            averageRating: place.averageRating,
                             onTap: () {
                               Navigator.push(
                                 context,

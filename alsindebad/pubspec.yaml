@@ -96,6 +96,7 @@ flutter:
     - assets/images/ocean.png
     - assets/images/mountain.png
     - assets/images/archaeology.png
+    - assets/images/empty_view.jpeg
 
     - assets/images/call.png
     - assets/images/phone-call.png
