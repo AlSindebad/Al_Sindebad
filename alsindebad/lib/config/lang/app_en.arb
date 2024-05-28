@@ -35,5 +35,12 @@
   "failedToSendResetEmail": "Failed to send reset email",
   "error": "Error",
   "noUserFoundForEmail": "No user found for that email",
-  "enterValidEmail": "Please enter a valid email"
+  "enterValidEmail": "Please enter a valid email",
+  "editProfile": "edit profile",
+  "save" :"save",
+  "cancel":"cancel",
+  "userName": "user name",
+
+
+
 }

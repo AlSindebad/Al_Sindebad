@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
 import 'package:alsindebad/views/screens/emergancy_call.dart';
 import 'package:alsindebad/views/screens/signin.dart';
@@ -13,16 +12,16 @@ import 'views/screens/signup.dart';
 import 'views/screens/profile_screen.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
       options: FirebaseOptions(
         apiKey: "AIzaSyDzWwJcxToQqCQJHwWQTUt9oOz63VltWgA",
-        databaseURL: "https://console.firebase.google.com/project/sindebad-5d3de/firestore/databases/-default-/data/~2F",
+        databaseURL: "https://sindebad-5d3de.firebaseio.com", // تأكد من استخدام الرابط الصحيح لقاعدة البيانات
         projectId: "sindebad-5d3de",
+        storageBucket: "sindebad-5d3de.appspot.com", // أضف هذا السطر
         messagingSenderId: "987560365634",
-        appId: "sindebad-5d3de",
+        appId: "1:987560365634:web:abcd1234efgh5678", // تأكد من أن لديك appId الصحيح
       ),
     );
     print("Firebase initialized successfully");
@@ -32,16 +31,11 @@ void main() async {
   runApp(MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      // Add localization delegates
-     // home: ForgetPassword(),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -61,31 +55,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-
 }
-
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Auth Example'),
-       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-              // Navigator.push(
-              //  context,
-              // MaterialPageRoute(builder: (context) => AuthenticationScreen()),
-              // );
-           },
-           child: Text('Authenticate'),
-        ),
-       ),
-
-    );
-  }
-}
-
-

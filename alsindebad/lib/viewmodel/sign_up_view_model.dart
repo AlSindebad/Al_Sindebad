@@ -35,6 +35,8 @@ class SignUpViewModel {
         confirmPassword: confirmPassword,
       );
       await users.doc(userCredential.user!.uid).set(user.toJSON());
+
+
       response = "Successful";
     } on FirebaseAuthException catch (e) {
       response = e.message ?? "An error occurred";

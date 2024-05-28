@@ -5,18 +5,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/signin.dart';
 import '../../viewmodel/signin_viewmodel.dart';
 import 'signup.dart';
-import 'forget_password.dart'; // Import the ForgetPassword screen
+import 'forget_password.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   final String title;
   const SignIn({Key? key, required this.title}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Create an instance of SignInViewModel
-    final signInViewModel = SignInViewModel();
-    final signInForm = SignInForm(); // Create an instance of SignInForm
+  _SignInState createState() => _SignInState();
+}
 
+class _SignInState extends State<SignIn> {
+  final SignInViewModel _signInViewModel = SignInViewModel();
+  final SignInForm _signInForm = SignInForm();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -35,7 +41,8 @@ class SignIn extends StatelessWidget {
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
-                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      style:
+                      TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                   TextButton(
@@ -43,37 +50,57 @@ class SignIn extends StatelessWidget {
                       // Navigate to sign-up screen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUp(title: 'Sign Up')),
+                        MaterialPageRoute(
+                            builder: (context) => SignUp(title: 'Sign Up')),
                       );
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signup ?? 'Sign Up',
-                      style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
+                      style:
+                      TextStyle(color: Color(0xFF112466), fontSize: 18.0),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 50.0), // Add some space after the buttons
-              signInForm, // Use the instance of SignInForm here
-              SizedBox(height: 25.0),
+
+              _signInForm,
+
+              if (_isLoading) ...[
+                Center(child: CircularProgressIndicator()),
+                SizedBox(height: 25.0),
+              ],
+              if (_errorMessage != null) ...[
+                Center(
+                  child: Text(
+                    _errorMessage!,
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
               // Sign In Button
               Center(
                 child: LargButton(
                   text: AppLocalizations.of(context)?.signIn ?? 'Sign in',
                   onPressed: () async {
-                    if (signInForm.formKey.currentState?.validate() ?? false) {
-                      // Handle sign in action using SignInViewModel
-                      final errorMessage = await signInViewModel.signIn(
-                        signInForm.emailController.text,
-                        signInForm.passwordController.text,
+                    if (_signInForm.formKey.currentState?.validate() ?? false) {
+                      setState(() {
+                        _isLoading = true;
+                        _errorMessage = null;
+                      });
+
+                      final errorMessage = await _signInViewModel.signIn(
+                        _signInForm.emailController.text,
+                        _signInForm.passwordController.text,
                       );
+
+                      setState(() {
+                        _isLoading = false;
+                        _errorMessage = errorMessage;
+                      });
+
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Sign in failed! $errorMessage')),
-                        );
                       }
                     }
                   },
@@ -82,11 +109,11 @@ class SignIn extends StatelessWidget {
                   borderRadius: 5.0,
                   padding: 10.0,
                   fontSize: 16.0,
-                  width: 200.0, // Set a specific width for the button
+                  width: 290.0, // Set a specific width for the button
                   margin: 0.0, // Remove margin to centralize the button
                 ),
               ),
-              SizedBox(height: 25.0),
+              SizedBox(height: 20.0),
               // Social Sign-In Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +127,7 @@ class SignIn extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      AppLocalizations.of(context)?.orSignInWith ?? 'or sign in with',
+                      'or sign in with',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -117,7 +144,7 @@ class SignIn extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30.0),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -128,47 +155,22 @@ class SignIn extends StatelessWidget {
                     ),
                     color: Color(0xFF112466),
                     onPressed: () async {
-                      // Handle Google sign in
-                      final errorMessage = await signInViewModel.signInWithGoogle();
+                      setState(() {
+                        _isLoading = true;
+                        _errorMessage = null;
+                      });
+
+                      final errorMessage =
+                      await _signInViewModel.signInWithGoogle();
+
+                      setState(() {
+                        _isLoading = false;
+                        _errorMessage = errorMessage;
+                      });
+
                       if (errorMessage == null) {
                         Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Google sign in failed! $errorMessage')),
-                        );
                       }
-                    },
-                  ),
-                  SizedBox(width: 20.0),
-                  IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.facebook,
-                      size: 30,
-                    ),
-                    color: Color(0xFF112466),
-                    onPressed: () async {
-                      // Handle Facebook sign in
-                      final errorMessage = await signInViewModel.signInWithFacebook();
-                      if (errorMessage == null) {
-                        Navigator.pushNamed(context, '/Home');
-                      } else {
-                        // Show an error message if sign in fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Facebook sign in failed! $errorMessage')),
-                        );
-                      }
-                    },
-                  ),
-                  SizedBox(width: 20.0),
-                  IconButton(
-                    icon: FaIcon(
-                      FontAwesomeIcons.twitter,
-                      size: 30,
-                    ),
-                    color: Color(0xFF112466),
-                    onPressed: () {
-                      // Handle Twitter sign in
                     },
                   ),
                 ],
@@ -185,7 +187,8 @@ class SignIn extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    AppLocalizations.of(context)?.forgetYourPassword ?? 'Forget your password',
+                    AppLocalizations.of(context)?.forgetYourPassword ??
+                        'Forget your password',
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
