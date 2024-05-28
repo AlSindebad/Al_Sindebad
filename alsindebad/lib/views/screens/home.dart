@@ -1,4 +1,5 @@
 import 'package:alsindebad/data/models/place.dart';
+import 'package:alsindebad/views/screens/event.dart';
 import 'package:alsindebad/views/screens/palce_info.dart';
 import 'package:flutter/material.dart';
 import '../../services/place_service.data.dart';
@@ -7,6 +8,8 @@ import '../widgets/categories_view.dart';
 import '../widgets/palce_card.dart';
 import '../widgets/search_component.dart';
 import '../widgets/tabBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Home extends StatelessWidget {
   final PlacesService placesService = PlacesService();
@@ -17,6 +20,35 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Home Page"),
+      drawer: Drawer(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    color: Color(0xFF112466),
+
+                    child: ListTile(
+                      title: Text("Events", style: TextStyle(color: Colors.white,fontSize: 20),),
+                      leading: Icon(Icons.event, color: Colors.white),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Events()),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+
       body: Column(
         children: [
           Expanded(child: SearchBarView()),

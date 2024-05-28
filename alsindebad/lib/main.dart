@@ -1,4 +1,5 @@
 
+import 'package:alsindebad/views/screens/event.dart';
 import 'package:alsindebad/views/widgets/tabBar.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import 'package:alsindebad/views/widgets/tabBar.dart';

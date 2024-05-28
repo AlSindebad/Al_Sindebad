@@ -1,12 +1,12 @@
 {
   "signup": "Sign Up",
   "signIn": "Log In",
-
   "name": "Name",
-  "phone": "Phone",
+  "email": "Email",
   "country": "Country",
   "pass": "Password",
   "confirmPass": "Confirm Password",
-  "confirmPasswordValidationError": "Invalid Input"
+  "confirmPasswordValidationError": "Invalid Input",
+  "events": "Events"
 
 }
