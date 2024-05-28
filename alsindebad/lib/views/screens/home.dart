@@ -53,7 +53,7 @@ class Home extends StatelessWidget {
 
       body: Column(
         children: [
-          Expanded(child: SearchBarView()),
+          SearchBarView(),
           SizedBox(height: 10),
           Expanded(
             flex: 2,
