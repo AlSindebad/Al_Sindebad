@@ -1,6 +1,6 @@
 {
-  "signIn": "Sign In",
   "signup": "Sign Up",
+  "signIn": "Log In",
   "name": "Name",
   "email": "Email",
   "country": "Country",
@@ -35,5 +35,7 @@
   "failedToSendResetEmail": "Failed to send reset email",
   "error": "Error",
   "noUserFoundForEmail": "No user found for that email",
-  "enterValidEmail": "Please enter a valid email"
+  "enterValidEmail": "Please enter a valid email",
+  "events": "Events"
+
 }
