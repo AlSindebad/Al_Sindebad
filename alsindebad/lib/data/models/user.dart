@@ -5,13 +5,14 @@ class UserModel {
   final String name;
   final String email;
   final String country;
-
+  final String? imageUrl;
 
   UserModel({
     required this.id,
     required this.name,
     required this.email,
     required this.country,
+    this.imageUrl,
   });
 
   factory UserModel.fromSnap(DocumentSnapshot snapshot) {
@@ -21,6 +22,7 @@ class UserModel {
       name: snap["name"],
       email: snap["email"],
       country: snap["country"],
+      imageUrl: snap["imageUrl"],
     );
   }
 
@@ -29,6 +31,7 @@ class UserModel {
     "name": name,
     "email": email,
     "country": country,
+    "imageUrl": imageUrl,
   };
 }
 
