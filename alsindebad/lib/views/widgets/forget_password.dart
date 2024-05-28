@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
+import '../../utils/validators.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ForgetPasswordForm extends StatefulWidget {
-  @override
-  _ForgetPasswordFormState createState() => _ForgetPasswordFormState ();
-}
+class ForgetPasswordForm extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
 
-class _ForgetPasswordFormState extends State<ForgetPasswordForm> {
-  final _formKey = GlobalKey<FormState>();
-  String? phone;
+  const ForgetPasswordForm({
+    Key? key,
+    required this.formKey,
+    required this.emailController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 50.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white60),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Phone*',
-                      hintText: 'Input your phone number!',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number!';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) => phone = value,
-                  ),
-                ),
-              ),
-            ],
+    final localizations = AppLocalizations.of(context);
+    if (localizations == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return Form(
+      key: formKey,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white60),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: TextFormField(
+            controller: emailController,
+            decoration: InputDecoration(
+              labelText: localizations.email,
+              hintText: localizations.email,
+              hintStyle: TextStyle(color: Colors.grey),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 17.0),
+              border: OutlineInputBorder(),
+            ),
+            autofocus: true,
+            validator: (value) => Validators.validateEmail(value, localizations),
           ),
         ),
       ),

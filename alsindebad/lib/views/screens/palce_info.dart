@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart'; // Import the qr_flutter package
 import '../../data/models/place.dart';
 import '../../viewmodel/place_info_viewmodel.dart';
-import '../widgets/appBar.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 
 class PlaceInfo extends StatefulWidget {
@@ -17,11 +15,105 @@ class PlaceInfo extends StatefulWidget {
 class _PlaceInfoState extends State<PlaceInfo> {
   late Future<Places?> _placeFuture;
   final PlaceInfoViewModel _viewModel = PlaceInfoViewModel();
+  int _userReview = 0;
+  bool _isDialogShown = false;
 
   @override
   void initState() {
     super.initState();
     _placeFuture = _viewModel.getPlaceInfo(widget.id);
+    _loadUserReview();
+    Future.delayed(Duration(seconds: 5),
+        _showReviewDialog);
+  }
+
+  void _loadUserReview() async {
+    int? review = await _viewModel.getUserReview(widget.id);
+    if (review != null) {
+      setState(() {
+        _userReview = review;
+        _isDialogShown =
+            true; // User already reviewed, dialog should not be shown again
+      });
+    }
+  }
+
+  void _showReviewDialog() {
+    if (_isDialogShown)
+      return; // If user already reviewed, don't show the dialog
+    _isDialogShown = true;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Rate this place!',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        5,
+                        (index) => IconButton(
+                          icon: Icon(
+                            index < _userReview
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: Colors.yellow,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _userReview = index + 1;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _submitReview(_userReview);
+                      },
+                      child: Text('Submit'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _submitReview(int review) async {
+    if (review > 0) {
+      await _viewModel.submitReview(widget.id, review);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Thank you for your review!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      setState(() {
+        _placeFuture = _viewModel.getPlaceInfo(
+            widget.id); // Refresh the state to show the updated review
+      });
+    }
   }
 
   @override
@@ -79,8 +171,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: List.generate(
-                        place.placeReview,
-                            (index) => Icon(Icons.star, color: Colors.yellow),
+                        5,
+                        (index) => Icon(
+                          index < place.averageRating
+                              ? Icons.star
+                              : Icons.star_border,
+                          color: Colors.yellow,
+                        ),
                       ),
                     ),
                   ),
@@ -107,7 +204,10 @@ class _PlaceInfoState extends State<PlaceInfo> {
                         onPressed: () {
                           _viewModel.openGoogleMaps(place.locationUrl);
                         },
-                        icon: Icon(Icons.location_on, size: 40,),
+                        icon: Icon(
+                          Icons.location_on,
+                          size: 40,
+                        ),
                         color: Colors.white,
                       ),
                     ),
