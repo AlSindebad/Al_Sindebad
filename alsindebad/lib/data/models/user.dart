@@ -18,21 +18,19 @@ class UserModel {
   factory UserModel.fromSnap(DocumentSnapshot snapshot) {
     var snap = snapshot.data() as Map<String, dynamic>;
     return UserModel(
-      id: snap["id"],
-      name: snap["name"],
-      email: snap["email"],
-      country: snap["country"],
-      imageUrl: snap["imageUrl"],
+      id: snap['id'],
+      name: snap['name'],
+      email: snap['email'],
+      country: snap['country'],
+      imageUrl: snap['imageUrl'],
     );
   }
 
   Map<String, dynamic> toJSON() => {
-    "id": id,
-    "name": name,
-    "email": email,
-    "country": country,
-    "imageUrl": imageUrl,
+    'id': id,
+    'name': name,
+    'email': email,
+    'country': country,
+    'imageUrl': imageUrl,
   };
 }
-
-

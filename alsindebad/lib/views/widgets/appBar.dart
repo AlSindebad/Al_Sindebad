@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:alsindebad/views/screens/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -18,17 +20,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           style: TextStyle(color: Color(0xFF112466)),
         ),
       ),
-
+      leading: IconButton(
+        icon: const Icon(Icons.menu),
+        onPressed: () {},
+      ),
       actions: [
         Row(
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.notifications), // Notifications icon in actions
+              icon: const Icon(Icons.notifications),
               onPressed: () {},
             ),
             IconButton(
               icon: const Icon(Icons.account_circle), // Account circle icon in actions
-              onPressed: () {},
+              onPressed: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
+              },
             ),
           ],
         ),

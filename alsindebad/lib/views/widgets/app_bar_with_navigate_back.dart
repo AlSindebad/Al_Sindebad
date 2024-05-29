@@ -38,7 +38,9 @@ class CustomAppBarNavigateBack extends StatelessWidget implements PreferredSizeW
             ),
             IconButton(
               icon: const Icon(Icons.account_circle), // Account circle icon in actions
-              onPressed: () {},
+              onPressed: () {
+              //  Navigator.pushNamed(context, '/ProfileScreen');
+              },
             ),
           ],
         ),

@@ -9,6 +9,10 @@ class DatabaseService {
     return UserModel.fromSnap(snapshot);
   }
 
+  Stream<DocumentSnapshot> getUserProfileStream(String uid) {
+    return _db.collection('users').doc(uid).snapshots();
+  }
+
   Future<void> saveUserProfile(UserModel userModel) async {
     try {
       await _db.collection('users').doc(userModel.id).set(userModel.toJSON());
