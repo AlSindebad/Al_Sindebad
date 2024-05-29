@@ -31,4 +31,12 @@ class UserProfileViewModel {
       throw Exception('Failed to save user profile: $e');
     }
   }
+
+  Future<void> createProfile(UserModel userModel) async {
+    try {
+      await _databaseService.createUserProfile(userModel);
+    } catch (e) {
+      throw Exception('Failed to create user profile: $e');
+    }
+  }
 }

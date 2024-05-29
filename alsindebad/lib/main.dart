@@ -54,12 +54,13 @@ class MyApp extends StatelessWidget {
         const Locale('en', ''), // English
         const Locale('ar', ''), // Arabic
       ],
-      home: SignIn(title: 'Sign In'),
-      routes: {
-        '/Home': (context) => Home(),
-        '/SignIn': (context) => SignIn(title: 'Sign In'),
-        '/SignUp': (context) => SignUp(title: 'Sign Up'),
-      },
+     home: Home(),
+     // home: SignIn(title: 'Sign In'),
+     // routes: {
+       // '/Home': (context) => Home(),
+        //'/SignIn': (context) => SignIn(title: 'Sign In'),
+       // '/SignUp': (context) => SignUp(title: 'Sign Up'),
+      //},
     );
   }
 
