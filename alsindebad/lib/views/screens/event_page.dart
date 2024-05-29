@@ -5,7 +5,7 @@ import '../../data/models/event.dart';
 import '../../viewmodel/event_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/card_events.dart';
-import 'event_screen.dart'; // تأكد من تعديل المسار الصحيح
+import 'event_screen.dart';
 
 class EventsPage extends StatelessWidget {
   @override
