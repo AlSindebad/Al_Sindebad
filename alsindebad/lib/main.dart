@@ -56,21 +56,14 @@ class MyApp extends StatelessWidget {
         const Locale('ar', ''), // Arabic
       ],
 
-      home: ProfileScreen(),
-      //home: SignIn(title: 'Sign In'),
-    //  routes: {
-        //'/Home': (context) => Home(),
-        //'/SignIn': (context) => SignIn(title: 'Sign In'),
-       // '/SignUp': (context) => SignUp(title: 'Sign Up'),
-     // },
 
-     home: Home(),
-     // home: SignIn(title: 'Sign In'),
-     // routes: {
-       // '/Home': (context) => Home(),
-        //'/SignIn': (context) => SignIn(title: 'Sign In'),
-       // '/SignUp': (context) => SignUp(title: 'Sign Up'),
-      //},
+
+      home: SignIn(title: 'Sign In'),
+      routes: {
+        '/Home': (context) => Home(),
+        '/SignIn': (context) => SignIn(title: 'Sign In'),
+        '/SignUp': (context) => SignUp(title: 'Sign Up'),
+      },
 
     );
   }

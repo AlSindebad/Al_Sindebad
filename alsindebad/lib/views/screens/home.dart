@@ -1,3 +1,4 @@
+import 'package:alsindebad/views/screens/event_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/place.dart';
@@ -10,6 +11,7 @@ import '../widgets/tabBar.dart';
 import 'event.dart';
 import 'palce_info.dart';
 import '../../viewmodel/place_Category_viewmodel.dart';
+
 
 class Home extends StatelessWidget {
   final PlacesService placesService = PlacesService();
@@ -40,7 +42,7 @@ class Home extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Events()),
+                          MaterialPageRoute(builder: (context) => EventsPage()),
                         );
                       },
                     ),

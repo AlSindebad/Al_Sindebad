@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/viewmodel/edit_profile_view_model.dart';
-
 class EditProfileScreen extends StatelessWidget {
   final UserModel userModel;
-
   EditProfileScreen({required this.userModel});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -48,8 +45,7 @@ class EditProfileScreen extends StatelessWidget {
                           style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF112466)),
                           child: Text('Save'),
                           onPressed: () async {
-                            await viewModel.saveProfile(userModel);
-                            Navigator.of(context).pop();
+                            await viewModel.saveProfile(userModel, context);
                           },
                         ),
                       ],
@@ -63,7 +59,6 @@ class EditProfileScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildProfileImage(EditProfileViewModel viewModel) {
     return Stack(
       children: [
@@ -89,7 +84,6 @@ class EditProfileScreen extends StatelessWidget {
       ],
     );
   }
-
   Widget _buildInputField(String title, TextEditingController controller, BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
@@ -109,7 +103,6 @@ class EditProfileScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildEmailInputField(String title, TextEditingController controller, BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
@@ -131,7 +124,6 @@ class EditProfileScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildCountryDropdown(EditProfileViewModel viewModel, BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 2,
