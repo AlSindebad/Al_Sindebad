@@ -12,7 +12,8 @@ import 'package:alsindebad/views/screens/signin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'views/screens/signup.dart';
-
+import 'package:alsindebad/views/screens/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
 
@@ -54,13 +55,16 @@ class MyApp extends StatelessWidget {
         const Locale('en', ''), // English
         const Locale('ar', ''), // Arabic
       ],
-     home: Home(),
-     // home: SignIn(title: 'Sign In'),
-     // routes: {
-       // '/Home': (context) => Home(),
-        //'/SignIn': (context) => SignIn(title: 'Sign In'),
-       // '/SignUp': (context) => SignUp(title: 'Sign Up'),
-      //},
+
+
+
+      home: SignIn(title: 'Sign In'),
+      routes: {
+        '/Home': (context) => Home(),
+        '/SignIn': (context) => SignIn(title: 'Sign In'),
+        '/SignUp': (context) => SignUp(title: 'Sign Up'),
+      },
+
     );
   }
 
