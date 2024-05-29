@@ -20,4 +20,12 @@ class DatabaseService {
       throw Exception('Failed to save user profile: $e');
     }
   }
+
+  Future<void> createUserProfile(UserModel userModel) async {
+    try {
+      await _db.collection('users').doc(userModel.id).set(userModel.toJSON());
+    } catch (e) {
+      throw Exception('Failed to create user profile: $e');
+    }
+  }
 }

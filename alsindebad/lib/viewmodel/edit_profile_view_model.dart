@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:alsindebad/data/models/user.dart';
+
 import 'package:image_picker/image_picker.dart';
+
+
 import 'package:alsindebad/services/database_service.dart';
 
 class EditProfileViewModel with ChangeNotifier {
@@ -59,7 +62,11 @@ class EditProfileViewModel with ChangeNotifier {
   Future<String> uploadImageToFirebase(String uid, File image) async {
     try {
       String fileName = 'profile_images/$uid.jpg';
+
       final UploadTask uploadTask = FirebaseStorage.instance.ref().child(fileName).putFile(image);
+      final Reference ref = _storage.ref().child(fileName);
+      final UploadTask uploadTask = ref.putFile(image);
+
       final TaskSnapshot taskSnapshot = await uploadTask;
       return await taskSnapshot.ref.getDownloadURL();
     } catch (e) {
