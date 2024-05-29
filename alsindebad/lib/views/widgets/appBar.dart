@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/profile_screen.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -28,7 +30,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             IconButton(
               icon: const Icon(Icons.account_circle), // Account circle icon in actions
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
+              },
             ),
           ],
         ),
