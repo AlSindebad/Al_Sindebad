@@ -36,6 +36,10 @@
   "error": "Error",
   "noUserFoundForEmail": "No user found for that email",
   "enterValidEmail": "Please enter a valid email",
-  "events": "Events"
-
+  "events": "Events",
+  "profile": "Profile",
+  "editProfile": "Edit Profile ",
+  "cancel": "Cancel",
+  "save": "Save",
+  "isRequired": "This Field is requierd"
 }

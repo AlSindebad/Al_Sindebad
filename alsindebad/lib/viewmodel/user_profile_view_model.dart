@@ -1,26 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/services/database_service.dart';
 
-class UserProfileViewModel with ChangeNotifier {
+class UserProfileViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final DatabaseService _databaseService = DatabaseService();
 
-  User? get currentUser => _auth.currentUser;
-
   Stream<DocumentSnapshot> getUserDataStream() {
-    if (_auth.currentUser == null) {
-      throw Exception('No user signed in');
-    }
-    return _databaseService.getUserProfileStream(_auth.currentUser!.uid);
+    return _firestore.collection('users').doc(_auth.currentUser!.uid).snapshots();
   }
 
   UserModel getUserProfileFromSnapshot(DocumentSnapshot snapshot) {
     return UserModel.fromSnap(snapshot);
   }
-
 
   Future<UserModel> getUserProfile(String uid) async {
     try {
@@ -37,13 +31,4 @@ class UserProfileViewModel with ChangeNotifier {
       throw Exception('Failed to save user profile: $e');
     }
   }
-
-  Future<void> createProfile(UserModel userModel) async {
-    try {
-      await _databaseService.createUserProfile(userModel);
-    } catch (e) {
-      throw Exception('Failed to create user profile: $e');
-    }
-  }
-
 }

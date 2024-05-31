@@ -9,7 +9,7 @@ class SButton extends StatelessWidget {
   const SButton({
     required this.onPressed,
     required this.label,
-    this.backgroundColor = const Color(0xFF112466),
+    required this.backgroundColor,
     this.textColor = Colors.white,
     Key? key,
   }) : super(key: key);

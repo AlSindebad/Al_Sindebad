@@ -10,7 +10,7 @@ import '../widgets/search_component.dart';
 import '../widgets/tabBar.dart';
 import 'event.dart';
 import 'palce_info.dart';
-import '../../viewmodel/place_Category_viewmodel.dart';
+import '../../viewmodel/place_category_viewmodel.dart';
 
 
 class Home extends StatelessWidget {

@@ -1,99 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:alsindebad/viewmodel/user_profile_view_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/views/screens/edit_profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alsindebad/views/screens/signin.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/app_bar_with_just_arrow.dart';
+import '../widgets/smallButton.dart';
 
 class ProfileScreen extends StatelessWidget {
+  final UserProfileViewModel _viewModel = UserProfileViewModel();
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => UserProfileViewModel(),
-      child: Consumer<UserProfileViewModel>(
-        builder: (context, viewModel, child) {
-          final User? user = viewModel.currentUser;
+    final User? user = FirebaseAuth.instance.currentUser;
+    final localizations = AppLocalizations.of(context);
 
-          if (user == null) {
-            Future.microtask(() => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => SignIn(title: 'Sign In')),
-            ));
-            return Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
 
-          return StreamBuilder<DocumentSnapshot>(
-            stream: viewModel.getUserDataStream(),
-            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text('Profile'),
-                  ),
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
+    if (user == null) {
+      Future.microtask(() => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SignIn(title: 'Sign In'))
+      ));
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
-              if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text('Profile'),
-                  ),
-                  body: Center(
-                    child: Text('Something went wrong or No data found!'),
-                  ),
-                );
-              }
-
-              UserModel userModel = viewModel.getUserProfileFromSnapshot(snapshot.data!);
-
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text('Profile'),
-                ),
-                body: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 80,
-                          backgroundColor: Colors.grey[300],
-                          backgroundImage: NetworkImage(userModel.imageUrl ?? 'https://via.placeholder.com/150'),
-                        ),
-                        SizedBox(height: 20),
-                        ProfileCard(title: 'Username', value: userModel.name),
-                        SizedBox(height: 20),
-                        ProfileCard(title: 'Email', value: userModel.email),
-                        SizedBox(height: 20),
-                        ProfileCard(title: 'Country', value: userModel.country),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF112466)),
-                          child: Text('Edit Profile'),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => EditProfileScreen(userModel: userModel)),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
+    return StreamBuilder<DocumentSnapshot>(
+      stream: _viewModel.getUserDataStream(),
+      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: CustomAppBarNavigateJustBack(
+              title:localizations!.profile,
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
-        },
-      ),
+        }
+
+        if (snapshot.hasError || !snapshot.hasData || !snapshot.data!.exists) {
+          return Scaffold(
+            appBar: CustomAppBarNavigateJustBack(
+              title:localizations!.profile,
+            ),
+            body: Center(
+              child: Text('Something went wrong or No data found!'),
+            ),
+          );
+        }
+
+        UserModel userModel = UserModel.fromSnap(snapshot.data!);
+
+        return Scaffold(
+          appBar: CustomAppBarNavigateJustBack(
+            title:localizations!.profile,
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 80,
+                  backgroundColor: Colors.grey[300],
+                  backgroundImage: NetworkImage(userModel.imageUrl ?? 'https://via.placeholder.com/150'),
+                ),
+                SizedBox(height: 10),
+                ProfileCard(title: localizations!.name, value: userModel.name),
+                SizedBox(height: 10),
+                ProfileCard(title: localizations!.email, value: userModel.email),
+                SizedBox(height: 10),
+                ProfileCard(title:localizations!.country, value: userModel.country),
+                SizedBox(height: 10),
+            SButton(
+              backgroundColor: Color(0xFF112466),
+              label: localizations.editProfile,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditProfileScreen(userModel: userModel)),
+                );
+              },
+            ),
+
+
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -109,7 +108,7 @@ class ProfileCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
-        width: MediaQuery.of(context).size.width / 2,
+        width: 300 ,
         child: Card(
           elevation: 0,
           shape: RoundedRectangleBorder(
