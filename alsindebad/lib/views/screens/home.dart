@@ -8,22 +8,26 @@ import '../widgets/categories_view.dart';
 import '../widgets/palce_card.dart';
 import '../widgets/search_component.dart';
 import '../widgets/tabBar.dart';
-import 'event.dart';
 import 'palce_info.dart';
 import '../../viewmodel/place_category_viewmodel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class Home extends StatelessWidget {
   final PlacesService placesService = PlacesService();
 
+
   Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return ChangeNotifierProvider(
       create: (context) => PlaceCategory()..data(),
       child: Scaffold(
-        appBar: CustomAppBar(title: "Home Page"),
+        appBar: CustomAppBar(title: localizations!.alsindebad,),
         drawer: Drawer(
           child: Container(
             padding: const EdgeInsets.all(16.0),
@@ -34,8 +38,7 @@ class Home extends StatelessWidget {
                   Container(
                     color: Color(0xFF112466),
                     child: ListTile(
-                      title: Text(
-                        "Events",
+                      title: Text(localizations.events,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       leading: Icon(Icons.event, color: Colors.white),

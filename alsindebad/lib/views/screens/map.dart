@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../viewmodel/map_viewmodel.dart';
-import '../widgets/appBar.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/tabBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 
@@ -20,15 +20,16 @@ class _MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: CustomAppBarNavigateBack(title: 'Map'),
+      appBar: CustomAppBarNavigateBack(title: localizations!.map),
       body: Column(
         children: [
           Expanded(
             child: content(),
           ),
           CheckboxListTile(
-            title: Text("Show nearby places"),
+            title: Text(localizations.showNearPalce),
             value: showCircles,
             onChanged: (value) {
               setState(() {

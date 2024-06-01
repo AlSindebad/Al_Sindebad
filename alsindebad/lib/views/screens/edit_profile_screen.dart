@@ -34,7 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _usernameController.text = widget.userModel.name;
     _emailController.text = widget.userModel.email;
-    _selectedCountry = widget.userModel.country; // Initialize with user's country
+    _selectedCountry = widget.userModel.country;
   }
 
   Future<void> _pickImage() async {

@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/models/place.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/palce_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Search extends StatefulWidget {
   @override
@@ -17,9 +19,11 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: CustomAppBarNavigateBack(
-        title: ('Search'),
+        title: (localizations!.searchAsTitel),
       ),
       body: SafeArea(
         child: Padding(
@@ -29,7 +33,7 @@ class _SearchState extends State<Search> {
               Container(
                 child: TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search...',
+                    hintText: localizations.search,
                     suffixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
