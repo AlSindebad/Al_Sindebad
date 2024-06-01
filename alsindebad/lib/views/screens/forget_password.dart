@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import '../../viewmodel/pass_viewmodel.dart';
+import '../../viewmodels/pass_view_model.dart';
 import '../widgets/app_bar_with_just_arrow.dart';
 import '../widgets/forget_password.dart';
-import '../widgets/mediumButton.dart';
+import '../widgets/medium_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgetPassword extends StatefulWidget {

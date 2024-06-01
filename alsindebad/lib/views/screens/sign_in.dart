@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../widgets/signin.dart';
-import '../../viewmodel/signin_viewmodel.dart';
-import 'signup.dart';
+import '../widgets/sign_in.dart';
+import '../../viewmodels/sign_in_view_model.dart';
+import 'sign_up.dart';
 import 'forget_password.dart';
 
 class SignIn extends StatefulWidget {
@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Do nothing, already on sign-in screen
+
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
@@ -43,7 +43,6 @@ class _SignInState extends State<SignIn> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Navigate to sign-up screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignUp(title: 'Sign Up')),

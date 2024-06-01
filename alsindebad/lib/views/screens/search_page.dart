@@ -1,9 +1,9 @@
-import 'package:alsindebad/views/screens/palce_info.dart';
+import 'package:alsindebad/views/screens/place_info.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/models/place.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
-import '../widgets/palce_card.dart';
+import '../widgets/place_card.dart';
 
 class Search extends StatefulWidget {
   @override

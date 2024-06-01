@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class CardNotification extends StatelessWidget {
   const CardNotification({Key? key}) : super(key: key);
 

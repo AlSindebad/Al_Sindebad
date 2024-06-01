@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
-import '../views/screens/palce_info.dart';
+import '../views/screens/place_info.dart';
 
 class QRScannerViewModel extends ChangeNotifier {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');

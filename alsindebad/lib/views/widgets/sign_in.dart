@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:alsindebad/utils/validators.dart';
-import 'package:alsindebad/viewmodel/signin_viewmodel.dart';
-import '../widgets/largButton.dart';
+import 'package:alsindebad/viewmodels/sign_in_view_model.dart';
+import '../widgets/large_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInForm extends StatefulWidget {
@@ -63,10 +63,10 @@ class _SignInFormState extends State<SignInForm> {
           children: <Widget>[
             // Email Input
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0), // Add space between fields
+              padding: const EdgeInsets.only(bottom: 20.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey), // Changed border color to match password input
+                  border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: TextFormField(
@@ -84,7 +84,7 @@ class _SignInFormState extends State<SignInForm> {
             ),
             // Password Input
             Padding(
-              padding: const EdgeInsets.only(bottom: 20.0), // Add space below password input
+              padding: const EdgeInsets.only(bottom: 20.0),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
@@ -106,7 +106,7 @@ class _SignInFormState extends State<SignInForm> {
             ),
             // Sign-In Button
             Padding(
-              padding: const EdgeInsets.only(top: 20.0), // Add space above the button
+              padding: const EdgeInsets.only(top: 20.0),
               child: LargButton(
                 text: localizations.signIn,
                 onPressed: () async {

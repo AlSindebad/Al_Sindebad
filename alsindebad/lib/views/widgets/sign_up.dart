@@ -1,6 +1,6 @@
 import 'package:alsindebad/utils/validators.dart';
-import 'package:alsindebad/viewmodel/sign_up_view_model.dart';
-import 'package:alsindebad/views/widgets/largButton.dart';
+import 'package:alsindebad/viewmodels/sign_up_view_model.dart';
+import 'package:alsindebad/views/widgets/large_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:convert';
@@ -228,7 +228,6 @@ class _SignUpFormState extends State<SignUpForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   register(localizations);
-
                 }
               },
               text: localizations.signup,

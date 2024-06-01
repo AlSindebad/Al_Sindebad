@@ -1,10 +1,9 @@
 import 'package:alsindebad/views/screens/emergancy_call.dart';
 import 'package:alsindebad/views/screens/home.dart';
 import '../screens/map.dart';
-
 import 'package:flutter/material.dart';
-
 import '../screens/qr_scanner.dart';
+
 class NavigationExample extends StatefulWidget {
   const NavigationExample({Key? key}) : super(key: key);
 
@@ -17,7 +16,6 @@ class _NavigationExampleState extends State<NavigationExample> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final Color iconColor = Color(0xFF112466);
 
     return Scaffold(
