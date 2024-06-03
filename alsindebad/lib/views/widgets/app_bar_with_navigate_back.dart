@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../screens/profile_screen.dart';
 
 class CustomAppBarNavigateBack extends StatelessWidget implements PreferredSizeWidget {
@@ -22,7 +21,7 @@ class CustomAppBarNavigateBack extends StatelessWidget implements PreferredSizeW
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back), // Back arrow icon in leading
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           if (onBackPressed != null) {
             onBackPressed!();
@@ -35,13 +34,12 @@ class CustomAppBarNavigateBack extends StatelessWidget implements PreferredSizeW
         Row(
           children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.account_circle), // Account circle icon in actions
+              icon: const Icon(Icons.account_circle),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()),
                 );
-
               },
             ),
           ],

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../viewmodel/sign_up_view_model.dart';
-import '../widgets/signup.dart';
-import 'signin.dart'; // Import SignIn screen
+import '../widgets/sign_up.dart';
+import 'sign_in.dart';
 
 class SignUp extends StatefulWidget {
   final String title;
   const SignUp({Key? key, required this.title}) : super(key: key);
-  //const SignUp({Key? key}) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  final SignUpViewModel _viewModel = SignUpViewModel();
   String _errorMessage = '';
 
   @override
@@ -27,13 +24,11 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 50),
-              // Add buttons for navigation at the top
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
                     onPressed: () {
-                      // Navigate to sign-in screen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignIn(title: 'Sign In')),
@@ -46,7 +41,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Do nothing, already on sign-up screen
+
                     },
                     child: Text(
                       AppLocalizations.of(context)?.signup ?? 'Sign Up',

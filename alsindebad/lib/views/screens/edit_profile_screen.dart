@@ -1,13 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:alsindebad/viewmodel/edit_profile_view_model.dart';
+import 'package:alsindebad/viewmodels/edit_profile_view_model.dart';
 import 'package:alsindebad/data/models/user.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../utils/validators.dart';
 import '../widgets/app_bar_with_just_arrow.dart';
-import '../widgets/smallButton.dart';
+import '../widgets/small_button.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final UserModel userModel;
@@ -34,7 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _usernameController.text = widget.userModel.name;
     _emailController.text = widget.userModel.email;
-    _selectedCountry = widget.userModel.country; // Initialize with user's country
+    _selectedCountry = widget.userModel.country;
   }
 
   Future<void> _pickImage() async {
@@ -177,8 +176,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           border: OutlineInputBorder(),
         ),
      validator: (value) => Validators.validateName(value, localizations),
-
-
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../viewmodel/place_category_viewmodel.dart';
+import '../../viewmodels/place_category_view_model.dart';
 
 class CategoriesComponent extends StatelessWidget {
   CategoriesComponent({Key? key}) : super(key: key);

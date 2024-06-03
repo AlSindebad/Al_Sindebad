@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../data/models/user.dart';
+
 
 class SignInViewModel extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -15,13 +15,11 @@ class SignInViewModel extends ChangeNotifier {
     }
 
     try {
-      // Perform sign in operation using FirebaseAuth
       final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Retrieve user data from Firestore
       final DocumentSnapshot userDoc = await _firestore.collection('users')
           .doc(userCredential.user!.uid)
           .get();
@@ -30,9 +28,7 @@ class SignInViewModel extends ChangeNotifier {
         return 'No account found for that email. Please sign up first.';
       }
 
-      final UserModel user = UserModel.fromSnap(userDoc);
 
-      // Notify listeners that sign in was successful
       notifyListeners();
       return null; // Returning null means success
     } on FirebaseAuthException catch (e) {
@@ -63,15 +59,14 @@ class SignInViewModel extends ChangeNotifier {
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-      // Save user data to Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
-      }, SetOptions(merge: true)); // Use merge to avoid overwriting
+      }, SetOptions(merge: true));
 
-      // Notify listeners that sign in was successful
+
       notifyListeners();
-      return null; // Returning null means success
+      return null;
     } catch (e) {
       print('Google sign in error: $e');
       return 'An error occurred: $e';

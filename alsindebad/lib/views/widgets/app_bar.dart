@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:alsindebad/views/screens/profile_screen.dart';
-
-import '../screens/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -31,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {},
             ),
             IconButton(
-              icon: const Icon(Icons.account_circle), // Account circle icon in actions
+              icon: const Icon(Icons.account_circle),
               onPressed: () {
                 Navigator.push(
                   context,
