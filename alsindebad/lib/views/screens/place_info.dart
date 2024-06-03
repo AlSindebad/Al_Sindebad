@@ -1,7 +1,9 @@
+import 'package:alsindebad/views/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/place.dart';
 import '../../viewmodels/place_info_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
@@ -10,6 +12,7 @@ class PlaceInfo extends StatefulWidget {
 
   @override
   _PlaceInfoState createState() => _PlaceInfoState();
+
 }
 
 class _PlaceInfoState extends State<PlaceInfo> {
@@ -44,6 +47,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
     _isDialogShown = true;
 
     showDialog(
+
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
@@ -58,7 +62,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Rate this place!',
+                      AppLocalizations.of(context)!.ratethisplace,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -83,13 +87,11 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        _submitReview(_userReview);
-                      },
-                      child: Text('Submit'),
-                    ),
+                    SButton(onPressed:(){
+                      Navigator.of(context).pop();
+                      _submitReview(_userReview);
+                    }, label: (AppLocalizations.of(context)!.submit), backgroundColor: Color(0xFF112466))
+                   ,
                   ],
                 ),
               ),
@@ -105,7 +107,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
       await _viewModel.submitReview(widget.id, review);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Thank you for your review!'),
+          content: Text(AppLocalizations.of(context)!.thanks),
           duration: Duration(seconds: 2),
         ),
       );
