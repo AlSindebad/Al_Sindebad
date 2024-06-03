@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:alsindebad/viewmodel/user_profile_view_model.dart';
+import 'package:alsindebad/viewmodels/user_profile_view_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/views/screens/edit_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:alsindebad/views/screens/signin.dart';
+import 'package:alsindebad/views/screens/sign_in.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../widgets/app_bar_with_just_arrow.dart';
-import '../widgets/smallButton.dart';
+import '../widgets/small_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserProfileViewModel _viewModel = UserProfileViewModel();
@@ -86,8 +86,6 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
             ),
-
-
               ],
             ),
           ),

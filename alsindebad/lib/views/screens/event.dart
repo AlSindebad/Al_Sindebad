@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../data/models/event.dart';
-import '../../viewmodel/event_view_model.dart';
+import '../../viewmodels/event_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/card_events.dart';
 import 'event_screen.dart';

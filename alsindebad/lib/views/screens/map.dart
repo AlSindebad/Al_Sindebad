@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../../viewmodel/map_viewmodel.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
-import '../widgets/tabBar.dart';
+import '../widgets/tab_Bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-
+import '../../viewmodels/map_view_model.dart';
 
 class Map extends StatefulWidget {
   const Map({Key? key}) : super(key: key);

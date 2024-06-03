@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../../viewmodel/qr_scanner_view_model.dart';
+import '../../viewmodels/qr_scanner_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

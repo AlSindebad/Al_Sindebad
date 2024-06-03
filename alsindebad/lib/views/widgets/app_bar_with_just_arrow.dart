@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:alsindebad/views/screens/profile_screen.dart';
+
 class CustomAppBarNavigateJustBack extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBackPressed;

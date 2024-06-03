@@ -1,7 +1,7 @@
 import 'package:alsindebad/views/widgets/smallButton.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/place.dart';
-import '../../viewmodel/place_info_viewmodel.dart';
+import '../../viewmodels/place_info_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,14 +36,14 @@ class _PlaceInfoState extends State<PlaceInfo> {
       setState(() {
         _userReview = review;
         _isDialogShown =
-            true; // User already reviewed, dialog should not be shown again
+            true;
       });
     }
   }
 
   void _showReviewDialog() {
     if (_isDialogShown)
-      return; // If user already reviewed, don't show the dialog
+      return;
     _isDialogShown = true;
 
     showDialog(
@@ -113,7 +113,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
       );
       setState(() {
         _placeFuture = _viewModel.getPlaceInfo(
-            widget.id); // Refresh the state to show the updated review
+            widget.id);
       });
     }
   }
