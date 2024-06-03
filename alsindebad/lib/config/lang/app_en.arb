@@ -54,7 +54,12 @@
   "noEvents": "No Events",
   "map": "Map",
   "showNearPalce": "Show nearby places",
-  "qrCode": "QR Scanner"
+  "qrCode": "QR Scanner",
+  "ratethisplace": "Rate this place",
+  "submit": "Submit",
+  "thanks": "Thank you for your review!",
+  "massageError":"No user found for that email."
+
 
 
 

@@ -41,10 +41,10 @@ class SignInViewModel extends ChangeNotifier {
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
       }
-      return 'An error occurred: ${e.message}';
+      return 'Email Or Password is Not Correct!';
     } catch (e) {
-      print('Sign in error: $e');
-      return 'An error occurred: $e';
+
+      return 'Email Or Password is Not Correct!';
     }
   }
 
@@ -65,8 +65,11 @@ class SignInViewModel extends ChangeNotifier {
 
       // Save user data to Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        "name":"N/A",
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
+        'country':"N/A",
+
       }, SetOptions(merge: true)); // Use merge to avoid overwriting
 
       // Notify listeners that sign in was successful
