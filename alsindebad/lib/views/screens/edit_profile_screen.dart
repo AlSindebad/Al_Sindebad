@@ -71,7 +71,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         signInMethod: widget.userModel.signInMethod,
       );
 
-      await _viewModel.updateUserProfile(userModel: updatedProfile, imageFile: _imageFile);
+      try {
+        await _viewModel.updateUserProfile(userModel: updatedProfile, imageFile: _imageFile,email: _emailController.text);
+      } on Exception catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(AppLocalizations.of(context)!.uniqueEmailError)));
+      }
       Navigator.of(context).pop();
     }
   }
