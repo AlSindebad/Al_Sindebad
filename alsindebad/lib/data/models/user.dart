@@ -6,6 +6,7 @@ class UserModel {
   final String email;
   final String country;
   final String? imageUrl;
+  final String signInMethod;
 
   UserModel({
     required this.id,
@@ -13,6 +14,7 @@ class UserModel {
     required this.email,
     required this.country,
     this.imageUrl,
+    required this.signInMethod
   });
 
   factory UserModel.fromSnap(DocumentSnapshot snapshot) {
@@ -23,6 +25,8 @@ class UserModel {
       email: snap['email']??"",
       country: snap['country']??"",
       imageUrl: snap['imageUrl']??"",
+      signInMethod:snap['signInMethod']??"",
+
     );
   }
 
@@ -32,5 +36,6 @@ class UserModel {
     'email': email,
     'country': country,
     'imageUrl': imageUrl,
+    'signInMethod':signInMethod,
   };
 }

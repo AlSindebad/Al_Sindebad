@@ -68,6 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         email: _emailController.text,
         country: _selectedCountry!,
         imageUrl: imageUrl ?? widget.userModel.imageUrl,
+        signInMethod: widget.userModel.signInMethod,
       );
 
       await _viewModel.updateUserProfile(userModel: updatedProfile, imageFile: _imageFile);
@@ -90,50 +91,50 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       localizations.spain,
       localizations.italy,
       localizations.egypt,
-      localizations.japan
+      localizations.japan,
     ];
 
     return Scaffold(
-      appBar: CustomAppBarNavigateJustBack(title: localizations!.editProfile),
+      appBar: CustomAppBarNavigateJustBack(title: localizations.editProfile),
       body: Padding(
         padding: const EdgeInsets.all(45.0),
         child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildProfileImage(),
-              SizedBox(height: 10),
-              _buildInputField(localizations.name, _usernameController,localizations),
-              SizedBox(height: 10),
-              _buildEmailInputField(localizations.email, _emailController,localizations),
-              SizedBox(height: 10),
-              _buildCountryDropdown(localizations.country, countries),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SButton(
-                    backgroundColor: Colors.red,
-                    label: localizations.cancel,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  SizedBox(width: 20),
-                  SButton(
-                    backgroundColor: Color(0xFF112466),
-                    label: localizations.save,
-                    onPressed: _saveProfile,
-                  ),
-                ],
-              ),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildProfileImage(),
+                SizedBox(height: 10),
+                _buildInputField(localizations.name, _usernameController, localizations),
+                SizedBox(height: 10),
+                _buildEmailInputField(localizations.email, _emailController, localizations, widget.userModel.signInMethod),
+                SizedBox(height: 10),
+                _buildCountryDropdown(localizations.country, countries),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SButton(
+                      backgroundColor: Colors.red,
+                      label: localizations.cancel,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    SizedBox(width: 20),
+                    SButton(
+                      backgroundColor: Color(0xFF112466),
+                      label: localizations.save,
+                      onPressed: _saveProfile,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-              ),
-      )
+      ),
     );
   }
 
@@ -146,12 +147,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ? FileImage(_imageFile!)
               : NetworkImage(widget.userModel.imageUrl ?? 'https://via.placeholder.com/150') as ImageProvider,
           backgroundColor: Colors.grey.shade200,
-
         ),
         Positioned(
           bottom: 0,
           right: 0,
-
           child: InkWell(
             onTap: _pickImage,
             child: Icon(
@@ -167,7 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget _buildInputField(String title, TextEditingController controller, AppLocalizations localizations) {
     return Container(
-      width: 300 ,
+      width: 300,
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         controller: controller,
@@ -175,14 +174,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           labelText: title,
           border: OutlineInputBorder(),
         ),
-     validator: (value) => Validators.validateName(value, localizations),
+        validator: (value) => Validators.validateName(value, localizations),
       ),
     );
   }
 
-  Widget _buildEmailInputField(String title, TextEditingController controller ,AppLocalizations localizations ) {
+  Widget _buildEmailInputField(String title, TextEditingController controller, AppLocalizations localizations, String signInMethod) {
     return Container(
-      width: 300 ,
+      width: 300,
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         controller: controller,
@@ -191,16 +190,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           border: OutlineInputBorder(),
         ),
         validator: (value) => Validators.validateEmail(value, localizations),
+        enabled: signInMethod != 'Google', // Disable email field if signed in via Google
       ),
     );
   }
 
   Widget _buildCountryDropdown(String title, List<String> countries) {
     return Container(
-      width: 300 ,
+      width: 300,
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: DropdownButtonFormField<String>(
-        value: _selectedCountry,
+        value: _selectedCountry == 'Choose' ? countries.first : _selectedCountry,
         decoration: InputDecoration(
           labelText: title,
           border: OutlineInputBorder(),

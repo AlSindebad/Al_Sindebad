@@ -58,10 +58,16 @@ class SignInViewModel extends ChangeNotifier {
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      bool nameIsEmpty = userCredential.additionalUserInfo!.profile?['name'] == null;
+      String? country = userCredential.additionalUserInfo!.profile?['country'];
+      country = country ?? 'Choose'; // Set default country to 'USA'
 
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'id':userCredential.user!.uid,
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
+        'name': nameIsEmpty ? 'Anonymous' : userCredential.additionalUserInfo!.profile?['name'],
+        'country': country,
       }, SetOptions(merge: true));
 
 

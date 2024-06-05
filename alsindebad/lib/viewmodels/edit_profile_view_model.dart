@@ -23,6 +23,7 @@ class EditProfileViewModel {
         email: userModel.email,
         country: userModel.country,
         imageUrl: imageUrl ?? userModel.imageUrl,
+          signInMethod:userModel.signInMethod
       );
 
       await _databaseService.saveUserProfile(updatedProfile);
