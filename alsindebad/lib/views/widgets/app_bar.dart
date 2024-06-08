@@ -23,10 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Row(
           children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {},
-            ),
+
             IconButton(
               icon: const Icon(Icons.account_circle),
               onPressed: () {

@@ -44,7 +44,7 @@ class _SignInFormState extends State<SignInForm> {
       } else {
         // Show error message to user
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
+          SnackBar(content: Text(AppLocalizations.of(context)!.massageError)),
         );
       }
     }

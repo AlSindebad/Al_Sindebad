@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/tab_bar.dart';
+import '../widgets/app_bar_with_just_arrow.dart';
+import '../widgets/tab_Bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyCall extends StatelessWidget {
@@ -7,8 +10,12 @@ class EmergencyCall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text("Emergency Calls"), leading: BackButton()),
+      appBar: CustomAppBarNavigateJustBack(
+        title: localizations!.emergencyCalls,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -18,18 +25,17 @@ class EmergencyCall extends StatelessWidget {
                 children: [
                   _EmergencyServiceCard(
                     image: 'assets/images/police-car.png',
-                    serviceName: 'Police',
+                    serviceName: localizations.police,
                     phoneNumber: '100',
                   ),
-
                   _EmergencyServiceCard(
                     image: 'assets/images/call.png',
-                    serviceName: 'Civil Defense',
+                    serviceName: localizations.civilDefense,
                     phoneNumber: '102',
                   ),
                   _EmergencyServiceCard(
                     image: 'assets/images/phone-call.png',
-                    serviceName: 'Ambulance',
+                    serviceName: localizations.ambulance,
                     phoneNumber: '101',
                   ),
                 ],
@@ -72,23 +78,25 @@ class _EmergencyServiceCard extends StatelessWidget {
   }
 
   void _showCallDialog(BuildContext context, String serviceName, String phoneNumber) {
+    final localizations = AppLocalizations.of(context);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Call $serviceName'),
-          content: Text('Do you want to call $serviceName now?'),
+          title: Text('${localizations?.call} $serviceName'),
+          content: Text(localizations?.doYouWantToCall ?? 'Do you want to call?'),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel'),
+              child: Text(localizations?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
                 _callEmergencyService(phoneNumber);
                 Navigator.of(context).pop();
               },
-              child: Text('Call'),
+              child: Text(localizations?.call ?? 'Call'),
             ),
           ],
         );
@@ -101,6 +109,3 @@ class _EmergencyServiceCard extends StatelessWidget {
     launch(url);
   }
 }
-
-
-
