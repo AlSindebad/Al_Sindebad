@@ -42,4 +42,3 @@ class SignUpViewModel {
     return response;
   }
 }
-
