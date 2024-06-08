@@ -42,5 +42,22 @@
   "cancel": "Cancel",
   "save": "Save",
   "isRequired": "This Field is requierd",
-  "rememberMe" : "Remmember Me"
+  "emergencyCalls": "Emergency Calls",
+  "doYouWantToCall": "Do you want to call  now?",
+  "police": "Police",
+  "civilDefense": "Civil Defense",
+  "ambulance": "Ambulance",
+  "call": "Call",
+  "alsindebad": "Al_Sindebad",
+  "search": "Search",
+  "searchAsTitel": "Search",
+  "noEvents": "No Events",
+  "map": "Map",
+  "showNearPalce": "Show nearby places",
+  "qrCode": "QR Scanner",
+  "ratethisplace": "Rate this place",
+  "submit": "Submit",
+  "thanks": "Thank you for your review!",
+  "massageError":"No user found for that email.",
+  "rememberMe" : "Remember Me"
 }

@@ -6,8 +6,8 @@ import '../widgets/large_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInForm extends StatefulWidget {
-  final Function(String email, String password, bool rememberMe) onSignIn; // Add rememberMe parameter here
-  final bool rememberMe; // Add rememberMe parameter here
+  final Function(String email, String password, bool rememberMe) onSignIn;
+  final bool rememberMe;
   const SignInForm({Key? key, required this.onSignIn, required this.rememberMe}) : super(key: key);
 
   @override
@@ -47,7 +47,7 @@ class _SignInFormState extends State<SignInForm> {
       } else {
         // Show error message to user
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
+          SnackBar(content: Text(AppLocalizations.of(context)!.massageError)),
         );
       }
     }
