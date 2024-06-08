@@ -1,15 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../data/models/user.dart';
 
-
-class SignInViewModel extends ChangeNotifier {
+class SignInViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<String?> signIn(String email, String password) async {
+  Future<void> _saveLoginDataLocally(String email, String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
+    await prefs.setString('password', password);
+  }
+
+  Future<String?> signIn(String email, String password, bool rememberMe) async {
     if (email.isEmpty || password.isEmpty) {
       return 'Please enter email and password';
     }
@@ -28,9 +34,13 @@ class SignInViewModel extends ChangeNotifier {
         return 'No account found for that email. Please sign up first.';
       }
 
+      final UserModel user = UserModel.fromSnap(userDoc);
 
-      notifyListeners();
-      return null; // Returning null means success
+      if (rememberMe) {
+        await _saveLoginDataLocally(email, password);
+      }
+
+      return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return 'No user found for that email.';
@@ -42,6 +52,18 @@ class SignInViewModel extends ChangeNotifier {
       print('Sign in error: $e');
       return 'An error occurred: $e';
     }
+  }
+
+  Future<String?> signInWithSavedData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final email = prefs.getString('email') ?? '';
+    final password = prefs.getString('password') ?? '';
+
+    if (email.isNotEmpty && password.isNotEmpty) {
+      return signIn(email, password, true);
+    }
+
+    return null;
   }
 
   Future<String?> signInWithGoogle() async {
@@ -64,8 +86,6 @@ class SignInViewModel extends ChangeNotifier {
         'signInMethod': 'Google',
       }, SetOptions(merge: true));
 
-
-      notifyListeners();
       return null;
     } catch (e) {
       print('Google sign in error: $e');

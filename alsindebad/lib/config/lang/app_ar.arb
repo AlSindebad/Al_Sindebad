@@ -41,5 +41,6 @@
   "editProfile": "تعديل الصفحة الشخصية",
   "cancel": "الغاء",
   "save": "حفظ",
-  "isRequired": "هذا الحقل مطلوب"
+  "isRequired": "هذا الحقل مطلوب",
+  "rememberMe" : "تذكرني"
 }

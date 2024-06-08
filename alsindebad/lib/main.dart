@@ -6,10 +6,12 @@ import 'views/screens/home.dart';
 import 'views/screens/sign_in.dart';
 import 'views/screens/sign_up.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
+    // Check if Firebase app is already initialized
     if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(
         options: FirebaseOptions(

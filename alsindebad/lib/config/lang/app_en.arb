@@ -41,5 +41,6 @@
   "editProfile": "Edit Profile ",
   "cancel": "Cancel",
   "save": "Save",
-  "isRequired": "This Field is requierd"
+  "isRequired": "This Field is requierd",
+  "rememberMe" : "Remmember Me"
 }

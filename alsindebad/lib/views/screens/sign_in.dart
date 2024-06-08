@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +18,20 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final SignInViewModel _signInViewModel = SignInViewModel();
   String? _errorMessage='';
+  bool _rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _signInWithSavedData();
+  }
+
+  Future<void> _signInWithSavedData() async {
+    final errorMessage = await _signInViewModel.signInWithSavedData();
+    if (errorMessage == null) {
+      Navigator.pushReplacementNamed(context, '/Home');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +43,11 @@ class _SignInState extends State<SignIn> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 50),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                     child: Text(
                       AppLocalizations.of(context)?.signIn ?? 'Sign In',
                       style: TextStyle(color: Color(0xFF112466), fontSize: 18.0),
@@ -55,10 +67,42 @@ class _SignInState extends State<SignIn> {
                   ),
                 ],
               ),
+              SignInForm(
+                onSignIn: (email, password, rememberMe) async {
+                  setState(() {
+                    _errorMessage = null;
+                  });
 
-              SignInForm(),
+                  final errorMessage = await _signInViewModel.signIn(email, password, rememberMe);
 
-              if (_errorMessage != null) ...[
+                  setState(() {
+                    _errorMessage = errorMessage;
+                  });
+
+                  if (errorMessage == null) {
+                    Navigator.pushReplacementNamed(context, '/Home');
+                  }
+                },
+                rememberMe: _rememberMe, // Pass rememberMe state to SignInForm
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Checkbox(
+                    value: _rememberMe,
+                    onChanged: (value) {
+                      setState(() {
+                        _rememberMe = value ?? false;
+                      });
+                    },
+                  ),
+                  Text(
+                    AppLocalizations.of(context)?.rememberMe ?? 'Remember Me',
+                    style: TextStyle(color: Color(0xFF112466), fontSize: 16.0),
+                  ),
+                ],
+              ),
+              if (_errorMessage != null)
                 Center(
                   child: Text(
                     _errorMessage!,
@@ -66,7 +110,6 @@ class _SignInState extends State<SignIn> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-              ] ?? const [],
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
@@ -114,6 +157,7 @@ class _SignInState extends State<SignIn> {
                       });
 
                       final errorMessage = await _signInViewModel.signInWithGoogle();
+
                       setState(() {
                         _errorMessage = errorMessage;
                       });
@@ -126,7 +170,6 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
               SizedBox(height: 20.0),
-
               Center(
                 child: TextButton(
                   onPressed: () {
