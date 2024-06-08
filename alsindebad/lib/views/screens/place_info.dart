@@ -1,4 +1,4 @@
-import 'package:alsindebad/views/widgets/smallButton.dart';
+import 'package:alsindebad/views/widgets/small_Button.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/place.dart';
 import '../../viewmodels/place_info_view_model.dart';
