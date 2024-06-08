@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import '../../viewmodels/map_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
-import '../widgets/tab_bar.dart';
+import '../widgets/tab_Bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../viewmodels/map_view_model.dart';
 
 class Map extends StatefulWidget {
   const Map({Key? key}) : super(key: key);
@@ -17,15 +18,16 @@ class _MapState extends State<Map> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: CustomAppBarNavigateBack(title: 'Map'),
+      appBar: CustomAppBarNavigateBack(title: localizations!.map),
       body: Column(
         children: [
           Expanded(
             child: content(),
           ),
           CheckboxListTile(
-            title: Text("Show nearby places"),
+            title: Text(localizations.showNearPalce),
             value: showCircles,
             onChanged: (value) {
               setState(() {
@@ -104,37 +106,36 @@ Widget content() {
         )
       ]),
       if (showCircles)
-      CircleLayer(
-        circles: [
-          CircleMarker(
-            point: LatLng(32.225358, 35.252100),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 1000,
-          ),
-          CircleMarker(
-            point: LatLng(31.7767, 35.2390),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 10000,
-          ),
-          CircleMarker(
-            point: LatLng(31.8564, 35.4597),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 10000,
-          ),
-        ],
-      ),
+        CircleLayer(
+          circles: [
+            CircleMarker(
+              point: LatLng(32.225358, 35.252100),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 1000,
+            ),
+            CircleMarker(
+              point: LatLng(31.7767, 35.2390),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 10000,
+            ),
+            CircleMarker(
+              point: LatLng(31.8564, 35.4597),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 10000,
+            ),
+          ],
+        ),
     ],
   );
 }
-
 
 

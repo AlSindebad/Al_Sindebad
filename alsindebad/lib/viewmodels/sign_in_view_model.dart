@@ -37,10 +37,10 @@ class SignInViewModel extends ChangeNotifier {
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
       }
-      return 'An error occurred: ${e.message}';
+      return 'Email Or Password is Not Correct';
     } catch (e) {
       print('Sign in error: $e');
-      return 'An error occurred: $e';
+      return 'Email Or Password is Not Correct:';
     }
   }
 
