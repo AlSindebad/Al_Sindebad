@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class EmergencyServiceCard extends StatelessWidget {
   final String image;
@@ -27,30 +29,31 @@ class EmergencyServiceCard extends StatelessWidget {
   }
 
   void _showCallDialog(BuildContext context, String serviceName, String phoneNumber) {
+    final localizations = AppLocalizations.of(context);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Call $serviceName'),
-          content: Text('Do you want to call $serviceName now?'),
+          title: Text('${localizations?.call} $serviceName'),
+          content: Text(localizations?.doYouWantToCall ?? 'Do you want to call?'),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel'),
+              child: Text(localizations?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
                 _callEmergencyService(phoneNumber);
                 Navigator.of(context).pop();
               },
-              child: Text('Call'),
+              child: Text(localizations?.call ?? 'Call'),
             ),
           ],
         );
       },
     );
   }
-
   void _callEmergencyService(String phoneNumber) {
     final url = 'tel:$phoneNumber';
     launch(url);

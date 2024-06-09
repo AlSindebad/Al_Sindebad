@@ -1,7 +1,9 @@
+import 'package:alsindebad/views/widgets/small_Button.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/place.dart';
 import '../../viewmodels/place_info_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
@@ -10,6 +12,7 @@ class PlaceInfo extends StatefulWidget {
 
   @override
   _PlaceInfoState createState() => _PlaceInfoState();
+
 }
 
 class _PlaceInfoState extends State<PlaceInfo> {
@@ -33,7 +36,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
       setState(() {
         _userReview = review;
         _isDialogShown =
-            true;
+        true;
       });
     }
   }
@@ -44,6 +47,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
     _isDialogShown = true;
 
     showDialog(
+
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
@@ -58,16 +62,16 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Rate this place!',
+                      AppLocalizations.of(context)!.ratethisplace,
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         5,
-                        (index) => IconButton(
+                            (index) => IconButton(
                           icon: Icon(
                             index < _userReview
                                 ? Icons.star
@@ -83,13 +87,11 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        _submitReview(_userReview);
-                      },
-                      child: Text('Submit'),
-                    ),
+                    SButton(onPressed:(){
+                      Navigator.of(context).pop();
+                      _submitReview(_userReview);
+                    }, label: (AppLocalizations.of(context)!.submit), backgroundColor: Color(0xFF112466))
+                    ,
                   ],
                 ),
               ),
@@ -105,7 +107,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
       await _viewModel.submitReview(widget.id, review);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Thank you for your review!'),
+          content: Text(AppLocalizations.of(context)!.thanks),
           duration: Duration(seconds: 2),
         ),
       );
@@ -172,7 +174,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     child: Row(
                       children: List.generate(
                         5,
-                        (index) => Icon(
+                            (index) => Icon(
                           index < place.averageRating
                               ? Icons.star
                               : Icons.star_border,

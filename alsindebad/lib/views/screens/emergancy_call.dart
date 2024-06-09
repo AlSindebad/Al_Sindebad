@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../widgets/tab_bar.dart';
 import 'package:alsindebad/viewmodels/emergency_call_view_model.dart';
-
-
+import '../widgets/app_bar_with_just_arrow.dart';
+import '../widgets/tab_Bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:alsindebad/viewmodels/emergency_call_view_model.dart';
 
 
 class EmergencyCall extends StatelessWidget {
@@ -10,8 +12,12 @@ class EmergencyCall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text("Emergency Calls"), leading: BackButton()),
+      appBar: CustomAppBarNavigateJustBack(
+        title: localizations!.emergencyCalls,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -21,18 +27,18 @@ class EmergencyCall extends StatelessWidget {
                 children: [
                   EmergencyServiceCard(
                     image: 'assets/images/police-car.png',
-                    serviceName: 'Police',
+                    serviceName: localizations.police,
                     phoneNumber: '100',
                   ),
 
                   EmergencyServiceCard(
                     image: 'assets/images/call.png',
-                    serviceName: 'Civil Defense',
+                    serviceName: localizations.civilDefense,
                     phoneNumber: '102',
                   ),
                   EmergencyServiceCard(
                     image: 'assets/images/phone-call.png',
-                    serviceName: 'Ambulance',
+                    serviceName: localizations.ambulance,
                     phoneNumber: '101',
                   ),
                 ],

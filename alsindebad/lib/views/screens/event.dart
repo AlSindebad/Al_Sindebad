@@ -6,14 +6,17 @@ import '../../viewmodels/event_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import '../widgets/card_events.dart';
 import 'event_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return ChangeNotifierProvider(
       create: (_) => EventsViewModel(),
       child: Scaffold(
-        appBar: CustomAppBarNavigateBack(title: 'Events'),
+        appBar: CustomAppBarNavigateBack(title: localizations!.events),
         body: Column(
           children: [
             Consumer<EventsViewModel>(
@@ -67,8 +70,8 @@ class Events extends StatelessWidget {
                 builder: (context, viewModel, child) {
                   final events = viewModel.getEventsForTheDay(viewModel.selectedDay);
                   if (events.isEmpty) {
-                    return const Center(
-                      child: Text('No events found!'),
+                    return Center(
+                      child: Text(localizations!.noEvents),
                     );
                   }
                   return ListView(
@@ -83,6 +86,7 @@ class Events extends StatelessWidget {
                           );
                         },
                         child: EventCard(
+                          key: ValueKey(event.id),
                           eventName: event.title,
                           imageUrl: event.imageUrl,
                         ),
