@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/sign_in.dart';
 import '../../viewmodels/sign_in_view_model.dart';
 import 'sign_up.dart';
@@ -17,7 +18,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final SignInViewModel _signInViewModel = SignInViewModel();
-  String? _errorMessage='';
+  String? _errorMessage = '';
   bool _rememberMe = false;
 
   @override
@@ -74,16 +75,18 @@ class _SignInState extends State<SignIn> {
                   });
 
                   final errorMessage = await _signInViewModel.signIn(email, password, rememberMe);
-
                   setState(() {
                     _errorMessage = errorMessage;
                   });
 
                   if (errorMessage == null) {
+                    final SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('rememberMe', rememberMe);
+
                     Navigator.pushReplacementNamed(context, '/Home');
                   }
                 },
-                rememberMe: _rememberMe, // Pass rememberMe state to SignInForm
+                rememberMe: _rememberMe,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -157,12 +160,14 @@ class _SignInState extends State<SignIn> {
                       });
 
                       final errorMessage = await _signInViewModel.signInWithGoogle();
-
                       setState(() {
                         _errorMessage = errorMessage;
                       });
 
                       if (errorMessage == null) {
+                        final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('rememberMe', _rememberMe);
+
                         Navigator.pushReplacementNamed(context, '/Home');
                       }
                     },

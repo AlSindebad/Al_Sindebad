@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/models/user.dart';
+import 'package:flutter/foundation.dart';
 
-class SignInViewModel {
+class SignInViewModel with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -34,10 +34,15 @@ class SignInViewModel {
         return 'No account found for that email. Please sign up first.';
       }
 
-      final UserModel user = UserModel.fromSnap(userDoc);
-
       if (rememberMe) {
         await _saveLoginDataLocally(email, password);
+        await SharedPreferences.getInstance().then((prefs) {
+          prefs.setBool('rememberMe', true);
+        });
+      } else {
+        await SharedPreferences.getInstance().then((prefs) {
+          prefs.remove('rememberMe');
+        });
       }
 
       return null;
@@ -49,7 +54,6 @@ class SignInViewModel {
       }
       return 'Email Or Password is Not Correct!';
     } catch (e) {
-
       return 'Email Or Password is Not Correct!';
     }
   }
@@ -60,9 +64,20 @@ class SignInViewModel {
     final password = prefs.getString('password') ?? '';
 
     if (email.isNotEmpty && password.isNotEmpty) {
-      return signIn(email, password, true);
+      final errorMessage = await signIn(email, password, true);
+      if (errorMessage == null) {
+        final rememberMe = prefs.getBool('rememberMe') ?? false;
+        if (rememberMe) {
+          return null;
+        }
+      }
+      return errorMessage;
     }
 
+    final rememberMe = prefs.getBool('rememberMe') ?? false;
+    if (rememberMe) {
+      return signIn(email, password, true);
+    }
     return null;
   }
 
@@ -80,15 +95,12 @@ class SignInViewModel {
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
-
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        "name":"N/A",
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
-        'country':"N/A",
+      }, SetOptions(merge: true));
 
-      }, SetOptions(merge: true)); // Use merge to avoid overwriting
-
+      notifyListeners();
       return null;
     } catch (e) {
       print('Google sign in error: $e');
