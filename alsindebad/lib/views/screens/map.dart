@@ -106,37 +106,36 @@ Widget content() {
         )
       ]),
       if (showCircles)
-      CircleLayer(
-        circles: [
-          CircleMarker(
-            point: LatLng(32.225358, 35.252100),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 1000,
-          ),
-          CircleMarker(
-            point: LatLng(31.7767, 35.2390),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 10000,
-          ),
-          CircleMarker(
-            point: LatLng(31.8564, 35.4597),
-            color: Colors.blue.withOpacity(0.3),
-            borderColor: Colors.blue,
-            borderStrokeWidth: 2,
-            useRadiusInMeter: true,
-            radius: 10000,
-          ),
-        ],
-      ),
+        CircleLayer(
+          circles: [
+            CircleMarker(
+              point: LatLng(32.225358, 35.252100),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 1000,
+            ),
+            CircleMarker(
+              point: LatLng(31.7767, 35.2390),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 10000,
+            ),
+            CircleMarker(
+              point: LatLng(31.8564, 35.4597),
+              color: Colors.blue.withOpacity(0.3),
+              borderColor: Colors.blue,
+              borderStrokeWidth: 2,
+              useRadiusInMeter: true,
+              radius: 10000,
+            ),
+          ],
+        ),
     ],
   );
 }
-
 
 

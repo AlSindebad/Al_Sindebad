@@ -19,7 +19,7 @@ class PlaceInfoViewModel {
     }
   }
 
-  Future<Places?> getPlaceInfo(String id) async {
+  Future<Places?> getPlaceInfo(String id ,) async {
     try {
       DocumentSnapshot snapshot = await _placesCollection.doc(id).get();
       if (snapshot.exists) {
