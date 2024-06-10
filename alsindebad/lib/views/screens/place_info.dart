@@ -1,9 +1,11 @@
-import 'package:alsindebad/views/widgets/small_Button.dart';
 import 'package:flutter/material.dart';
+import 'package:alsindebad/views/widgets/small_Button.dart';
 import '../../data/models/place.dart';
 import '../../viewmodels/place_info_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/web_view_widget.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
@@ -12,7 +14,6 @@ class PlaceInfo extends StatefulWidget {
 
   @override
   _PlaceInfoState createState() => _PlaceInfoState();
-
 }
 
 class _PlaceInfoState extends State<PlaceInfo> {
@@ -26,8 +27,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
     super.initState();
     _placeFuture = _viewModel.getPlaceInfo(widget.id);
     _loadUserReview();
-    Future.delayed(Duration(seconds: 5),
-        _showReviewDialog);
+    Future.delayed(Duration(seconds: 5), _showReviewDialog);
   }
 
   void _loadUserReview() async {
@@ -35,19 +35,16 @@ class _PlaceInfoState extends State<PlaceInfo> {
     if (review != null) {
       setState(() {
         _userReview = review;
-        _isDialogShown =
-        true;
+        _isDialogShown = true;
       });
     }
   }
 
   void _showReviewDialog() {
-    if (_isDialogShown)
-      return;
+    if (_isDialogShown) return;
     _isDialogShown = true;
 
     showDialog(
-
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
@@ -63,8 +60,10 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.ratethisplace,
-                      style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 20),
                     Row(
@@ -87,11 +86,14 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    SButton(onPressed:(){
-                      Navigator.of(context).pop();
-                      _submitReview(_userReview);
-                    }, label: (AppLocalizations.of(context)!.submit), backgroundColor: Color(0xFF112466))
-                    ,
+                    SButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _submitReview(_userReview);
+                      },
+                      label: AppLocalizations.of(context)!.submit,
+                      backgroundColor: Color(0xFF112466),
+                    ),
                   ],
                 ),
               ),
@@ -112,8 +114,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
         ),
       );
       setState(() {
-        _placeFuture = _viewModel.getPlaceInfo(
-            widget.id);
+        _placeFuture = _viewModel.getPlaceInfo(widget.id);
       });
     }
   }
@@ -125,13 +126,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
       builder: (BuildContext context, AsyncSnapshot<Places?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: CustomAppBarNavigateBack(title: "Loading..."),
+            appBar: CustomAppBarNavigateBack(title: AppLocalizations.of(context)!.loading),
             body: Center(child: CircularProgressIndicator()),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
-            appBar: CustomAppBarNavigateBack(title: "Error"),
-            body: Center(child: Text('Error loading place info')),
+            appBar: CustomAppBarNavigateBack(title: AppLocalizations.of(context)!.error),
+            body: Center(child: Text(AppLocalizations.of(context)!.errorInPalceInfo),)
           );
         } else {
           Places place = snapshot.data!;
@@ -204,7 +205,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          _viewModel.openGoogleMaps(place.locationUrl);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  WebViewPage(url: widget.googleMapsUrl),
+                            ),
+                          );
                         },
                         icon: Icon(
                           Icons.location_on,
@@ -224,3 +231,4 @@ class _PlaceInfoState extends State<PlaceInfo> {
     );
   }
 }
+

@@ -58,7 +58,10 @@
   "ratethisplace": "Rate this place",
   "submit": "Submit",
   "thanks": "Thank you for your review!",
-  "massageError":"No user found for that email."
+  "massageError":"No user found for that email.",
+  "googleMap": "Google Map",
+  "loading": "Loading ...",
+  "errorInPalceInfo": "Error loading place info"
 
 
 
