@@ -8,7 +8,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SignInForm extends StatefulWidget {
   final Function(String email, String password, bool rememberMe) onSignIn;
   final bool rememberMe;
-  const SignInForm({Key? key, required this.onSignIn, required this.rememberMe}) : super(key: key);
+
+  const SignInForm({
+    Key? key,
+    required this.onSignIn,
+    required this.rememberMe,
+  }) : super(key: key);
 
   @override
   _SignInFormState createState() => _SignInFormState();
@@ -39,13 +44,12 @@ class _SignInFormState extends State<SignInForm> {
       final errorMessage = await _viewModel.signIn(
         emailController.text,
         passwordController.text,
-        rememberMe, // Pass rememberMe parameter here
+        rememberMe,
       );
 
       if (errorMessage == null) {
         Navigator.pushReplacementNamed(context, '/Home');
       } else {
-        // Show error message to user
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocalizations.of(context)!.massageError)),
         );
@@ -121,6 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                 padding: 10.0,
                 fontSize: 16.0,
                 width: 290.0,
+                margin: 30.0,
               ),
             ),
           ],

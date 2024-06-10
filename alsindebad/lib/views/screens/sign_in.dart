@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/sign_in.dart';
-import '../../viewmodels/sign_in_view_model.dart';
 import 'sign_up.dart';
+import '../../viewmodels/sign_in_view_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'forget_password.dart';
 
 class SignIn extends StatefulWidget {
@@ -24,15 +24,21 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     super.initState();
-    _signInWithSavedData();
+    _checkSignInStatus();
   }
 
-  Future<void> _signInWithSavedData() async {
-    final errorMessage = await _signInViewModel.signInWithSavedData();
-    if (errorMessage == null) {
+  Future<void> _checkSignInStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool isUserSignedIn = prefs.getBool('isUserSignedIn') ?? false;
+    final bool rememberMe = prefs.getBool('rememberMe') ?? false;
+
+    if (isUserSignedIn) {
+      Navigator.pushReplacementNamed(context, '/Home');
+    } else if (rememberMe) {
       Navigator.pushReplacementNamed(context, '/Home');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +87,7 @@ class _SignInState extends State<SignIn> {
 
                   if (errorMessage == null) {
                     final SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('isUserSignedIn', true);
                     await prefs.setBool('rememberMe', rememberMe);
 
                     Navigator.pushReplacementNamed(context, '/Home');
