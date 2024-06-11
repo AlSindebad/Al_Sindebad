@@ -36,7 +36,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
       setState(() {
         _userReview = review;
         _isDialogShown =
-            true;
+        true;
       });
     }
   }
@@ -64,14 +64,14 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     Text(
                       AppLocalizations.of(context)!.ratethisplace,
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         5,
-                        (index) => IconButton(
+                            (index) => IconButton(
                           icon: Icon(
                             index < _userReview
                                 ? Icons.star
@@ -91,7 +91,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       Navigator.of(context).pop();
                       _submitReview(_userReview);
                     }, label: (AppLocalizations.of(context)!.submit), backgroundColor: Color(0xFF112466))
-                   ,
+                    ,
                   ],
                 ),
               ),
@@ -174,7 +174,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     child: Row(
                       children: List.generate(
                         5,
-                        (index) => Icon(
+                            (index) => Icon(
                           index < place.averageRating
                               ? Icons.star
                               : Icons.star_border,

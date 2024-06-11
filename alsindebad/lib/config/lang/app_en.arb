@@ -7,8 +7,8 @@
   "pass": "Password",
   "confirmPass": "Confirm Password",
   "confirmPasswordValidationError": "Passwords do not match",
-   "orSignInWith": "or sign in with",
-   "forgetYourPassword": "Forget your password",
+  "orSignInWith": "or sign in with",
+  "forgetYourPassword": "Forget your password",
   "usa": "USA",
   "canada": "Canada",
   "palestine": "Palestine",
@@ -60,4 +60,6 @@
   "thanks": "Thank you for your review!",
   "massageError":"No user found for that email.",
   "rememberMe" : "Remember Me"
+  "massageError":"No user found for that email."
 }
+

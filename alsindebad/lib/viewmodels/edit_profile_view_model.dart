@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:alsindebad/data/models/user.dart';
 import 'package:alsindebad/services/database_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class EditProfileViewModel {
   final DatabaseService _databaseService = DatabaseService();
@@ -18,11 +19,12 @@ class EditProfileViewModel {
       }
 
       UserModel updatedProfile = UserModel(
-        id: userModel.id,
-        name: userModel.name,
-        email: userModel.email,
-        country: userModel.country,
-        imageUrl: imageUrl ?? userModel.imageUrl,
+          id: userModel.id,
+          name: userModel.name,
+          email: userModel.email,
+          country: userModel.country,
+          imageUrl: imageUrl ?? userModel.imageUrl,
+          signInMethod:userModel.signInMethod
       );
 
       await _databaseService.saveUserProfile(updatedProfile);

@@ -6,7 +6,7 @@ class Validators {
     if (value == null || value.isEmpty) {
       return localizations.emailRequiredError;
     }
-    if (!EmailValidator.validate(value) || !value.endsWith('.com')) {
+    if (!EmailValidator.validate(value)) {
       return localizations.invalidEmailFormatError;
     }
     return null;

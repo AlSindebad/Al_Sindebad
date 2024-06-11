@@ -52,9 +52,11 @@ class SignInViewModel with ChangeNotifier {
       } else if (e.code == 'wrong-password') {
         return 'Wrong password provided for that user.';
       }
-      return 'Email Or Password is Not Correct!';
+      return 'Email Or Password is Not Correct';
     } catch (e) {
       return 'Email Or Password is Not Correct!';
+      print('Sign in error: $e');
+      return 'Email Or Password is Not Correct:';
     }
   }
 
@@ -95,9 +97,22 @@ class SignInViewModel with ChangeNotifier {
       );
 
       final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'email': userCredential.user!.email,
         'signInMethod': 'Google',
+      }, SetOptions(merge: true));
+
+      bool nameIsEmpty = userCredential.additionalUserInfo!.profile?['name'] == null;
+      String? country = userCredential.additionalUserInfo!.profile?['country'];
+      country = country ?? 'Choose'; // Set default country to 'USA'
+
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'id':userCredential.user!.uid,
+        'email': userCredential.user!.email,
+        'signInMethod': 'Google',
+        'name': nameIsEmpty ? 'Anonymous' : userCredential.additionalUserInfo!.profile?['name'],
+        'country': country,
       }, SetOptions(merge: true));
 
       notifyListeners();
@@ -108,4 +123,4 @@ class SignInViewModel with ChangeNotifier {
     }
   }
 }
-
+}

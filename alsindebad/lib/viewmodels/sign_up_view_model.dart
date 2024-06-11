@@ -31,6 +31,7 @@ class SignUpViewModel {
         name: name,
         email: email,
         country: country,
+        signInMethod:"Email & Password",
       );
       await users.doc(userCredential.user!.uid).set(user.toJSON());
       response = "Successful";
@@ -41,4 +42,3 @@ class SignUpViewModel {
     return response;
   }
 }
-
