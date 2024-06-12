@@ -193,8 +193,8 @@ labelText: title,
 border: OutlineInputBorder(),
 ),
 validator: (value) => Validators.validateEmail(value, localizations),
-  enabled: signInMethod != 'Google' && signInMethod != 'Email & Password',),
-);
+  enabled: false,
+));
 }
 
 Widget _buildCountryDropdown(String title, List<String> countries) {

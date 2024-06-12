@@ -59,6 +59,9 @@
   "submit": "Submit",
   "thanks": "Thank you for your review!",
   "massageError":"No user found for that email.",
+  "googleMap": "Google Map",
+  "loading": "Loading ...",
+  "errorInPalceInfo": "Error loading place info",
   "rememberMe" : "Remember Me"
 }
 
