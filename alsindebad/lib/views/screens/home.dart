@@ -2,28 +2,32 @@ import 'package:alsindebad/views/screens/event_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/place.dart';
-import '../../services/place_service.data.dart';
-import '../widgets/appBar.dart';
+import '../../services/place_service.dart';
+import '../widgets/app_bar.dart';
 import '../widgets/categories_view.dart';
-import '../widgets/palce_card.dart';
+import '../widgets/place_card.dart';
 import '../widgets/search_component.dart';
-import '../widgets/tabBar.dart';
-import 'event.dart';
-import 'palce_info.dart';
-import '../../viewmodel/place_category_viewmodel.dart';
+import '../widgets/tab_Bar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'place_info.dart';
+import '../../viewmodels/place_category_view_model.dart';
 
 
 class Home extends StatelessWidget {
   final PlacesService placesService = PlacesService();
 
+
   Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return ChangeNotifierProvider(
       create: (context) => PlaceCategory()..data(),
       child: Scaffold(
-        appBar: CustomAppBar(title: "Home Page"),
+        appBar: CustomAppBar(title: localizations!.alsindebad,),
         drawer: Drawer(
           child: Container(
             padding: const EdgeInsets.all(16.0),
@@ -34,8 +38,7 @@ class Home extends StatelessWidget {
                   Container(
                     color: Color(0xFF112466),
                     child: ListTile(
-                      title: Text(
-                        "Events",
+                      title: Text(localizations.events,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       leading: Icon(Icons.event, color: Colors.white),

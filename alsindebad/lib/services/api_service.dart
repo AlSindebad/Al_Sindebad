@@ -11,6 +11,4 @@ class ApiService {
       throw Exception('Failed to fetch data');
     }
   }
-
-// Other methods for interacting with the API...
 }

@@ -86,8 +86,6 @@ class EventScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-
-
                   ],
                 ),
               ),

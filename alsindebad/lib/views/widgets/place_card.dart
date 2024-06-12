@@ -19,10 +19,9 @@ class PlaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color myColor = const Color(0xFF112466);
 
-    // حساب عدد النجوم المميزة بناءً على متوسط التقييم
-    int numStarsToShow = averageRating.round(); // تقريب متوسط التقييم لأقرب رقم صحيح
+    Color myColor = const Color(0xFF112466);
+    int numStarsToShow = averageRating.round();
 
     return GestureDetector(
       onTap: onTap,

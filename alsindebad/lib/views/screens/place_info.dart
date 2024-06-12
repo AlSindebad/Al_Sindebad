@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:alsindebad/views/widgets/small_Button.dart';
 import '../../data/models/place.dart';
-import '../../viewmodel/place_info_viewmodel.dart';
+import '../../viewmodels/place_info_view_model.dart';
 import '../widgets/app_bar_with_navigate_back.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/web_view_widget.dart';
 
 class PlaceInfo extends StatefulWidget {
   final String id;
@@ -23,8 +27,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
     super.initState();
     _placeFuture = _viewModel.getPlaceInfo(widget.id);
     _loadUserReview();
-    Future.delayed(Duration(seconds: 5),
-        _showReviewDialog);
+    Future.delayed(Duration(seconds: 5), _showReviewDialog);
   }
 
   void _loadUserReview() async {
@@ -32,15 +35,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
     if (review != null) {
       setState(() {
         _userReview = review;
-        _isDialogShown =
-            true; // User already reviewed, dialog should not be shown again
+        _isDialogShown = true;
       });
     }
   }
 
   void _showReviewDialog() {
-    if (_isDialogShown)
-      return; // If user already reviewed, don't show the dialog
+    if (_isDialogShown) return;
     _isDialogShown = true;
 
     showDialog(
@@ -58,16 +59,18 @@ class _PlaceInfoState extends State<PlaceInfo> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Rate this place!',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      AppLocalizations.of(context)!.ratethisplace,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         5,
-                        (index) => IconButton(
+                            (index) => IconButton(
                           icon: Icon(
                             index < _userReview
                                 ? Icons.star
@@ -83,12 +86,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
+                    SButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                         _submitReview(_userReview);
                       },
-                      child: Text('Submit'),
+                      label: AppLocalizations.of(context)!.submit,
+                      backgroundColor: Color(0xFF112466),
                     ),
                   ],
                 ),
@@ -105,13 +109,12 @@ class _PlaceInfoState extends State<PlaceInfo> {
       await _viewModel.submitReview(widget.id, review);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Thank you for your review!'),
+          content: Text(AppLocalizations.of(context)!.thanks),
           duration: Duration(seconds: 2),
         ),
       );
       setState(() {
-        _placeFuture = _viewModel.getPlaceInfo(
-            widget.id); // Refresh the state to show the updated review
+        _placeFuture = _viewModel.getPlaceInfo(widget.id);
       });
     }
   }
@@ -123,13 +126,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
       builder: (BuildContext context, AsyncSnapshot<Places?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: CustomAppBarNavigateBack(title: "Loading..."),
+            appBar: CustomAppBarNavigateBack(title: AppLocalizations.of(context)!.loading),
             body: Center(child: CircularProgressIndicator()),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
-            appBar: CustomAppBarNavigateBack(title: "Error"),
-            body: Center(child: Text('Error loading place info')),
+            appBar: CustomAppBarNavigateBack(title: AppLocalizations.of(context)!.error),
+            body: Center(child: Text(AppLocalizations.of(context)!.errorInPalceInfo),)
           );
         } else {
           Places place = snapshot.data!;
@@ -172,7 +175,7 @@ class _PlaceInfoState extends State<PlaceInfo> {
                     child: Row(
                       children: List.generate(
                         5,
-                        (index) => Icon(
+                            (index) => Icon(
                           index < place.averageRating
                               ? Icons.star
                               : Icons.star_border,
@@ -202,7 +205,13 @@ class _PlaceInfoState extends State<PlaceInfo> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          _viewModel.openGoogleMaps(place.locationUrl);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  WebViewPage(url: widget.googleMapsUrl),
+                            ),
+                          );
                         },
                         icon: Icon(
                           Icons.location_on,
@@ -222,3 +231,4 @@ class _PlaceInfoState extends State<PlaceInfo> {
     );
   }
 }
+

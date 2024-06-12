@@ -1,10 +1,9 @@
 import 'package:alsindebad/utils/validators.dart';
-import 'package:alsindebad/viewmodel/sign_up_view_model.dart';
-import 'package:alsindebad/views/widgets/largButton.dart';
+import 'package:alsindebad/viewmodels/sign_up_view_model.dart';
+import 'package:alsindebad/views/widgets/large_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+
 
 import '../screens/home.dart';
 
@@ -44,9 +43,7 @@ class _SignUpFormState extends State<SignUpForm> {
     super.dispose();
   }
 
-  String hashPassword(String password) {
-    return sha256.convert(utf8.encode(password)).toString();
-  }
+
 
   Future<void>register(AppLocalizations localizations) async {
 
@@ -214,12 +211,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
-                  validator: (value) {
-                    if (hashPassword(value!) != hashPassword(passwordController.text)) {
-                      return localizations.confirmPasswordValidationError;
-                    }
-                    return null;
-                  },
+                  validator: (value) => Validators.validatePasswordMatch(passwordController.text,value, localizations),
+
                 ),
               ),
             ),
@@ -228,7 +221,6 @@ class _SignUpFormState extends State<SignUpForm> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   register(localizations);
-
                 }
               },
               text: localizations.signup,

@@ -32,12 +32,14 @@ dependencies:
     sdk: flutter
   firebase_core: ^2.31.1
   url_launcher: ^6.0.9
+  webview_flutter: ^4.0.7
   qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.1
   font_awesome_flutter: ^10.7.0
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.5+3
   firebase_storage: ^11.0.0
+  shared_preferences: ^2.0.0
 
 
 
@@ -61,7 +63,7 @@ dependencies:
   provider: ^6.1.2
   flutter_map: ^6.1.0
   latlong2: ^0.9.1
-  crypto: ^3.0.3
+  flutter_launcher_icons: ^0.13.1
 
 
 
@@ -70,6 +72,29 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/Al_Sindebad icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icon/Al_Sindebad icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icon/Al_Sindebad icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icon/Al_Sindebad icon.png"
+
+
+
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -99,8 +124,7 @@ flutter:
     - assets/images/ocean.png
     - assets/images/mountain.png
     - assets/images/archaeology.png
-    - assets/images/empty_view.jpeg
-
+    - assets/images/empty_view.png
     - assets/images/call.png
     - assets/images/phone-call.png
     - assets/images/police-car.png

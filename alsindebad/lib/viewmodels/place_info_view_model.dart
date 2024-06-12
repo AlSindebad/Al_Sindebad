@@ -19,7 +19,7 @@ class PlaceInfoViewModel {
     }
   }
 
-  Future<Places?> getPlaceInfo(String id) async {
+  Future<Places?> getPlaceInfo(String id ,) async {
     try {
       DocumentSnapshot snapshot = await _placesCollection.doc(id).get();
       if (snapshot.exists) {
@@ -52,37 +52,28 @@ class PlaceInfoViewModel {
 
   Future<void> submitReview(String placeId, int rating) async {
     try {
-      DocumentReference placeRef = _placesCollection.doc(placeId);
 
-      // Get the current data of the place
+      DocumentReference placeRef = _placesCollection.doc(placeId);
       DocumentSnapshot placeSnapshot = await placeRef.get();
       if (placeSnapshot.exists) {
         Map<String, dynamic>? placeData = placeSnapshot.data() as Map<String, dynamic>?;
 
-        // Get the current rating
         double currentAverageRating = placeData?['averageRating'] ?? 0.0;
         Map<String, dynamic> reviews = Map<String, dynamic>.from(placeData?['reviews'] ?? {});
 
-        // Check if the user has already submitted a review
         if (reviews.containsKey(userId)) {
-          // Remove old rating from the average
           int oldRating = reviews[userId];
           double oldAverageRating = currentAverageRating * reviews.length - oldRating;
-          // Update the reviews map
           reviews[userId] = rating;
-          // Calculate the new average rating
           double newAverageRating = (oldAverageRating + rating) / reviews.length;
-          // Update the place document
           await placeRef.update({
             'averageRating': newAverageRating,
             'reviews': reviews,
           });
         } else {
-          // Update the reviews map
+
           reviews[userId] = rating;
-          // Calculate the new average rating
           double newAverageRating = (currentAverageRating * reviews.length + rating) / (reviews.length + 1);
-          // Update the place document
           await placeRef.update({
             'averageRating': newAverageRating,
             'reviews': reviews,
