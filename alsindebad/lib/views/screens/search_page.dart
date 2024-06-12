@@ -76,7 +76,7 @@ class _SearchState extends State<Search> {
                       }).toList();
 
                       if (filteredDocs.isEmpty) {
-                        return Center(child: Image.asset('assets/images/empty_view.jpeg'));
+                        return Center(child: Image.asset('assets/images/empty_view.png'));
                       }
 
                       List<Places> places = filteredDocs.map((doc) {
