@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -49,8 +50,8 @@ class MyApp extends StatelessWidget {
       ],
       home: SignIn(title: 'Sign In'),
       routes: {
-        '/Home': (context) => Home(),
         '/SignIn': (context) => SignIn(title: 'Sign In'),
+        '/Home': (context) => Home(),
         '/SignUp': (context) => SignUp(title: 'Sign Up'),
       },
     );

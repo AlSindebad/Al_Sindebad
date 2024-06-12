@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:alsindebad/utils/validators.dart';
 import 'package:alsindebad/viewmodels/sign_in_view_model.dart';
@@ -5,7 +6,14 @@ import '../widgets/large_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({Key? key}) : super(key: key);
+  final Function(String email, String password, bool rememberMe) onSignIn;
+  final bool rememberMe;
+
+  const SignInForm({
+    Key? key,
+    required this.onSignIn,
+    required this.rememberMe,
+  }) : super(key: key);
 
   @override
   _SignInFormState createState() => _SignInFormState();
@@ -31,18 +39,17 @@ class _SignInFormState extends State<SignInForm> {
     super.dispose();
   }
 
-  Future<void> signIn(BuildContext context, AppLocalizations localizations) async {
+  Future<void> signIn(BuildContext context, AppLocalizations localizations, bool rememberMe) async {
     if (_formKey.currentState?.validate() ?? false) {
-      // Call view model to sign in
       final errorMessage = await _viewModel.signIn(
         emailController.text,
         passwordController.text,
+        rememberMe,
       );
 
       if (errorMessage == null) {
         Navigator.pushReplacementNamed(context, '/Home');
       } else {
-        // Show error message to user
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocalizations.of(context)!.massageError)),
         );
@@ -110,7 +117,7 @@ class _SignInFormState extends State<SignInForm> {
               child: LargButton(
                 text: localizations.signIn,
                 onPressed: () async {
-                  await signIn(context, localizations);
+                  await signIn(context, localizations, widget.rememberMe);
                 },
                 backgroundColor: Color(0xFF112466),
                 textColor: Colors.white,
@@ -118,6 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                 padding: 10.0,
                 fontSize: 16.0,
                 width: 290.0,
+                margin: 30.0,
               ),
             ),
           ],
@@ -126,3 +134,4 @@ class _SignInFormState extends State<SignInForm> {
     );
   }
 }
+

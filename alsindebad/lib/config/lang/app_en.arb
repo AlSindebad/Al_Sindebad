@@ -61,10 +61,7 @@
   "massageError":"No user found for that email.",
   "googleMap": "Google Map",
   "loading": "Loading ...",
-  "errorInPalceInfo": "Error loading place info"
-
-
-
-
-
+  "errorInPalceInfo": "Error loading place info",
+  "rememberMe" : "Remember Me"
 }
+
